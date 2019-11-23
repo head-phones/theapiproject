@@ -16,7 +16,7 @@ namespace APIWeb.Controllers
         private string Token = "";
 
         [HttpGet]
-        [Route("makes")]
+        [Route("GetAllMakes")]
         public ActionResult<APILibrary.Vehicle.AllMakes.Response> GetAllMakes()
         {
             var client = new APIClient(Endpoint, Token);
@@ -27,7 +27,7 @@ namespace APIWeb.Controllers
             return response;
         }
 
-        [HttpGet("models/{make}")]
+        [HttpGet("GetModelsByMakeName/{make}")]
         public ActionResult<APILibrary.Vehicle.ModelsByMakeName.Response> GetModelsByMakeName(string make)
         {
             var client = new APIClient(Endpoint, Token);
@@ -38,7 +38,7 @@ namespace APIWeb.Controllers
             return response;
         }
 
-        [HttpGet("makes/{vehicletype}")]
+        [HttpGet("GetMakesByVehicleTypeName/{vehicletype}")]
         public ActionResult<APILibrary.Vehicle.MakesByVehicleTypeName.Response> GetMakesByVehicleTypeName(string vehicletype)
         {
             var client = new APIClient(Endpoint, Token);
