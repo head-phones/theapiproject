@@ -38,12 +38,12 @@ namespace APIWeb.Controllers
         }
         [HttpGet]
         [Route("members/{memberId}")]
-        public async Task<ActionResult<APILibrary.ProPublica.Members.GetMember.Response>> GetMember(string memberId)
+        public async Task<ActionResult<APILibrary.ProPublica.Members.Member.Response>> GetMember(string memberId)
         {
             var client = new APIClient(Endpoint, Token);
             try
             {
-                var response = await client.GetAsync<APILibrary.ProPublica.Members.GetMember.Response>($"members/{memberId}.json");
+                var response = await client.GetAsync<APILibrary.ProPublica.Members.Member.Response>($"members/{memberId}.json");
                 return Ok(response);
             }
             catch (Exception ex)
@@ -278,12 +278,12 @@ namespace APIWeb.Controllers
         }
         [HttpGet]
         [Route("{congress}/bills/{billId}")]
-        public async Task<ActionResult<APILibrary.ProPublica.Bills.GetBill.Response>> GetBill(string congress, string billId)
+        public async Task<ActionResult<APILibrary.ProPublica.Bills.Bill.Response>> GetBill(string congress, string billId)
         {
             var client = new APIClient(Endpoint, Token);
             try
             {
-                var response = await client.GetAsync<APILibrary.ProPublica.Bills.GetBill.Response>($"{congress}/bills/{billId}.json");
+                var response = await client.GetAsync<APILibrary.ProPublica.Bills.Bill.Response>($"{congress}/bills/{billId}.json");
                 return Ok(response);
             }
             catch (Exception ex)
@@ -293,12 +293,12 @@ namespace APIWeb.Controllers
         }
         [HttpGet]
         [Route("{congress}/bills/{billId}/amendments")]
-        public async Task<ActionResult<APILibrary.ProPublica.Bills.GetBillAmendments.Response>> GetBillAmendments(string congress, string billId)
+        public async Task<ActionResult<APILibrary.ProPublica.Bills.BillAmendments.Response>> GetBillAmendments(string congress, string billId)
         {
             var client = new APIClient(Endpoint, Token);
             try
             {
-                var response = await client.GetAsync<APILibrary.ProPublica.Bills.GetBillAmendments.Response>($"{congress}/bills/{billId}/amendments.json");
+                var response = await client.GetAsync<APILibrary.ProPublica.Bills.BillAmendments.Response>($"{congress}/bills/{billId}/amendments.json");
                 return Ok(response);
             }
             catch (Exception ex)
@@ -308,12 +308,12 @@ namespace APIWeb.Controllers
         }
         [HttpGet]
         [Route("{congress}/bills/{billId}/subjects")]
-        public async Task<ActionResult<APILibrary.ProPublica.Bills.GetBillSubjects.Response>> GetBillSubjects(string congress, string billId)
+        public async Task<ActionResult<APILibrary.ProPublica.Bills.BillSubjects.Response>> GetBillSubjects(string congress, string billId)
         {
             var client = new APIClient(Endpoint, Token);
             try
             {
-                var response = await client.GetAsync<APILibrary.ProPublica.Bills.GetBillSubjects.Response>($"{congress}/bills/{billId}/subjects.json");
+                var response = await client.GetAsync<APILibrary.ProPublica.Bills.BillSubjects.Response>($"{congress}/bills/{billId}/subjects.json");
                 return Ok(response);
             }
             catch (Exception ex)
@@ -323,12 +323,12 @@ namespace APIWeb.Controllers
         }
         [HttpGet]
         [Route("{congress}/bills/{billId}/related")]
-        public async Task<ActionResult<APILibrary.ProPublica.Bills.GetRelatedBills.Response>> GetRelatedBills(string congress, string billId)
+        public async Task<ActionResult<APILibrary.ProPublica.Bills.RelatedBills.Response>> GetRelatedBills(string congress, string billId)
         {
             var client = new APIClient(Endpoint, Token);
             try
             {
-                var response = await client.GetAsync<APILibrary.ProPublica.Bills.GetRelatedBills.Response>($"{congress}/bills/{billId}/related.json");
+                var response = await client.GetAsync<APILibrary.ProPublica.Bills.RelatedBills.Response>($"{congress}/bills/{billId}/related.json");
                 return Ok(response);
             }
             catch (Exception ex)
@@ -338,12 +338,12 @@ namespace APIWeb.Controllers
         }
         [HttpGet]
         [Route("bills/subject/{query}")]
-        public async Task<ActionResult<APILibrary.ProPublica.Bills.GetBillsBySubject.Response>> GetBillsBySubject(string query)
+        public async Task<ActionResult<APILibrary.ProPublica.Bills.BillsBySubject.Response>> GetBillsBySubject(string query)
         {
             var client = new APIClient(Endpoint, Token);
             try
             {
-                var response = await client.GetAsync<APILibrary.ProPublica.Bills.GetBillsBySubject.Response>($"bills/subjects/search.json?query={query}");
+                var response = await client.GetAsync<APILibrary.ProPublica.Bills.BillsBySubject.Response>($"bills/subjects/search.json?query={query}");
                 return Ok(response);
             }
             catch (Exception ex)
@@ -353,12 +353,177 @@ namespace APIWeb.Controllers
         }
         [HttpGet]
         [Route("{congress}/bills/{billId}/cosponsors")]
-        public async Task<ActionResult<APILibrary.ProPublica.Bills.GetBillCosponsors.Response>> GetBillCosponsors(string congress, string billId)
+        public async Task<ActionResult<APILibrary.ProPublica.Bills.BillCosponsors.Response>> GetBillCosponsors(string congress, string billId)
         {
             var client = new APIClient(Endpoint, Token);
             try
             {
-                var response = await client.GetAsync<APILibrary.ProPublica.Bills.GetBillCosponsors.Response>($"{congress}/bills/{billId}/cosponsors.json");
+                var response = await client.GetAsync<APILibrary.ProPublica.Bills.BillCosponsors.Response>($"{congress}/bills/{billId}/cosponsors.json");
+                return Ok(response);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex);
+            }
+        }
+        [HttpGet]
+        [Route("{chamber}/votes/recent")]
+        public async Task<ActionResult<APILibrary.ProPublica.Votes.RecentVotes.Response>> GetRecentVotes(string chamber)
+        {
+            var client = new APIClient(Endpoint, Token);
+            try
+            {
+                var response = await client.GetAsync<APILibrary.ProPublica.Votes.RecentVotes.Response>($"{chamber}/votes/recent.json");
+                return Ok(response);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex);
+            }
+        }
+        [HttpGet]
+        [Route("{congress}/{chamber}/votes/{voteType}")]
+        public async Task<ActionResult<APILibrary.ProPublica.Votes.VotesByType.Response>> GetVotesByType(string congress, string chamber, string voteType)
+        {
+            var client = new APIClient(Endpoint, Token);
+            try
+            {
+                var response = await client.GetAsync<APILibrary.ProPublica.Votes.VotesByType.Response>($"{congress}/{chamber}/votes/{voteType}.json");
+                return Ok(response);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex);
+            }
+        }
+        [HttpGet]
+        [Route("{chamber}/votes/{year}/{month}")]
+        public async Task<ActionResult<APILibrary.ProPublica.Votes.VotesByDate.Response>> GetVotesByDate(string chamber, string year, string month)
+        {
+            var client = new APIClient(Endpoint, Token);
+            try
+            {
+                var response = await client.GetAsync<APILibrary.ProPublica.Votes.VotesByDate.Response>($"{chamber}/votes/{year}/{month}.json");
+                return Ok(response);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex);
+            }
+        }
+        [HttpGet]
+        [Route("{chamber}/votes/range/{startDate}/{endDate}")]
+        public async Task<ActionResult<APILibrary.ProPublica.Votes.VotesByDate.Response>> GetVotesByRange(string chamber, string startDate, string endDate)
+        {
+            var client = new APIClient(Endpoint, Token);
+            try
+            {
+                var response = await client.GetAsync<APILibrary.ProPublica.Votes.VotesByDate.Response>($"{chamber}/votes/{startDate}/{endDate}.json");
+                return Ok(response);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex);
+            }
+        }
+        [HttpGet]
+        [Route("{congress}/nominations")]
+        public async Task<ActionResult<APILibrary.ProPublica.Votes.SenateNominationVotes.Response>> GetSenateNominationVotes(string congress)
+        {
+            var client = new APIClient(Endpoint, Token);
+            try
+            {
+                var response = await client.GetAsync<APILibrary.ProPublica.Votes.SenateNominationVotes.Response>($"{congress}/nominations.json");
+                return Ok(response);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex);
+            }
+        }
+        [HttpGet]
+        [Route("{congress}/explanations")]
+        public async Task<ActionResult<APILibrary.ProPublica.Votes.RecentExplanations.Response>> GetRecentExplanations(string congress)
+        {
+            var client = new APIClient(Endpoint, Token);
+            try
+            {
+                var response = await client.GetAsync<APILibrary.ProPublica.Votes.RecentExplanations.Response>($"{congress}/explanations.json");
+                return Ok(response);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex);
+            }
+        }
+        [HttpGet]
+        [Route("{congress}/explanations/votes")]
+        public async Task<ActionResult<APILibrary.ProPublica.Votes.RecentExplanationVotes.Response>> GetRecentExplanationVotes(string congress)
+        {
+            var client = new APIClient(Endpoint, Token);
+            try
+            {
+                var response = await client.GetAsync<APILibrary.ProPublica.Votes.RecentExplanationVotes.Response>($"{congress}/explanations/votes.json");
+                return Ok(response);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex);
+            }
+        }
+        [HttpGet]
+        [Route("{congress}/explanations/votes/{category}")]
+        public async Task<ActionResult<APILibrary.ProPublica.Votes.RecentExplanationVotes.Response>> GetRecentExplanationVotesByCategory(string congress, string category)
+        {
+            var client = new APIClient(Endpoint, Token);
+            try
+            {
+                var response = await client.GetAsync<APILibrary.ProPublica.Votes.RecentExplanationVotes.Response>($"{congress}/explanations/votes/{category}.json");
+                return Ok(response);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex);
+            }
+        }
+        [HttpGet]
+        [Route("members/{memberId}/explanations/{congress}")]
+        public async Task<ActionResult<APILibrary.ProPublica.Votes.RecentMemberExplanations.Response>> GetRecentMemberExplanations(string memberId, string congress)
+        {
+            var client = new APIClient(Endpoint, Token);
+            try
+            {
+                var response = await client.GetAsync<APILibrary.ProPublica.Votes.RecentMemberExplanations.Response>($"members/{memberId}/explanations/{congress}.json");
+                return Ok(response);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex);
+            }
+        }
+        [HttpGet]
+        [Route("members/{memberId}/explanations/{congress}/votes")]
+        public async Task<ActionResult<APILibrary.ProPublica.Votes.RecentMemberExplanationVotes.Response>> GetRecentMemberExplanationVotes(string memberId, string congress)
+        {
+            var client = new APIClient(Endpoint, Token);
+            try
+            {
+                var response = await client.GetAsync<APILibrary.ProPublica.Votes.RecentMemberExplanationVotes.Response>($"members/{memberId}/explanations/{congress}/votes.json");
+                return Ok(response);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex);
+            }
+        }
+        [HttpGet]
+        [Route("members/{memberId}/explanations/{congress}/votes/{category}")]
+        public async Task<ActionResult<APILibrary.ProPublica.Votes.RecentMemberExplanationVotesByCategory.Response>> GetRecentMemberExplanationVotesByCategory(string memberId, string congress, string category)
+        {
+            var client = new APIClient(Endpoint, Token);
+            try
+            {
+                var response = await client.GetAsync<APILibrary.ProPublica.Votes.RecentMemberExplanationVotesByCategory.Response>($"members/{memberId}/explanations/{congress}/votes/{category}.json");
                 return Ok(response);
             }
             catch (Exception ex)
