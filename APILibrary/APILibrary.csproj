@@ -64,11 +64,45 @@
     <Compile Include="GoogleGeocode\Southwest.cs" />
     <Compile Include="GoogleGeocode\Viewport.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ProPublica\Members\BillCosponsors\Bill.cs" />
+    <Compile Include="ProPublica\Members\BillCosponsors\CosponsorsByParty.cs" />
+    <Compile Include="ProPublica\Members\BillCosponsors\Response.cs" />
+    <Compile Include="ProPublica\Members\BillCosponsors\Result.cs" />
+    <Compile Include="ProPublica\Members\CompareBillSponsorships\Bill.cs" />
+    <Compile Include="ProPublica\Members\CompareBillSponsorships\Response.cs" />
+    <Compile Include="ProPublica\Members\CompareBillSponsorships\Result.cs" />
+    <Compile Include="ProPublica\Members\CurrentMembers\Member.cs" />
+    <Compile Include="ProPublica\Members\CurrentMembers\Response.cs" />
+    <Compile Include="ProPublica\Members\CurrentMembers\Result.cs" />
+    <Compile Include="ProPublica\Members\CompareVotePositions\Response.cs" />
+    <Compile Include="ProPublica\Members\CompareVotePositions\Result.cs" />
+    <Compile Include="ProPublica\Members\MemberOfficeExpensesByCategory\Response.cs" />
+    <Compile Include="ProPublica\Members\MemberOfficeExpensesByCategory\Result.cs" />
+    <Compile Include="ProPublica\Members\MembersLeaving\Member.cs" />
+    <Compile Include="ProPublica\Members\MembersLeaving\Response.cs" />
+    <Compile Include="ProPublica\Members\MembersLeaving\Result.cs" />
+    <Compile Include="ProPublica\Members\GetMember\Committee.cs" />
+    <Compile Include="ProPublica\Members\ListMembers\Member.cs" />
+    <Compile Include="ProPublica\Members\ListMembers\Response.cs" />
+    <Compile Include="ProPublica\Members\ListMembers\Result.cs" />
+    <Compile Include="ProPublica\Members\GetMember\Result.cs" />
+    <Compile Include="ProPublica\Members\GetMember\Role.cs" />
+    <Compile Include="ProPublica\Members\GetMember\Response.cs" />
+    <Compile Include="ProPublica\Members\MemberVotes\Bill.cs" />
+    <Compile Include="ProPublica\Members\MemberVotes\Response.cs" />
+    <Compile Include="ProPublica\Members\MemberVotes\Result.cs" />
+    <Compile Include="ProPublica\Members\MemberVotes\Total.cs" />
+    <Compile Include="ProPublica\Members\MemberVotes\Vote.cs" />
+    <Compile Include="ProPublica\Members\OfficeExpensesByCategory\Response.cs" />
+    <Compile Include="ProPublica\Members\OfficeExpensesByCategory\Result.cs" />
+    <Compile Include="ProPublica\Members\OfficeExpenses\Response.cs" />
+    <Compile Include="ProPublica\Members\OfficeExpenses\Result.cs" />
     <Compile Include="Utilities\APIClient.cs" />
     <Compile Include="Utilities\APIExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
