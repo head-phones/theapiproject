@@ -157,8 +157,8 @@ namespace APIWeb.Controllers
             }
         }
         [HttpGet]
-        [Route("members/cosponsored_bills/{memberId}/{type}")]
-        public async Task<ActionResult<APILibrary.ProPublica.Members.CosponsoredBills.Response>> GetCosponsoredBills(string memberId, string type)
+        [Route("members/bills/{memberId}/{type}")]
+        public async Task<ActionResult<APILibrary.ProPublica.Members.CosponsoredBills.Response>> GetMemberBillsByType(string memberId, string type)
         {
             var client = new APIClient(Endpoint, Token);
             try
@@ -209,6 +209,156 @@ namespace APIWeb.Controllers
             try
             {
                 var response = await client.GetAsync<APILibrary.ProPublica.Members.OfficeExpensesByCategory.Response>($"office_expenses/category/{category}/{year}/{quarter}.json");
+                return Ok(response);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex);
+            }
+        }
+        [HttpGet]
+        [Route("bills/{query}")]
+        public async Task<ActionResult<APILibrary.ProPublica.Bills.SearchBills.Response>> SearchBills(string query)
+        {
+            var client = new APIClient(Endpoint, Token);
+            try
+            {
+                var response = await client.GetAsync<APILibrary.ProPublica.Bills.SearchBills.Response>($"bills/search.json?query={query}");
+                return Ok(response);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex);
+            }
+        }
+        [HttpGet]
+        [Route("{congress}/{chamber}/bills/{type}")]
+        public async Task<ActionResult<APILibrary.ProPublica.Bills.RecentBills.Response>> GetRecentBills(string congress, string chamber, string type)
+        {
+            var client = new APIClient(Endpoint, Token);
+            try
+            {
+                var response = await client.GetAsync<APILibrary.ProPublica.Bills.RecentBills.Response>($"{congress}/{chamber}/bills/{type}.json");
+                return Ok(response);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex);
+            }
+        }
+        [HttpGet]
+        [Route("bills/subject/{subject}")]
+        public async Task<ActionResult<APILibrary.ProPublica.Bills.RecentBillsBySubject.Response>> GetRecentBillsBySubject(string subject)
+        {
+            var client = new APIClient(Endpoint, Token);
+            try
+            {
+                var response = await client.GetAsync<APILibrary.ProPublica.Bills.RecentBillsBySubject.Response>($"bills/subjects/{subject}.json");
+                return Ok(response);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex);
+            }
+        }
+        [HttpGet]
+        [Route("bills/upcoming/{chamber}")]
+        public async Task<ActionResult<APILibrary.ProPublica.Bills.UpcomingBills.Response>> GetUpcomingBills(string chamber)
+        {
+            var client = new APIClient(Endpoint, Token);
+            try
+            {
+                var response = await client.GetAsync<APILibrary.ProPublica.Bills.UpcomingBills.Response>($"bills/upcoming/{chamber}.json");
+                return Ok(response);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex);
+            }
+        }
+        [HttpGet]
+        [Route("{congress}/bills/{billId}")]
+        public async Task<ActionResult<APILibrary.ProPublica.Bills.GetBill.Response>> GetBill(string congress, string billId)
+        {
+            var client = new APIClient(Endpoint, Token);
+            try
+            {
+                var response = await client.GetAsync<APILibrary.ProPublica.Bills.GetBill.Response>($"{congress}/bills/{billId}.json");
+                return Ok(response);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex);
+            }
+        }
+        [HttpGet]
+        [Route("{congress}/bills/{billId}/amendments")]
+        public async Task<ActionResult<APILibrary.ProPublica.Bills.GetBillAmendments.Response>> GetBillAmendments(string congress, string billId)
+        {
+            var client = new APIClient(Endpoint, Token);
+            try
+            {
+                var response = await client.GetAsync<APILibrary.ProPublica.Bills.GetBillAmendments.Response>($"{congress}/bills/{billId}/amendments.json");
+                return Ok(response);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex);
+            }
+        }
+        [HttpGet]
+        [Route("{congress}/bills/{billId}/subjects")]
+        public async Task<ActionResult<APILibrary.ProPublica.Bills.GetBillSubjects.Response>> GetBillSubjects(string congress, string billId)
+        {
+            var client = new APIClient(Endpoint, Token);
+            try
+            {
+                var response = await client.GetAsync<APILibrary.ProPublica.Bills.GetBillSubjects.Response>($"{congress}/bills/{billId}/subjects.json");
+                return Ok(response);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex);
+            }
+        }
+        [HttpGet]
+        [Route("{congress}/bills/{billId}/related")]
+        public async Task<ActionResult<APILibrary.ProPublica.Bills.GetRelatedBills.Response>> GetRelatedBills(string congress, string billId)
+        {
+            var client = new APIClient(Endpoint, Token);
+            try
+            {
+                var response = await client.GetAsync<APILibrary.ProPublica.Bills.GetRelatedBills.Response>($"{congress}/bills/{billId}/related.json");
+                return Ok(response);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex);
+            }
+        }
+        [HttpGet]
+        [Route("bills/subject/{query}")]
+        public async Task<ActionResult<APILibrary.ProPublica.Bills.GetBillsBySubject.Response>> GetBillsBySubject(string query)
+        {
+            var client = new APIClient(Endpoint, Token);
+            try
+            {
+                var response = await client.GetAsync<APILibrary.ProPublica.Bills.GetBillsBySubject.Response>($"bills/subjects/search.json?query={query}");
+                return Ok(response);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex);
+            }
+        }
+        [HttpGet]
+        [Route("{congress}/bills/{billId}/cosponsors")]
+        public async Task<ActionResult<APILibrary.ProPublica.Bills.GetBillCosponsors.Response>> GetBillCosponsors(string congress, string billId)
+        {
+            var client = new APIClient(Endpoint, Token);
+            try
+            {
+                var response = await client.GetAsync<APILibrary.ProPublica.Bills.GetBillCosponsors.Response>($"{congress}/bills/{billId}/cosponsors.json");
                 return Ok(response);
             }
             catch (Exception ex)
