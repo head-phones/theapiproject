@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace APILibrary.ProPublica.Members.BillCosponsors
+namespace APILibrary.ProPublica.Members.CosponsoredBills
 {
     public class Bill
     {

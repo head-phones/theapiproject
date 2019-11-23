@@ -151,7 +151,7 @@ namespace APILibrary.Utilites
         }
 
         #region Helper Methods
-        public string FormatRequestUri(string function)
+        private string FormatRequestUri(string function)
         {
             var requestUri = Endpoint;
             requestUri += !function.StartsWith("/") ? $"/{function}" : function;

@@ -93,6 +93,9 @@
     <Compile Include="ProPublica\Members\MemberVotes\Result.cs" />
     <Compile Include="ProPublica\Members\MemberVotes\Total.cs" />
     <Compile Include="ProPublica\Members\MemberVotes\Vote.cs" />
+    <Compile Include="ProPublica\Members\NewMembers\Member.cs" />
+    <Compile Include="ProPublica\Members\NewMembers\Response.cs" />
+    <Compile Include="ProPublica\Members\NewMembers\Result.cs" />
     <Compile Include="ProPublica\Members\OfficeExpensesByCategory\Response.cs" />
     <Compile Include="ProPublica\Members\OfficeExpensesByCategory\Result.cs" />
     <Compile Include="ProPublica\Members\OfficeExpenses\Response.cs" />

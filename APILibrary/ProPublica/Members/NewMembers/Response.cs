@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace APILibrary.ProPublica.Members.MemberVotes
+namespace APILibrary.ProPublica.Members.NewMembers
 {
     public class Response
     {

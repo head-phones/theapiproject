@@ -38,9 +38,9 @@ namespace APILibrary.ProPublica.Members.ListMembers
         public object ideal_point { get; set; }
         public string seniority { get; set; }
         public string next_election { get; set; }
-        public int total_votes { get; set; }
-        public int missed_votes { get; set; }
-        public int total_present { get; set; }
+        public int? total_votes { get; set; }
+        public int? missed_votes { get; set; }
+        public int? total_present { get; set; }
         public string last_updated { get; set; }
         public string ocd_id { get; set; }
         public string office { get; set; }
@@ -50,7 +50,7 @@ namespace APILibrary.ProPublica.Members.ListMembers
         public string senate_class { get; set; }
         public string state_rank { get; set; }
         public string lis_id { get; set; }
-        public double missed_votes_pct { get; set; }
-        public double votes_with_party_pct { get; set; }
+        public double? missed_votes_pct { get; set; }
+        public double? votes_with_party_pct { get; set; }
     }
 }
