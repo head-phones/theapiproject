@@ -17,106 +17,119 @@ namespace APILibrary.Utilites
             Endpoint = endpoint;
             APIKey = apiKey;
         }
-        public async Task<string> GetAsync(string function)
+        public async Task<T> GetAsync<T>(string function)
         {
             using (HttpClient client = new HttpClient())
             {
                 client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", APIKey);
+                client.DefaultRequestHeaders.Add("X-API-Key", APIKey);
                 try
                 {
-                    return await client.GetStringAsync($"{Endpoint}{function}");
+                    var requestUri = FormatRequestUri(function);
+                    var response = await client.GetStringAsync(requestUri);
+                    return JsonConvert.DeserializeObject<T>(response); ;
                 }
-                catch (HttpRequestException)
+                catch (HttpRequestException e)
                 {
-
+                    throw e;
                 }
             }
-            return null;
         }
 
-        public string Get(string function)
+        public T Get<T>(string function)
         {
             using (HttpClient client = new HttpClient())
             {
                 client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", APIKey);
+                client.DefaultRequestHeaders.Add("X-API-Key", APIKey);
                 try
                 {
-                    return client.GetStringAsync($"{Endpoint}{function}").Result;
+                    var requestUri = FormatRequestUri(function);
+                    var response = client.GetStringAsync(requestUri).Result;
+                    return JsonConvert.DeserializeObject<T>(response);
                 }
-                catch (HttpRequestException)
+                catch (HttpRequestException e)
                 {
-
+                    throw e;
                 }
             }
-            return null;
         }
 
-        public string Post(string function, string data)
+        public T Post<T>(string function, T data)
         {
             using (HttpClient client = new HttpClient())
             {
                 client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", APIKey);
+                client.DefaultRequestHeaders.Add("X-API-Key", APIKey);
                 try
                 {
-                    var content = new StringContent(data, Encoding.UTF8, "application/json");
-                    var response = client.PostAsync($"{Endpoint}{function}", content).Result;
-                    return response.Content.ReadAsStringAsync().Result;
+                    var requestUri = FormatRequestUri(function);
+                    var content = new StringContent(JsonConvert.SerializeObject(data), Encoding.UTF8, "application/json");
+                    var response = client.PostAsync(requestUri, content).Result;
+                    return JsonConvert.DeserializeObject<T>(response.Content.ReadAsStringAsync().Result);
                 }
-                catch (HttpRequestException)
+                catch (HttpRequestException e)
                 {
-
+                    throw e;
                 }
             }
-            return null;
         }
-        public async Task<HttpResponseMessage> PostAsync(string function, string data)
+        public async Task<T> PostAsync<T>(string function, T data)
         {
             using (HttpClient client = new HttpClient())
             {
                 client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", APIKey);
+                client.DefaultRequestHeaders.Add("X-API-Key", APIKey); 
                 try
                 {
-                    return await client.PostAsync($"{Endpoint}{function}", new StringContent(data, Encoding.UTF8, "application/json"));
+                    var requestUri = FormatRequestUri(function);
+                    var content = new StringContent(JsonConvert.SerializeObject(data), Encoding.UTF8, "application/json");
+                    var response = await client.PostAsync(requestUri, content);
+                    return JsonConvert.DeserializeObject<T>(response.Content.ReadAsStringAsync().Result);
                 }
-                catch (HttpRequestException)
+                catch (HttpRequestException e)
                 {
-
+                    throw e;
                 }
             }
-            return null;
         }
-        public async Task<HttpResponseMessage> PutAsync(string function, string data)
+        public async Task<T> PutAsync<T>(string function, T data)
         {
             using (HttpClient client = new HttpClient())
             {
                 client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", APIKey);
+                client.DefaultRequestHeaders.Add("X-API-Key", APIKey);
                 try
                 {
-                    return await client.PutAsync($"{Endpoint}{function}", new StringContent(data, Encoding.UTF8, "application/json"));
+                    var requestUri = FormatRequestUri(function);
+                    var content = new StringContent(JsonConvert.SerializeObject(data), Encoding.UTF8, "application/json");
+                    var response = await client.PutAsync(requestUri, content);
+                    return JsonConvert.DeserializeObject<T>(response.Content.ReadAsStringAsync().Result);
                 }
-                catch (HttpRequestException)
+                catch (HttpRequestException e)
                 {
-
+                    throw e;
                 }
             }
-            return null;
         }
-        public string Put(string function, string data)
+        public T Put<T>(string function, string data)
         {
             using (HttpClient client = new HttpClient())
             {
                 client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", APIKey);
+                client.DefaultRequestHeaders.Add("X-API-Key", APIKey);
                 try
                 {
-                    var response = client.PutAsync($"{Endpoint}{function}", new StringContent(data, Encoding.UTF8, "application/json")).Result;
-                    return response.Content.ReadAsStringAsync().Result;
+                    var requestUri = FormatRequestUri(function);
+                    var content = new StringContent(JsonConvert.SerializeObject(data), Encoding.UTF8, "application/json");
+                    var response = client.PutAsync(requestUri, content).Result;
+                    return JsonConvert.DeserializeObject<T>(response.Content.ReadAsStringAsync().Result);
                 }
-                catch (HttpRequestException)
+                catch (HttpRequestException e)
                 {
-
+                    throw e;
                 }
             }
-            return null;
         }
         public void Delete(string function)
         {
@@ -124,15 +137,26 @@ namespace APILibrary.Utilites
             using (HttpClient client = new HttpClient())
             {
                 client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", APIKey);
+                client.DefaultRequestHeaders.Add("X-API-Key", APIKey);
                 try
                 {
-                    response = client.DeleteAsync(($"{Endpoint}{function}")).Result;
+                    var requestUri = FormatRequestUri(function);
+                    response = client.DeleteAsync(requestUri).Result;
                 }
-                catch (HttpRequestException)
+                catch (HttpRequestException e)
                 {
-
+                    throw e;
                 }
             }
         }
+
+        #region Helper Methods
+        public string FormatRequestUri(string function)
+        {
+            var requestUri = Endpoint;
+            requestUri += !function.StartsWith("/") ? $"/{function}" : function;
+            return requestUri;
+        }
+        #endregion
     }
 }

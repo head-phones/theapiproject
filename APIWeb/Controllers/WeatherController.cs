@@ -25,7 +25,7 @@ namespace APIWeb.Controllers
         [HttpGet("{lat},{lng}")]
         public ActionResult<APILibrary.DarkSky.Response> Get(decimal lat, decimal lng)
         {
-            var client = new ApiExtensions(Endpoint, Token);
+            var client = new APIClient(Endpoint, Token);
 
             var function = $"{Token}/{lat},{lng}";
             var response = client.Get<APILibrary.DarkSky.Response>(function);

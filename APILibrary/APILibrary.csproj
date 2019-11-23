@@ -98,7 +98,6 @@
     <Compile Include="ProPublica\Members\OfficeExpenses\Response.cs" />
     <Compile Include="ProPublica\Members\OfficeExpenses\Result.cs" />
     <Compile Include="Utilities\APIClient.cs" />
-    <Compile Include="Utilities\APIExtensions.cs" />
     <Compile Include="Vehicle\AllMakes\Result.cs" />
     <Compile Include="Vehicle\AllMakes\Reponse.cs" />
     <Compile Include="Vehicle\MakesByVehicleTypeName\Reponse.cs" />

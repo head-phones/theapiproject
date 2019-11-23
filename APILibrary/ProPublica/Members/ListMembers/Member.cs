@@ -34,7 +34,7 @@ namespace APILibrary.ProPublica.Members.ListMembers
         public string rss_url { get; set; }
         public string contact_form { get; set; }
         public bool in_office { get; set; }
-        public double dw_nominate { get; set; }
+        public double? dw_nominate { get; set; }
         public object ideal_point { get; set; }
         public string seniority { get; set; }
         public string next_election { get; set; }

@@ -19,7 +19,7 @@ namespace APIWeb.Controllers
         [Route("makes")]
         public ActionResult<APILibrary.Vehicle.AllMakes.Response> GetAllMakes()
         {
-            var client = new ApiExtensions(Endpoint, Token);
+            var client = new APIClient(Endpoint, Token);
 
             var function = $"vehicles/GetAllMakes?format=json";
             var response = client.Get<APILibrary.Vehicle.AllMakes.Response>(function);
@@ -30,7 +30,7 @@ namespace APIWeb.Controllers
         [HttpGet("models/{make}")]
         public ActionResult<APILibrary.Vehicle.ModelsByMakeName.Response> GetModelsByMakeName(string make)
         {
-            var client = new ApiExtensions(Endpoint, Token);
+            var client = new APIClient(Endpoint, Token);
 
             var function = $"vehicles/GetModelsForMake/{make}?format=json";
             var response = client.Get<APILibrary.Vehicle.ModelsByMakeName.Response>(function);
@@ -41,7 +41,7 @@ namespace APIWeb.Controllers
         [HttpGet("makes/{vehicletype}")]
         public ActionResult<APILibrary.Vehicle.MakesByVehicleTypeName.Response> GetMakesByVehicleTypeName(string vehicletype)
         {
-            var client = new ApiExtensions(Endpoint, Token);
+            var client = new APIClient(Endpoint, Token);
 
             var function = $"vehicles/GetMakesForVehicleType/{vehicletype}?format=json";
             var response = client.Get<APILibrary.Vehicle.MakesByVehicleTypeName.Response>(function);
