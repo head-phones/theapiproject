@@ -343,6 +343,86 @@
         </div>
     }
 </div>
+<div class="my-3 p-3 bg-white rounded shadow-sm">
+    <h6 class="border-bottom border-gray pb-2 mb-0">
+        <span data-feather="file-plus"></span>
+        Co-sponsored Bills
+    </h6>
+    @if (Model.cosponsoredBills?.Count > 0)
+    {
+        for (int i = 0; i < 3 && i < Model.cosponsoredBills.Count; i++)
+        {
+            var bill = Model.cosponsoredBills[i];
+            <div class="media text-muted pt-3">
+                <div class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
+                    <div class="row">
+                        <div class="col-md-auto text-center">
+                            <strong class="text-gray-dark h3 mb-2 font-weight-light">
+                                @bill.bill_id
+                            </strong>
+                            <br />
+                            <small class="text-gray-dark font-weight-light">
+                                (@bill.sponsor_party) @bill.sponsor_name
+                            </small>
+                            <br />
+                            <small class="text-gray-dark font-weight-light">
+                                @Convert.ToDateTime(bill.latest_major_action_date).ToShortDateString()
+                            </small>
+
+                        </div>
+                        <div class="col-md">
+                            <strong class="text-gray-dark mb-2 lead font-weight-light">@bill.title</strong>
+                            <br />
+                            <small class="text-gray-dark font-weight-light">@bill.summary_short</small>
+                            <br />
+                            <small class="font-weight-light">@bill.latest_major_action</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+
+        <div class="collapse" id="collapseCosponsoredBills">
+
+            @for (int i = 3; i < Model.cosponsoredBills.Count; i++)
+            {
+                var bill = Model.cosponsoredBills[i];
+                <div class="media text-muted pt-3">
+                    <div class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
+                        <div class="row">
+                            <div class="col-md-auto text-center">
+                                <strong class="text-gray-dark h3 mb-2 font-weight-light">
+                                    @bill.bill_id
+                                </strong>
+                                <br />
+                                <small class="text-gray-dark font-weight-light">
+                                    @Convert.ToDateTime(bill.latest_major_action_date).ToShortDateString()
+                                </small>
+
+                            </div>
+                            <div class="col-md">
+                                <strong class="text-gray-dark mb-2 lead font-weight-light">@bill.title</strong>
+                                <br />
+                                <small class="text-gray-dark font-weight-light">@bill.summary_short</small>
+                                <br />
+                                <small class="font-weight-light">@bill.latest_major_action</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+
+        </div>
+        <div class="row mt-3">
+            <div class="col-md-4 offset-md-4">
+                <button class="btn btn-sm btn-outline-@GetPartyColor() btn-block" type="button" data-toggle="collapse" data-target="#collapseCosponsoredBills" aria-expanded="false" aria-controls="collapseCosponsoredBills">
+                    All Co-sponsored Bills
+                </button>
+            </div>
+        </div>
+    }
+</div>
+
 
 @functions{
     string GetPartyColor()
