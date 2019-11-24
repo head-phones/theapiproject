@@ -158,12 +158,12 @@ namespace APIWeb.Controllers
         }
         [HttpGet]
         [Route("members/bills/{memberId}/{type}")]
-        public async Task<ActionResult<APILibrary.ProPublica.Members.CosponsoredBills.Response>> GetMemberBillsByType(string memberId, string type)
+        public async Task<ActionResult<APILibrary.ProPublica.Members.MemberBills.Response>> GetMemberBillsByType(string memberId, string type)
         {
             var client = new APIClient(Endpoint, Token);
             try
             {
-                var response = await client.GetAsync<APILibrary.ProPublica.Members.CosponsoredBills.Response>($"members/{memberId}/bills/{type}.json");
+                var response = await client.GetAsync<APILibrary.ProPublica.Members.MemberBills.Response>($"members/{memberId}/bills/{type}.json");
                 return Ok(response);
             }
             catch (Exception ex)

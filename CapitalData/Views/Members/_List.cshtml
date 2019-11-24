@@ -1,0 +1,122 @@
+﻿@model List<MemberViewModel>
+@{ 
+    var chamber = ViewData["chamber"].ToString();
+    var congress = ViewData["congress"].ToString();
+    var congressInt = Convert.ToInt32(congress);
+    var congressString = $"{congress}{GetOrdinalSuffix(congressInt)} Congress";
+    var chamberFormatted = chamber.First().ToString().ToUpper() + chamber.Substring(1);
+    var congressMin = 104;
+    var congressMax = 117;
+}
+@functions{
+    string GetOrdinalSuffix(int num)
+    {
+        if (num.ToString().EndsWith("11")) return "th";
+        if (num.ToString().EndsWith("12")) return "th";
+        if (num.ToString().EndsWith("13")) return "th";
+        if (num.ToString().EndsWith("1")) return "st";
+        if (num.ToString().EndsWith("2")) return "nd";
+        if (num.ToString().EndsWith("3")) return "rd";
+        return "th";
+    }
+    string GetPartyColor(string party)
+    {
+        var partycolor = string.Empty;
+        switch (party)
+        {
+            case "R":
+                partycolor = "danger";
+                break;
+            case "D":
+                partycolor = "primary";
+                break;
+            case "I":
+                partycolor = "secondary";
+                break;
+        }
+        return partycolor;
+    }
+}
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3">
+    <h1 class="h2 font-weight-light">
+        @chamberFormatted Members
+    </h1>
+    <div class="btn-toolbar mb-2 mb-md-0">
+        <div class="btn-group btn-group-toggle mr-2" data-toggle="buttons">
+            <label class="btn btn-outline-secondary @{ if (chamber == "senate") {<text>active</text> } }">
+                <input type="radio" name="options" id="house" autocomplete="off" @{ if (chamber == "senate") { <text> checked</text> } } onchange="OnChamberChanged(this, '@congress','senate')"> Senate
+            </label>
+            <label class="btn btn-outline-secondary @{ if (chamber == "house") {<text>active</text> } }">
+                <input type="radio" name="options" id="house" autocomplete="off" @{ if (chamber == "house") { <text> checked</text> } } onchange="OnChamberChanged(this, '@congress','house')"> House
+            </label>
+        </div>
+
+        <div class="btn-group">
+            <button type="button" class="btn btn-sm btn-outline-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <span data-feather="calendar"></span>
+                @congressString
+            </button>
+            <div class="dropdown-menu">
+                @for (int i = congressMin; i < congressMax; i++)
+                {
+                    var active = i == congressInt ? "active" : "";
+                    <a class="dropdown-item @active" href="#" onclick="OnCongressChanged(this, '@i.ToString()', '@chamber')">@i@GetOrdinalSuffix(i)</a>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+@if (Model?.Count > 0)
+    {
+    <div class="table-responsive">
+        <table id="tbl_members" class="table table-striped table-sm">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Name</th>
+                    <th>Title</th>
+                    <th>Votes With Party</th>
+                    <th>Missed Votes</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var member in Model)
+    {
+                <tr>
+                    <td>@member.id</td>
+                    <td>(@member.party) @member.first_name @member.last_name</td>
+                    <td>@member.title</td>
+                    <td>
+                        <a href="/Members/Details/@member.id" class="badge badge-pill badge-@GetPartyColor(member.party)">
+                            @member.votes_with_party_pct%
+                        </a>
+                    </td>
+                    <td>
+
+                        <a href="/Members/Details/@member.id" class="badge badge-warning badge-pill">
+                            @member.missed_votes_pct%
+                        </a>
+                    </td>
+                    <td>
+                        <a class="btn btn-sm btn-outline-secondary" href="/Members/Details/@member.id">
+                            Details
+                        </a>
+                    </td>
+                </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}
+else
+{
+    <p>
+        Members aren't loading right now. 
+        <a href="/Members">
+            Click Here
+        </a>
+        to try again.
+    </p>
+}

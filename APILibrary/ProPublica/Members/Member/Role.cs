@@ -18,7 +18,7 @@ namespace APILibrary.ProPublica.Members.Member
         public string fec_candidate_id { get; set; }
         public string seniority { get; set; }
         public string district { get; set; }
-        public bool at_large { get; set; }
+        public bool? at_large { get; set; }
         public string ocd_id { get; set; }
         public string start_date { get; set; }
         public string end_date { get; set; }
@@ -26,10 +26,10 @@ namespace APILibrary.ProPublica.Members.Member
         public string phone { get; set; }
         public object fax { get; set; }
         public object contact_form { get; set; }
-        public int bills_sponsored { get; set; }
-        public int bills_cosponsored { get; set; }
-        public double missed_votes_pct { get; set; }
-        public double votes_with_party_pct { get; set; }
+        public int? bills_sponsored { get; set; }
+        public int? bills_cosponsored { get; set; }
+        public double? missed_votes_pct { get; set; }
+        public double? votes_with_party_pct { get; set; }
         public List<Committee> committees { get; set; }
         public List<object> subcommittees { get; set; }
     }

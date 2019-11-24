@@ -12,7 +12,7 @@ namespace APILibrary.Utilites
     {
         private string Endpoint { get; set; }
         private string APIKey { get; set; }
-        public APIClient(string endpoint, string apiKey)
+        public APIClient(string endpoint, string apiKey = null)
         {
             Endpoint = endpoint;
             APIKey = apiKey;

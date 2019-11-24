@@ -1,0 +1,421 @@
+﻿@model MemberViewModel
+
+<link rel="stylesheet" href="~/css/profile.css" />
+
+<div class="p-3 mb-3 text-white-50 @GetPartyBG() rounded shadow-sm">
+    <div class="lh-100">
+        <div class="row">
+            <div class="col-md">
+                <h6 class="mb-0 text-white lh-100">
+                    (@Model.party)
+                    @Model.first_name
+                    @if (!string.IsNullOrEmpty(Model.middle_name))
+                    {
+                        @Model.middle_name
+                    }
+                    @Model.last_name
+                    @if (!string.IsNullOrEmpty(Model.suffix))
+                    {
+                        @Model.suffix
+                    }
+                </h6>
+            </div>
+            <div class="col-md-auto text-right">
+                <ul class="list-inline mb-1">
+                    @if (!string.IsNullOrEmpty(Model.twitter_account))
+                    {
+                        <li class="list-inline-item">
+                            <a class="text-white" href="https://twitter.com/@Model.twitter_account">
+                                <span data-feather="twitter"></span>
+                            </a>
+                        </li>
+                    }
+                    @if (!string.IsNullOrEmpty(Model.facebook_account))
+                    {
+                        <li class="list-inline-item">
+                            <a class="text-white" href="https://facebook.com/@Model.facebook_account">
+                                <span data-feather="facebook"></span>
+                            </a>
+                        </li>
+                    }
+                    @if (!string.IsNullOrEmpty(Model.youtube_account))
+                    {
+                        <li class="list-inline-item">
+                            <a class="text-white" href="https://youtube.com/@Model.youtube_account">
+                                <span data-feather="youtube"></span>
+                            </a>
+                        </li>
+                    }
+                    @if (!string.IsNullOrEmpty(Model.rss_url))
+                    {
+                        <li class="list-inline-item">
+                            <a class="text-white" href="@Model.rss_url">
+                                <span data-feather="rss"></span>
+                            </a>
+                        </li>
+                    }
+                </ul>
+            </div>
+        </div>
+        @if (!string.IsNullOrEmpty(Model.most_recent_vote))
+        {
+            <div class="row">
+                <div class="col">
+                    Most Recent Vote:
+                    <small>
+                        @Convert.ToDateTime(Model.most_recent_vote).ToShortDateString()
+                    </small>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+<div class="my-3 p-3 bg-white rounded shadow-sm">
+    <h6 class="border-bottom border-gray pb-2 mb-0">
+        <span data-feather="calendar"></span>
+        Terms
+    </h6>
+    @if (Model.roles?.Count > 0)
+    {
+        for (int i = 0; i < 3 && i < Model.roles?.Count; i++)
+        {
+            var role = Model.roles[i];
+            <div class="media text-muted pt-3">
+                <div class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
+                    <div class="row">
+                        <div class="col-md-auto text-center">
+                            <span class="h3 font-weight-light">
+                                @role.congress@GetOrdinalSuffix(Convert.ToInt32(role.congress))
+                            </span>
+                            <br />
+                            <small class="font-weight-light">
+                                @Convert.ToDateTime(role.start_date).Year to
+                                @Convert.ToDateTime(role.end_date).Year
+                            </small>
+                        </div>
+                        <div class="col-md">
+                            <strong class="text-gray-dark mb-2 lead font-weight-light">@role.title</strong>
+                            <div class="row h6 font-weight-light">
+                                <div class="col-sm col-12">
+                                    <span class="badge @GetPartyBadge()">
+                                        @role.bills_sponsored
+                                    </span>
+                                    Bills Sponsored
+                                </div>
+                                <div class="col-sm col-12">
+                                    <span class="badge badge-info">
+                                        @role.bills_cosponsored
+                                    </span>
+                                    Bills Cosponsored
+                                </div>
+                                <div class="col-sm col-12">
+                                    <span class="badge badge-warning">
+                                        @role.missed_votes_pct%
+                                    </span>
+                                    Missed Votes
+                                </div>
+                                <div class="col-sm col-12">
+                                    <span class="badge badge-success">
+                                        @role.votes_with_party_pct%
+                                    </span>
+                                    Votes With Party
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+        <div class="collapse" id="collapseTerms">
+            @for (int i = 3; i < Model.roles.Count; i++)
+            {
+                var role = Model.roles[i];
+                <div class="media text-muted pt-3">
+                    <div class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
+                        <div class="row">
+                            <div class="col-md-auto text-center">
+                                <span class="h3 font-weight-light">
+                                    @role.congress@GetOrdinalSuffix(Convert.ToInt32(role.congress))
+                                </span>
+                                <br />
+                                <small class="font-weight-light">
+                                    @Convert.ToDateTime(role.start_date).Year to
+                                    @Convert.ToDateTime(role.end_date).Year
+                                </small>
+                            </div>
+                            <div class="col-md">
+                                <strong class="text-gray-dark mb-2 lead font-weight-light">@role.title</strong>
+                                <div class="row h6 font-weight-light">
+                                    <div class="col-sm col-12">
+                                        <span class="badge @GetPartyBadge()">
+                                            @role.bills_sponsored
+                                        </span>
+                                        Bills Sponsored
+
+                                    </div>
+                                    <div class="col-sm col-12">
+                                        <span class="badge badge-info">
+                                            @role.bills_cosponsored
+                                        </span>
+                                        Bills Cosponsored
+                                    </div>
+                                    <div class="col-sm col-12">
+                                        <span class="badge badge-warning">
+                                            @role.missed_votes_pct%
+                                        </span>
+                                        Missed Votes
+                                    </div>
+                                    <div class="col-sm col-12">
+                                        <span class="badge badge-success">
+                                            @role.votes_with_party_pct%
+                                        </span>
+                                        Votes With Party
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+
+        </div>
+        <div class="row mt-3">
+            <div class="col-md-4 offset-md-4">
+                <button class="btn btn-sm btn-outline-@GetPartyColor() btn-block" type="button" data-toggle="collapse" data-target="#collapseTerms" aria-expanded="false" aria-controls="collapseTerms">
+                    All Terms
+                </button>
+            </div>
+        </div>
+    }
+</div>
+<div class="my-3 p-3 bg-white rounded shadow-sm">
+    <h6 class="border-bottom border-gray pb-2 mb-0">
+        <span data-feather="thumbs-up"></span>
+        Votes
+    </h6>
+    @if (Model.votes?.Count > 0)
+    {
+        for (int i = 0; i < 3 && i < Model.votes.Count; i++)
+        {
+            var vote = Model.votes[i];
+            <div class="media text-muted pt-3">
+                <div class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
+                    <div class="row">
+                        <div class="col-md-auto text-center">
+                            <span class="h3 font-weight-light @GetYesNoColor(vote.position)">
+                                @vote.position
+                            </span>
+                            <br />
+                            <small class="font-weight-light">
+                                @Convert.ToDateTime($"{vote.date} {vote.time}")
+                            </small>
+                        </div>
+                        <div class="col-md">
+                            <span class="lead">
+                                @vote.question
+                            </span>
+                            <br />
+                            @vote.description
+                            <span class="float-right font-italic">
+                                @vote.result
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+        <div class="collapse" id="collapseVotes">
+            @for (int i = 3; i < Model.votes.Count; i++)
+            {
+                var vote = Model.votes[i];
+                <div class="media text-muted pt-3">
+                    <div class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
+                        <div class="row">
+                            <div class="col-md-auto text-center">
+                                <span class="h3 font-weight-light @GetYesNoColor(vote.position)">
+                                    @vote.position
+                                </span>
+                                <br />
+                                <small class="font-weight-light">
+                                    @Convert.ToDateTime($"{vote.date} {vote.time}")
+                                </small>
+                            </div>
+                            <div class="col-md">
+                                <span class="lead">
+                                    @vote.question
+                                </span>
+                                <br />
+                                @vote.description
+                                <span class="float-right font-italic">
+                                    @vote.result
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+        <div class="row mt-3">
+            <div class="col-md-4 offset-md-4">
+                <button class="btn btn-sm btn-outline-@GetPartyColor() btn-block" type="button" data-toggle="collapse" data-target="#collapseVotes" aria-expanded="false" aria-controls="collapseVotes">
+                    All Votes
+                </button>
+            </div>
+        </div>
+    }
+
+
+
+</div>
+
+<div class="my-3 p-3 bg-white rounded shadow-sm">
+    <h6 class="border-bottom border-gray pb-2 mb-0">
+        <span data-feather="file-text"></span>
+        Bills
+    </h6>
+    @if (Model.bills?.Count > 0)
+    {
+        for (int i = 0; i < 3 && i < Model.bills.Count; i++)
+        {
+            var bill = Model.bills[i];
+            <div class="media text-muted pt-3">
+                <div class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
+                    <div class="row">
+                        <div class="col-md-auto text-center">
+                            <strong class="text-gray-dark h3 mb-2 font-weight-light">
+                                @bill.bill_id
+                            </strong>
+                            <br />
+                            <small class="text-gray-dark font-weight-light">
+                                @Convert.ToDateTime(bill.latest_major_action_date).ToShortDateString()
+                            </small>
+
+                        </div>
+                        <div class="col-md">
+                            <strong class="text-gray-dark mb-2 lead font-weight-light">@bill.title</strong>
+                            <br />
+                            <small class="text-gray-dark font-weight-light">@bill.summary_short</small>
+                            <br />
+                            <small class="font-weight-light">@bill.latest_major_action</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+
+        <div class="collapse" id="collapseBills">
+
+            @for (int i = 3; i < Model.bills.Count; i++)
+            {
+                var bill = Model.bills[i];
+                <div class="media text-muted pt-3">
+                    <div class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
+                        <div class="row">
+                            <div class="col-md-auto text-center">
+                                <strong class="text-gray-dark h3 mb-2 font-weight-light">
+                                    @bill.bill_id
+                                </strong>
+                                <br />
+                                <small class="text-gray-dark font-weight-light">
+                                    @Convert.ToDateTime(bill.latest_major_action_date).ToShortDateString()
+                                </small>
+
+                            </div>
+                            <div class="col-md">
+                                <strong class="text-gray-dark mb-2 lead font-weight-light">@bill.title</strong>
+                                <br />
+                                <small class="text-gray-dark font-weight-light">@bill.summary_short</small>
+                                <br />
+                                <small class="font-weight-light">@bill.latest_major_action</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+
+        </div>
+        <div class="row mt-3">
+            <div class="col-md-4 offset-md-4">
+                <button class="btn btn-sm btn-outline-@GetPartyColor() btn-block" type="button" data-toggle="collapse" data-target="#collapseBills" aria-expanded="false" aria-controls="collapseBills">
+                    All Bills
+                </button>
+            </div>
+        </div>
+    }
+</div>
+
+@functions{
+    string GetPartyColor()
+    {
+        var partycolor = string.Empty;
+        switch (Model.party)
+        {
+            case "R":
+                partycolor = "danger";
+                break;
+            case "D":
+                partycolor = "primary";
+                break;
+            case "I":
+                partycolor = "secondary";
+                break;
+        }
+        return partycolor;
+    }
+    string GetPartyBG()
+    {
+        var partyBg = string.Empty;
+        switch (Model.party)
+        {
+            case "R":
+                partyBg = "bg-danger";
+                break;
+            case "D":
+                partyBg = "bg-primary";
+                break;
+            case "I":
+                partyBg = "bg-secondary";
+                break;
+        }
+        return partyBg;
+    }
+    string GetPartyBadge()
+    {
+        var partyBadge = string.Empty;
+        switch (Model.party)
+        {
+            case "R":
+                partyBadge = "badge-danger";
+                break;
+            case "D":
+                partyBadge = "badge-primary";
+                break;
+            case "I":
+                partyBadge = "badge-secondary";
+                break;
+        }
+        return partyBadge;
+    }
+
+    string GetOrdinalSuffix(int num)
+    {
+        if (num.ToString().EndsWith("11")) return "th";
+        if (num.ToString().EndsWith("12")) return "th";
+        if (num.ToString().EndsWith("13")) return "th";
+        if (num.ToString().EndsWith("1")) return "st";
+        if (num.ToString().EndsWith("2")) return "nd";
+        if (num.ToString().EndsWith("3")) return "rd";
+        return "th";
+    }
+    string GetYesNoColor(string yesNo)
+    {
+        switch (yesNo.ToLower())
+        {
+            case "yes":
+                return "text-success";
+            case "no":
+                return "text-danger";
+        }
+        return string.Empty;
+    }
+}
