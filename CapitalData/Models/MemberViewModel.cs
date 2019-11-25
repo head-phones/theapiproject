@@ -28,35 +28,35 @@ namespace CapitalData.Models
         public List<VoteViewModel> votes { get; set; }
         public List<BillViewModel> bills { get; set; }
         public List<BillViewModel> cosponsoredBills { get; set; }
-        public MemberViewModel(APILibrary.ProPublica.Members.ListMembers.Member member)
-        {
-            id = member.id;
-            first_name = member.first_name;
-            last_name = member.last_name;
-            party = member.party;
-            title = member.title;
-            missed_votes_pct = member.missed_votes_pct;
-            votes_with_party_pct = member.votes_with_party_pct;
-        }
-        public MemberViewModel(APILibrary.ProPublica.Members.Member.Result member, List<APILibrary.ProPublica.Members.MemberVotes.Vote> memberVotes, List<APILibrary.ProPublica.Members.MemberBills.Bill> memberBills, List<APILibrary.ProPublica.Members.MemberBills.Bill> memberCosponsoredBills)
-        {
-            id = member.member_id;
-            first_name = member.first_name;
-            middle_name = member.middle_name;
-            last_name = member.last_name;
-            suffix = member.suffix;
-            party = member.current_party;
-            twitter_account = member.twitter_account;
-            facebook_account = member.facebook_account;
-            youtube_account = member.youtube_account;
-            rss_url = member.rss_url;
-            most_recent_vote = member.most_recent_vote;
-            date_of_birth = member.date_of_birth;
-            gender = member.gender;
-            roles = member.roles.Select(r => new RoleViewModel(r)).ToList();
-            votes = memberVotes.Select(v => new VoteViewModel(v)).ToList();
-            bills = memberBills.Select(b => new BillViewModel(b)).ToList();
-            cosponsoredBills = memberCosponsoredBills.Select(cb => new BillViewModel(cb)).ToList();
-        }
+        //public MemberViewModel(APILibrary.ProPublica.Members.ListMembers.Member member)
+        //{
+        //    id = member.id;
+        //    first_name = member.first_name;
+        //    last_name = member.last_name;
+        //    party = member.party;
+        //    title = member.title;
+        //    missed_votes_pct = member.missed_votes_pct;
+        //    votes_with_party_pct = member.votes_with_party_pct;
+        //}
+        //public MemberViewModel(APILibrary.ProPublica.Members.Member.Result member, List<APILibrary.ProPublica.Members.MemberVotes.Vote> memberVotes, List<APILibrary.ProPublica.Members.MemberBills.Bill> memberBills, List<APILibrary.ProPublica.Members.MemberBills.Bill> memberCosponsoredBills)
+        //{
+        //    id = member.member_id;
+        //    first_name = member.first_name;
+        //    middle_name = member.middle_name;
+        //    last_name = member.last_name;
+        //    suffix = member.suffix;
+        //    party = member.current_party;
+        //    twitter_account = member.twitter_account;
+        //    facebook_account = member.facebook_account;
+        //    youtube_account = member.youtube_account;
+        //    rss_url = member.rss_url;
+        //    most_recent_vote = member.most_recent_vote;
+        //    date_of_birth = member.date_of_birth;
+        //    gender = member.gender;
+        //    roles = member.roles.Select(r => new RoleViewModel(r)).ToList();
+        //    votes = memberVotes.Select(v => new VoteViewModel(v)).ToList();
+        //    bills = memberBills.Select(b => new BillViewModel(b)).ToList();
+        //    cosponsoredBills = memberCosponsoredBills.Select(cb => new BillViewModel(cb)).ToList();
+        //}
     }
 }
