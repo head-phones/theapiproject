@@ -1,0 +1,16 @@
+﻿
+
+<div id="ph_vote_list" class="d-none">
+    <span id="lbl_heading" class="h2 font-weight-light"></span>
+    <div class="spinner-border text-dark" role="status">
+        <span class="sr-only">Loading...</span>
+    </div>
+</div>
+
+<div id="div_vote_list"></div>
+
+@Html.Hidden("chamber", ViewData["chamber"].ToString(), new { @class = "chamber" })
+
+@section Scripts{
+    <script src="~/js/Votes/Index.cshtml.js" asp-append-version="true"></script>
+}
