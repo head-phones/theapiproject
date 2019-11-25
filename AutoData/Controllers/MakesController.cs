@@ -3,12 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoData.Models;
+using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AutoData.Controllers
 {
     public class MakesController : BaseController
     {
+        public MakesController(IMapper mapper) : base(mapper) { }
+
         public IActionResult Index()
         {
             return View();
@@ -17,9 +20,8 @@ namespace AutoData.Controllers
         public IActionResult List()
         {
             var response = client.Get<APILibrary.Vehicle.AllMakes.Response>($"vehicle/GetAllMakes");
-            var model = new List<MakeViewModel>();
             var makes = response.Results;
-            model = makes?.Select(m => new MakeViewModel(m)).ToList();
+            var model = _mapper.Map<List<MakeViewModel>>(makes);
             return PartialView("_List", model);
         }
     }

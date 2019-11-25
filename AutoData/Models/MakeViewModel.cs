@@ -7,13 +7,7 @@ namespace AutoData.Models
 {
     public class MakeViewModel
     {
-        public int MakeID { get; set; }
-        public string MakeName { get; set; }
-
-        public MakeViewModel(APILibrary.Vehicle.AllMakes.Result make)
-        {
-            MakeID = make.Make_ID;
-            MakeName = make.Make_Name;
-        }
+        public int Make_ID { get; set; }
+        public string Make_Name { get; set; }
     }
 }
