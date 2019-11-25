@@ -187,10 +187,12 @@
     <Compile Include="Utilities\APIClient.cs" />
     <Compile Include="Vehicle\AllMakes\Result.cs" />
     <Compile Include="Vehicle\AllMakes\Reponse.cs" />
-    <Compile Include="Vehicle\MakesByVehicleTypeName\Reponse.cs" />
-    <Compile Include="Vehicle\MakesByVehicleTypeName\Result.cs" />
-    <Compile Include="Vehicle\ModelsByMakeName\Response.cs" />
-    <Compile Include="Vehicle\ModelsByMakeName\Result.cs" />
+    <Compile Include="Vehicle\MakesByVehicleType\Reponse.cs" />
+    <Compile Include="Vehicle\MakesByVehicleType\Result.cs" />
+    <Compile Include="Vehicle\ModelsByMake\Response.cs" />
+    <Compile Include="Vehicle\ModelsByMake\Result.cs" />
+    <Compile Include="Vehicle\VehicleTypesByMake\Response.cs" />
+    <Compile Include="Vehicle\VehicleTypesByMake\Result.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

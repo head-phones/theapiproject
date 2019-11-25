@@ -10,7 +10,7 @@ namespace APIWeb.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class VehicleController : Controller
+    public class VehicleController : ControllerBase
     {
         private string Endpoint = ConfigurationManager.GetConfiguration("VehicleEndpoint");
         private string Token = "";
@@ -20,33 +20,98 @@ namespace APIWeb.Controllers
         public ActionResult<APILibrary.Vehicle.AllMakes.Response> GetAllMakes()
         {
             var client = new APIClient(Endpoint, Token);
-
-            var function = $"vehicles/GetAllMakes?format=json";
-            var response = client.Get<APILibrary.Vehicle.AllMakes.Response>(function);
-
-            return response;
+            try
+            {
+                var function = $"vehicles/GetAllMakes?format=json";
+                var response = client.Get<APILibrary.Vehicle.AllMakes.Response>(function);
+                return Ok(response);
+            }
+            catch(Exception ex)
+            {
+                return StatusCode(500, ex);
+            }
         }
 
         [HttpGet("GetModelsByMakeName/{make}")]
-        public ActionResult<APILibrary.Vehicle.ModelsByMakeName.Response> GetModelsByMakeName(string make)
+        public ActionResult<APILibrary.Vehicle.ModelsByMake.Response> GetModelsByMakeName(string make)
         {
             var client = new APIClient(Endpoint, Token);
+            try
+            {
+                var function = $"vehicles/GetModelsForMake/{make}?format=json";
+                var response = client.Get<APILibrary.Vehicle.ModelsByMake.Response>(function);
+                return Ok(response);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex);
+            }
+        }
 
-            var function = $"vehicles/GetModelsForMake/{make}?format=json";
-            var response = client.Get<APILibrary.Vehicle.ModelsByMakeName.Response>(function);
+        [HttpGet("GetModelsByMakeID/{ID}")]
+        public ActionResult<APILibrary.Vehicle.ModelsByMake.Response> GetModelsByMakeID(string ID)
+        {
+            var client = new APIClient(Endpoint, Token);
+            try
+            {
+                var function = $"vehicles/GetModelsForMakeId/{ID}?format=json";
+                var response = client.Get<APILibrary.Vehicle.ModelsByMake.Response>(function);
+                return Ok(response);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex);
+            }
+        }
 
-            return response;
+        [HttpGet("GetVehicleTypesByMakeName/{make}")]
+        public ActionResult<APILibrary.Vehicle.VehicleTypesByMake.Response> GetVehicleTypesByMakeName(string make)
+        {
+            var client = new APIClient(Endpoint, Token);
+            try
+            {
+                var function = $"vehicles/GetVehicleTypesForMake/{make}?format=json";
+                var response = client.Get<APILibrary.Vehicle.VehicleTypesByMake.Response>(function);
+                return Ok(response);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex);
+            }
+        }
+
+        [HttpGet("GetVehicleTypesByMakeID/{ID}")]
+        public ActionResult<APILibrary.Vehicle.VehicleTypesByMake.Response> GetVehicleTypesByMakeID(string ID)
+        {
+            var client = new APIClient(Endpoint, Token);
+            try
+            {
+
+
+                var function = $"vehicles/GetVehicleTypesForMakeId/{ID}?format=json";
+                var response = client.Get<APILibrary.Vehicle.VehicleTypesByMake.Response>(function);
+                return Ok(response);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex);
+            }
         }
 
         [HttpGet("GetMakesByVehicleTypeName/{vehicletype}")]
-        public ActionResult<APILibrary.Vehicle.MakesByVehicleTypeName.Response> GetMakesByVehicleTypeName(string vehicletype)
+        public ActionResult<APILibrary.Vehicle.MakesByVehicleType.Response> GetMakesByVehicleTypeName(string vehicletype)
         {
             var client = new APIClient(Endpoint, Token);
-
-            var function = $"vehicles/GetMakesForVehicleType/{vehicletype}?format=json";
-            var response = client.Get<APILibrary.Vehicle.MakesByVehicleTypeName.Response>(function);
-
-            return response;
+            try
+            {
+                var function = $"vehicles/GetMakesForVehicleType/{vehicletype}?format=json";
+                var response = client.Get<APILibrary.Vehicle.MakesByVehicleType.Response>(function);
+                return Ok(response);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex);
+            }
         }
     }
 }
