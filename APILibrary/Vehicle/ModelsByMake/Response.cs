@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace APILibrary.Vehicle.MakesByVehicleTypeName
+namespace APILibrary.Vehicle.ModelsByMake
 {
     public class Response
     {
