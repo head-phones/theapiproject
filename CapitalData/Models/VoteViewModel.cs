@@ -13,7 +13,7 @@ namespace CapitalData.Models
         public string session { get; set; }
         public string roll_call { get; set; }
         public string vote_uri { get; set; }
-        public BillViewModel bill { get; set; }
+        //public BillViewModel bill { get; set; }
         public string description { get; set; }
         public string question { get; set; }
         public string result { get; set; }
@@ -21,22 +21,22 @@ namespace CapitalData.Models
         public string time { get; set; }
         public TotalViewModel total { get; set; }
         public string position { get; set; }
-        public VoteViewModel(APILibrary.ProPublica.Members.MemberVotes.Vote vote)
-        {
-            member_id = vote.member_id;
-            chamber = vote.chamber;
-            congress = vote.congress;
-            session = vote.session;
-            roll_call = vote.roll_call;
-            vote_uri = vote.vote_uri;
-            bill = new BillViewModel(vote.bill);
-            description = vote.description;
-            question = vote.question;
-            result = vote.result;
-            date = vote.date;
-            time = vote.time;
-            total = new TotalViewModel(vote.total);
-            position = vote.position;
-        }
+        //public VoteViewModel(APILibrary.ProPublica.Members.MemberVotes.Vote vote)
+        //{
+        //    member_id = vote.member_id;
+        //    chamber = vote.chamber;
+        //    congress = vote.congress;
+        //    session = vote.session;
+        //    roll_call = vote.roll_call;
+        //    vote_uri = vote.vote_uri;
+        //    bill = new BillViewModel(vote.bill);
+        //    description = vote.description;
+        //    question = vote.question;
+        //    result = vote.result;
+        //    date = vote.date;
+        //    time = vote.time;
+        //    total = new TotalViewModel(vote.total);
+        //    position = vote.position;
+        //}
     }
 }

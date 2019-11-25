@@ -11,12 +11,12 @@ namespace CapitalData.Models
         public int no { get; set; }
         public int present { get; set; }
         public int not_voting { get; set; }
-        public TotalViewModel(APILibrary.ProPublica.Members.MemberVotes.Total total)
-        {
-            yes = total.yes;
-            no = total.no;
-            present = total.present;
-            not_voting = total.not_voting;
-        }
+        //public TotalViewModel(APILibrary.ProPublica.Members.MemberVotes.Total total)
+        //{
+        //    yes = total.yes;
+        //    no = total.no;
+        //    present = total.present;
+        //    not_voting = total.not_voting;
+        //}
     }
 }

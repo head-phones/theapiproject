@@ -1,0 +1,293 @@
+﻿@model BillViewModel
+@{
+    ViewData["Title"] = "Details";
+}
+<h2 class="font-weight-light">
+    @Model.short_title
+</h2>
+<span class="badge badge-primary">
+    @Model.bill
+</span>
+<p class="lead">
+    @Model.title
+</p>
+<p>
+    @Model.summary
+</p>
+
+
+<div class="my-3 p-3 bg-white rounded shadow-sm">
+    <h6 class="border-bottom border-gray pb-2 mb-0">
+        <span data-feather="edit-3"></span>
+        Versions
+    </h6>
+    @if (Model.versions?.Count > 0)
+    {
+        for (int i = 0; i < 3 && i < Model.versions?.Count; i++)
+        {
+            var version = Model.versions[i];
+            <div class="media text-muted pt-3">
+                <div class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
+                    <div class="row">
+                        <div class="col-md-auto text-center">
+                            <span class="h4 font-weight-light">
+                                @version.title
+                            </span>
+                        </div>
+                        <div class="col-md">
+                            <p class="mb-0 font-weight-light lead">
+                                @version.status
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+        if (Model.versions.Count > 3)
+        {
+            <div class="collapse" id="collapseVersions">
+                @for (int i = 3; i < Model.versions.Count; i++)
+                {
+                    var version = Model.versions[i];
+                    <div class="media text-muted pt-3">
+                        <div class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
+                            <div class="row">
+                                <div class="col-md-auto text-center">
+                                    <span class="h4 font-weight-light">
+                                        @version.title
+                                    </span>
+                                </div>
+                                <div class="col-md">
+                                    <p class="mb-0 font-weight-light lead">
+                                        @version.status
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+
+            </div>
+            <div class="row mt-3">
+                <div class="col-md-4 offset-md-4">
+                    <button class="btn btn-sm btn-outline-dark btn-block" type="button" data-toggle="collapse" data-target="#collapseVersions" aria-expanded="false" aria-controls="collapseVersions">
+                        All Versions
+                    </button>
+                </div>
+            </div>
+        }
+    }
+</div>
+
+
+<div class="my-3 p-3 bg-white rounded shadow-sm">
+    <h6 class="border-bottom border-gray pb-2 mb-0">
+        <span data-feather="flag"></span>
+        Actions
+    </h6>
+    @if (Model.actions?.Count > 0)
+    {
+        for (int i = 0; i < 3 && i < Model.actions?.Count; i++)
+        {
+            var action = Model.actions[i];
+            <div class="media text-muted pt-3">
+                <div class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
+                    <div class="row">
+                        <div class="col-md-auto text-center">
+                            <span class="h4 font-weight-light">
+                                @action.action_type
+                            </span>
+                            <br />
+                            <small class="text-muted">
+                                @Convert.ToDateTime(action.datetime).ToShortDateString()
+                            </small>
+                        </div>
+                        <div class="col-md">
+                            <p class="mb-0 font-weight-light lead">
+                                @action.description
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+        if (Model.actions.Count > 3)
+        {
+            <div class="collapse" id="collapseActions">
+                @for (int i = 3; i < Model.actions.Count; i++)
+                {
+                    var action = Model.actions[i];
+                    <div class="media text-muted pt-3">
+                        <div class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
+                            <div class="row">
+                                <div class="col-md-auto text-center">
+                                    <span class="h4 font-weight-light">
+                                        @action.action_type
+                                    </span>
+                                </div>
+                                <div class="col-md">
+                                    <p class="mb-0 font-weight-light lead">
+                                        @action.description
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+
+            </div>
+            <div class="row mt-3">
+                <div class="col-md-4 offset-md-4">
+                    <button class="btn btn-sm btn-outline-dark btn-block" type="button" data-toggle="collapse" data-target="#collapseActions" aria-expanded="false" aria-controls="collapseActions">
+                        All Actions
+                    </button>
+                </div>
+            </div>
+        }
+    }
+</div>
+
+
+<div class="my-3 p-3 bg-white rounded shadow-sm">
+    <h6 class="border-bottom border-gray pb-2 mb-0">
+        <span data-feather="thumbs-up"></span>
+        Votes
+    </h6>
+    @if (Model.votes?.Count > 0)
+    {
+        for (int i = 0; i < 3 && i < Model.votes?.Count; i++)
+        {
+            var vote = Model.votes[i];
+            <div class="media text-muted pt-3">
+                <div class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
+                    <div class="row">
+                        <div class="col-md-auto text-center">
+                            <span class="h4 font-weight-light">
+                                @vote.result
+                            </span>
+                            <br />
+                            <small class="text-muted">
+                                @Convert.ToDateTime(vote.date).ToShortDateString()
+                                @Convert.ToDateTime(vote.time).ToShortTimeString()
+                            </small>
+                        </div>
+                        <div class="col-md">
+                            <p class="mb-0 font-weight-light lead">
+                                @vote.question
+                            </p>
+                            <small>
+                                @vote.description
+                            </small>
+                        </div>
+                    </div>
+                    @if (vote?.total != null)
+                    {
+                        <div class="row">
+                            <div class="col">
+                                <span class="badge badge-success">
+                                    @vote.total?.yes
+                                </span>
+                                Yes
+                            </div>
+                            <div class="col">
+                                <span class="badge badge-success">
+                                    @vote.total?.no
+                                </span>
+                                No
+                            </div>
+                            <div class="col">
+                                <span class="badge badge-success">
+                                    @vote.total?.present
+                                </span>
+                                Present
+                            </div>
+                            <div class="col">
+                                <span class="badge badge-success">
+                                    @vote.total?.not_voting
+                                    Not Voting
+                                </span>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        }
+        if (Model.votes.Count > 3)
+        {
+<div class="collapse" id="collapseVotes">
+    @for (int i = 3; i < Model.votes.Count; i++)
+    {
+        var vote = Model.votes[i];
+        <div class="media text-muted pt-3">
+            <div class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
+                <div class="row">
+                    <div class="col-md-auto text-center">
+                        <span class="h4 font-weight-light">
+                            @vote.result
+                        </span>
+                        <br />
+                        <small class="text-muted">
+                            @Convert.ToDateTime(vote.date).ToShortDateString()
+                            @Convert.ToDateTime(vote.time).ToShortTimeString()
+                        </small>
+                    </div>
+                    <div class="col-md">
+                        <p class="mb-0 font-weight-light lead">
+                            @vote.description
+                        </p>
+                        <small>
+                            @vote.question
+                        </small>
+                    </div>
+                </div>
+                @if (vote?.total != null)
+                {
+                    <div class="row">
+                        <div class="col">
+                            <span class="badge badge-success">
+                                @vote.total?.yes
+                            </span>
+                            Yes
+                        </div>
+                        <div class="col">
+                            <span class="badge badge-success">
+                                @vote.total?.no
+                            </span>
+                            No
+                        </div>
+                        <div class="col">
+                            <span class="badge badge-success">
+                                @vote.total?.present
+                            </span>
+                            Present
+                        </div>
+                        <div class="col">
+                            <span class="badge badge-success">
+                                @vote.total?.not_voting
+                                Not Voting
+                            </span>
+                        </div>
+                    </div>
+                }
+
+            </div>
+        </div>
+    }
+
+</div>
+            <div class="row mt-3">
+                <div class="col-md-4 offset-md-4">
+                    <button class="btn btn-sm btn-outline-dark btn-block" type="button" data-toggle="collapse" data-target="#collapseVotes" aria-expanded="false" aria-controls="collapseVotes">
+                        All Votes
+                    </button>
+                </div>
+            </div>
+        }
+    }
+    else
+    {
+        <div class="alert alert-danger">
+            There have been no votes for this bill.
+        </div>
+    }
+</div>

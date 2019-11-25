@@ -24,25 +24,25 @@ namespace CapitalData.Models
         public int? bills_cosponsored { get; set; }
         public double? missed_votes_pct { get; set; }
         public double? votes_with_party_pct { get; set; }
-        public RoleViewModel(APILibrary.ProPublica.Members.Member.Role role)
-        {
-            congress = role.congress;
-            chamber = role.chamber;
-            title = role.title;
-            short_title = role.short_title;
-            state = role.state;
-            party = role.party;
-            leadership_role = role.leadership_role;
-            seniority = role.seniority;
-            district = role.district;
-            start_date = role.start_date;
-            end_date = role.end_date;
-            office = role.office;
-            phone = role.phone;
-            bills_sponsored = role.bills_sponsored;
-            bills_cosponsored = role.bills_cosponsored;
-            missed_votes_pct = role.missed_votes_pct;
-            votes_with_party_pct = role.votes_with_party_pct;
-        }
+        //public RoleViewModel(APILibrary.ProPublica.Members.Member.Role role)
+        //{
+        //    congress = role.congress;
+        //    chamber = role.chamber;
+        //    title = role.title;
+        //    short_title = role.short_title;
+        //    state = role.state;
+        //    party = role.party;
+        //    leadership_role = role.leadership_role;
+        //    seniority = role.seniority;
+        //    district = role.district;
+        //    start_date = role.start_date;
+        //    end_date = role.end_date;
+        //    office = role.office;
+        //    phone = role.phone;
+        //    bills_sponsored = role.bills_sponsored;
+        //    bills_cosponsored = role.bills_cosponsored;
+        //    missed_votes_pct = role.missed_votes_pct;
+        //    votes_with_party_pct = role.votes_with_party_pct;
+        //}
     }
 }

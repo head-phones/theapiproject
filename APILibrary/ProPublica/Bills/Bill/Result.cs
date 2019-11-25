@@ -23,32 +23,32 @@ namespace APILibrary.ProPublica.Bills.Bill
         public string sponsor_uri { get; set; }
         public string sponsor_party { get; set; }
         public string sponsor_state { get; set; }
-        public object gpo_pdf_uri { get; set; }
+        public string gpo_pdf_uri { get; set; }
         public string congressdotgov_url { get; set; }
         public string govtrack_url { get; set; }
         public string introduced_date { get; set; }
-        public bool active { get; set; }
-        public object last_vote { get; set; }
+        public bool? active { get; set; }
+        public string last_vote { get; set; }
         public string house_passage { get; set; }
-        public object senate_passage { get; set; }
-        public object enacted { get; set; }
-        public object vetoed { get; set; }
-        public int cosponsors { get; set; }
+        public string senate_passage { get; set; }
+        public string enacted { get; set; }
+        public string vetoed { get; set; }
+        public int? cosponsors { get; set; }
         public CosponsorsByParty cosponsors_by_party { get; set; }
-        public int withdrawn_cosponsors { get; set; }
+        public int? withdrawn_cosponsors { get; set; }
         public string primary_subject { get; set; }
         public string committees { get; set; }
         public List<string> committee_codes { get; set; }
-        public List<object> subcommittee_codes { get; set; }
+        public List<string> subcommittee_codes { get; set; }
         public string latest_major_action_date { get; set; }
         public string latest_major_action { get; set; }
         public string house_passage_vote { get; set; }
-        public object senate_passage_vote { get; set; }
+        public string senate_passage_vote { get; set; }
         public string summary { get; set; }
         public string summary_short { get; set; }
         public List<Version> versions { get; set; }
         public List<Action> actions { get; set; }
-        public List<object> votes { get; set; }
+        public List<Members.MemberVotes.Vote> votes { get; set; }
     }
 
 }

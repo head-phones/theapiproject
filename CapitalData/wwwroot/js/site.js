@@ -1,2 +1,4 @@
 ﻿
-feather.replace()
+$(function () {
+    feather.replace()
+})
