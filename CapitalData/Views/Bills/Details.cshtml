@@ -77,6 +77,16 @@
             </div>
         }
     }
+    else
+    {
+        <div class="media text-muted pt-3">
+            <div class="media-body pb-3 mb-0 lh-125">
+                <p class="text-danger">
+                    There have been no versions for this bill.
+                </p>
+            </div>
+        </div>
+    }
 </div>
 
 
@@ -144,6 +154,16 @@
                 </div>
             </div>
         }
+    }
+    else
+    {
+        <div class="media text-muted pt-3">
+            <div class="media-body pb-3 mb-0 lh-125">
+                <p class="text-danger">
+                    There have been no actions for this bill.
+                </p>
+            </div>
+        </div>
     }
 </div>
 
@@ -214,67 +234,67 @@
         }
         if (Model.votes.Count > 3)
         {
-<div class="collapse" id="collapseVotes">
-    @for (int i = 3; i < Model.votes.Count; i++)
-    {
-        var vote = Model.votes[i];
-        <div class="media text-muted pt-3">
-            <div class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
-                <div class="row">
-                    <div class="col-md-auto text-center">
-                        <span class="h4 font-weight-light">
-                            @vote.result
-                        </span>
-                        <br />
-                        <small class="text-muted">
-                            @Convert.ToDateTime(vote.date).ToShortDateString()
-                            @Convert.ToDateTime(vote.time).ToShortTimeString()
-                        </small>
-                    </div>
-                    <div class="col-md">
-                        <p class="mb-0 font-weight-light lead">
-                            @vote.description
-                        </p>
-                        <small>
-                            @vote.question
-                        </small>
-                    </div>
-                </div>
-                @if (vote?.total != null)
+            <div class="collapse" id="collapseVotes">
+                @for (int i = 3; i < Model.votes.Count; i++)
                 {
-                    <div class="row">
-                        <div class="col">
-                            <span class="badge badge-success">
-                                @vote.total?.yes
-                            </span>
-                            Yes
-                        </div>
-                        <div class="col">
-                            <span class="badge badge-success">
-                                @vote.total?.no
-                            </span>
-                            No
-                        </div>
-                        <div class="col">
-                            <span class="badge badge-success">
-                                @vote.total?.present
-                            </span>
-                            Present
-                        </div>
-                        <div class="col">
-                            <span class="badge badge-success">
-                                @vote.total?.not_voting
-                                Not Voting
-                            </span>
+                    var vote = Model.votes[i];
+                    <div class="media text-muted pt-3">
+                        <div class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
+                            <div class="row">
+                                <div class="col-md-auto text-center">
+                                    <span class="h4 font-weight-light">
+                                        @vote.result
+                                    </span>
+                                    <br />
+                                    <small class="text-muted">
+                                        @Convert.ToDateTime(vote.date).ToShortDateString()
+                                        @Convert.ToDateTime(vote.time).ToShortTimeString()
+                                    </small>
+                                </div>
+                                <div class="col-md">
+                                    <p class="mb-0 font-weight-light lead">
+                                        @vote.description
+                                    </p>
+                                    <small>
+                                        @vote.question
+                                    </small>
+                                </div>
+                            </div>
+                            @if (vote?.total != null)
+                            {
+                                <div class="row">
+                                    <div class="col">
+                                        <span class="badge badge-success">
+                                            @vote.total?.yes
+                                        </span>
+                                        Yes
+                                    </div>
+                                    <div class="col">
+                                        <span class="badge badge-success">
+                                            @vote.total?.no
+                                        </span>
+                                        No
+                                    </div>
+                                    <div class="col">
+                                        <span class="badge badge-success">
+                                            @vote.total?.present
+                                        </span>
+                                        Present
+                                    </div>
+                                    <div class="col">
+                                        <span class="badge badge-success">
+                                            @vote.total?.not_voting
+                                            Not Voting
+                                        </span>
+                                    </div>
+                                </div>
+                            }
+
                         </div>
                     </div>
                 }
 
             </div>
-        </div>
-    }
-
-</div>
             <div class="row mt-3">
                 <div class="col-md-4 offset-md-4">
                     <button class="btn btn-sm btn-outline-dark btn-block" type="button" data-toggle="collapse" data-target="#collapseVotes" aria-expanded="false" aria-controls="collapseVotes">
@@ -286,8 +306,13 @@
     }
     else
     {
-        <div class="alert alert-danger">
-            There have been no votes for this bill.
+        
+        <div class="media text-muted pt-3">
+            <div class="media-body pb-3 mb-0 lh-125">
+                <p class="text-danger">
+                    There have been no votes for this bill.
+                </p>
+            </div>
         </div>
-    }
-</div>
+                }
+            </div>
