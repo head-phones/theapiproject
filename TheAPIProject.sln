@@ -7,7 +7,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "APILibrary", "APILibrary\AP
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "APIWeb", "APIWeb\APIWeb.csproj", "{D9DEBC8F-7C65-48A1-9D58-16E38A14E895}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CapitalData", "CapitalData\CapitalData.csproj", "{E361CCA8-94A8-4283-9DC1-873FF399C270}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CapitalData", "CapitalData\CapitalData.csproj", "{E361CCA8-94A8-4283-9DC1-873FF399C270}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutoData", "AutoData\AutoData.csproj", "{EC0600F9-8270-471C-A75F-BA8578524C75}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +29,10 @@ Global
 		{E361CCA8-94A8-4283-9DC1-873FF399C270}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E361CCA8-94A8-4283-9DC1-873FF399C270}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E361CCA8-94A8-4283-9DC1-873FF399C270}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EC0600F9-8270-471C-A75F-BA8578524C75}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EC0600F9-8270-471C-A75F-BA8578524C75}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EC0600F9-8270-471C-A75F-BA8578524C75}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EC0600F9-8270-471C-A75F-BA8578524C75}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
