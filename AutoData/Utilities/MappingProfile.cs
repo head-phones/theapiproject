@@ -9,6 +9,7 @@ namespace DomainLayer.Utilities
         {
             CreateMap<APILibrary.Vehicle.AllMakes.Result, MakeViewModel>();
             CreateMap<APILibrary.Vehicle.ModelsByMake.Result, ModelViewModel>();
+            CreateMap<APILibrary.Vehicle.DecodeVIN.Result, DecodeVINViewModel>();
         }
     }
 }

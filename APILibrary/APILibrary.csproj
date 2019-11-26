@@ -187,6 +187,8 @@
     <Compile Include="Utilities\APIClient.cs" />
     <Compile Include="Vehicle\AllMakes\Result.cs" />
     <Compile Include="Vehicle\AllMakes\Reponse.cs" />
+    <Compile Include="Vehicle\DecodeVIN\Reponse.cs" />
+    <Compile Include="Vehicle\DecodeVIN\Result.cs" />
     <Compile Include="Vehicle\MakesByVehicleType\Reponse.cs" />
     <Compile Include="Vehicle\MakesByVehicleType\Result.cs" />
     <Compile Include="Vehicle\ModelsByMake\Response.cs" />
