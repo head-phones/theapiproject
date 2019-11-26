@@ -1,0 +1,55 @@
+﻿@model List<VehicleVariableViewModel>
+@{
+    ViewData["Title"] = "_List";
+}
+
+
+<div class="card">
+    <div class="card-header">
+        <h1 class="model-heading">All Vehicle Makes</h1>
+    </div>
+    <div class="card-body">
+        @if (Model?.Count > 0)
+        {
+            <div class="table-responsive">
+                <table id="tbl_variables" class="table table-hover table-light">
+                    <thead>
+                        <tr>
+                            <th>
+                                #
+                            </th>
+                            <th>
+                                Name
+                            </th>
+                            <th>
+                                Data Type
+                            </th>
+                            <th>
+                                Description
+                            </th>
+                        </tr>
+                    </thead>
+                    @foreach (var variable in Model)
+                    {
+                        <tr class="text-dark">
+                            <td>
+                                @variable.ID
+                            </td>
+                            <td>
+                                @variable.Name
+                            </td>
+                            <td>
+                                @variable.DataType
+                            </td>
+                            <td>
+                                @variable.Description
+                            </td>
+                        </tr>
+                    }
+                </table>
+            </div>
+
+        }
+    </div>
+</div>
+
