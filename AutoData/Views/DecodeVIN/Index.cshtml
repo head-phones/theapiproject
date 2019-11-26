@@ -1,0 +1,51 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="card">
+    <div class="card-header">
+        Enter Vehicle Identification Number (VIN) and Model Year
+    </div>
+    <div class="card-body">
+        <div class="form-group">
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <label for="txtVIN" class="text-light">VIN</label>
+                        </div>
+                        <div class="col-md-12">
+                            <input id="txtVIN" type="text" />
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <label for="txtYear" class="text-light">Year</label>
+                        </div>
+                        <div class="col-md-12">
+                            <input id="txtYear" type="number" max="4" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card-footer">
+        <div class="row">
+            <div class="col-md-3">
+                <div class="pull-right">
+                    <button type="submit" class="btn btn-success pull-right" onclick="List()">Submit</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="div_results_list"></div>
+
+@section Scripts{
+    <script src="~/js/DecodeVIN/Index.cshtml.js"></script>
+}
+

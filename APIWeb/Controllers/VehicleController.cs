@@ -113,5 +113,38 @@ namespace APIWeb.Controllers
                 return StatusCode(500, ex);
             }
         }
+
+        [HttpGet("DecodeVIN/{vin}/{year}")]
+        public ActionResult<APILibrary.Vehicle.DecodeVIN.Response> DecodeVIN(string vin, string year)
+        {
+            var client = new APIClient(Endpoint, Token);
+            try
+            {
+                var function = $"vehicles/DecodeVin/{vin}?&modelyear={year}&format=json";
+                var response = client.Get<APILibrary.Vehicle.DecodeVIN.Response>(function);
+                return Ok(response);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex);
+            }
+        }
+
+        [HttpGet]
+        [Route("GetAllVehicleVariables")]
+        public ActionResult<APILibrary.Vehicle.AllVehicleVariables.Response> GetAllVehicleVariables()
+        {
+            var client = new APIClient(Endpoint, Token);
+            try
+            {
+                var function = $"vehicles/GetVehicleVariableList?format=json";
+                var response = client.Get<APILibrary.Vehicle.AllVehicleVariables.Response>(function);
+                return Ok(response);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex);
+            }
+        }
     }
 }
