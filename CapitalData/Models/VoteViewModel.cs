@@ -24,6 +24,7 @@ namespace CapitalData.Models
         public DemocraticViewModel democratic { get; set; }
         public RepublicanViewModel republican { get; set; }
         public IndependentViewModel independent { get; set; }
+        public List<PositionViewModel> positions { get; set; }
         public string position { get; set; }
         //public VoteViewModel(APILibrary.ProPublica.Members.MemberVotes.Vote vote)
         //{

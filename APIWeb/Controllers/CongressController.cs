@@ -531,5 +531,20 @@ namespace APIWeb.Controllers
                 return StatusCode(500, ex);
             }
         }
+        [HttpGet]
+        [Route("{congress}/{chamber}/sessions/{sessionNumber}/votes/{rollCallNumber}")]
+        public async Task<ActionResult<APILibrary.ProPublica.Votes.RollCallVote.Response>> GetRoleCallVote(string congress, string chamber, string sessionNumber, string rollCallNumber)
+        {
+            var client = new APIClient(Endpoint, Token);
+            try
+            {
+                var response = await client.GetAsync<APILibrary.ProPublica.Votes.RollCallVote.Response>($"{congress}/{chamber}/sessions/{sessionNumber}/votes/{rollCallNumber}.json");
+                return Ok(response);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex);
+            }
+        }
     }
 }

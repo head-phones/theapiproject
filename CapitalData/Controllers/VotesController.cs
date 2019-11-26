@@ -25,5 +25,12 @@ namespace CapitalData.Controllers
             var model = _mapper.Map<List<VoteViewModel>>(votes);
             return PartialView("_List", model);
         }
+        public IActionResult Details(string congress, string chamber, int sessionNumber, int rollCallNumber)
+        {
+            var response = client.Get<APILibrary.ProPublica.Votes.RollCallVote.Response>($"congress/{congress}/{chamber}/sessions/{sessionNumber}/votes/{rollCallNumber}");
+            var vote = response.results.votes.vote;
+            var model = _mapper.Map<VoteViewModel>(vote);
+            return View(model);
+        }
     }
 }

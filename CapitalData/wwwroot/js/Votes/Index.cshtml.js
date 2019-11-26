@@ -12,7 +12,8 @@ function List(chamber) {
         $('#div_vote_list').html(data)
         $('#ph_vote_list').addClass('d-none')
         $('#tbl_votes').DataTable({
-            "pageLength": 25
+            "pageLength": 25,
+            order: [[1, 'desc']]
         });
     })
 }

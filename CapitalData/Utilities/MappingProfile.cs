@@ -39,6 +39,15 @@ namespace DomainLayer.Utilities
             CreateMap<APILibrary.ProPublica.Votes.RecentVotes.Vote, VoteViewModel>();
             CreateMap<APILibrary.ProPublica.Votes.RecentVotes.Total, TotalViewModel>();
 
+
+            CreateMap<APILibrary.ProPublica.Votes.RollCallVote.Vote, VoteViewModel>();
+            CreateMap<APILibrary.ProPublica.Votes.RollCallVote.Position, PositionViewModel>();
+            CreateMap<APILibrary.ProPublica.Votes.RollCallVote.Bill, BillViewModel>();
+            CreateMap<APILibrary.ProPublica.Votes.RollCallVote.Democratic, DemocraticViewModel>();
+            CreateMap<APILibrary.ProPublica.Votes.RollCallVote.Republican, RepublicanViewModel>();
+            CreateMap<APILibrary.ProPublica.Votes.RollCallVote.Independent, IndependentViewModel>();
+            CreateMap<APILibrary.ProPublica.Votes.RollCallVote.Total, TotalViewModel>();
+
         }
     }
 }

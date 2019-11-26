@@ -41,30 +41,33 @@
 @if (Model?.Count > 0)
     {
     <div class="table-responsive">
-        <table id="tbl_votes" class="table table-striped table-sm">
-            <thead>
+        <table id="tbl_votes" class="table table-hover table-sm">
+            <thead class="thead-dark">
                 <tr>
+                    <th>Result</th>
                     <th>Date</th>
-                    <th>Description</th>
-                    <th>Question</th>
-                    <th>Position</th>
+                    <th>Details</th>
                 </tr>
             </thead>
             <tbody>
                 @foreach (var vote in Model)
                 {  
                 <tr>
-                    <td>
-                        @vote.member_id
-                        @Convert.ToDateTime(vote.date).ToShortDateString() @Convert.ToDateTime(vote.time).ToShortTimeString()
+                    <td class="w-auto">
+                        <a class="lead text-decoration-none" href="/Votes/Details?congress=@vote.congress&chamber=@vote.chamber&sessionNumber=@vote.session&rollCallNumber=@vote.roll_call">
+                            @vote.result
+                        </a>
                     </td>
                     <td>
+                        @Convert.ToDateTime(vote.date).ToShortDateString()
+                    </td>
+                    <td>
+                        <strong>
+                            @vote.question
+                        </strong>
+                        <br />
                         @vote.description
                     </td>
-                    <td>
-                        @vote.question
-                    </td>
-                    <td>@vote.position</td>
                 </tr>
                 }
             </tbody>

@@ -1,0 +1,97 @@
+﻿@model VoteViewModel
+@{
+    ViewData["Title"] = "Vote";
+    var bill_id = Model?.bill != null && Model.bill?.bill_id != null ? Model.bill.bill_id.Replace($"-{Model.congress}", string.Empty) : "";
+}
+
+<h2 class="font-weight-light">
+    @Model.question
+</h2>
+<p class="lead">
+    @Model.description
+</p>
+
+@if (!string.IsNullOrEmpty(bill_id))
+{
+    <div class="list-group list-group-flush mb-3">
+        <a href="/Bills/Details?id=@bill_id&congress=@Model.congress" class="list-group-item list-group-item-action">
+            <div class="media-body pb-3 mb-0 lh-125">
+                <div class="row">
+                    <div class="col-md-auto text-center">
+                        <strong class="text-gray-dark h3 mb-2 font-weight-light">
+                            @bill_id
+                        </strong>
+
+                    </div>
+                    <div class="col-md">
+                        <strong class="text-gray-dark mb-2 lead font-weight-light">@Model.bill.title</strong>
+                    </div>
+                </div>
+            </div>
+        </a>
+    </div>
+}
+
+<h4 class="font-weight-light">
+    Positions
+</h4>
+<div>
+    <div class="table-responsive">
+        @if (Model.positions.Count > 0)
+        {
+            <table class="table table-sm table-hover" id="tbl_positions">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>
+                            Name
+                        </th>
+                        <th>
+                            Position
+                        </th>
+                        <th>
+                            State
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var position in Model.positions)
+                    {
+                        <tr>
+                            <td>
+                                <a href="/Members/Details/@position.member_id">
+                                    (@position.party) @position.name
+                                </a>
+                            </td>
+                            <td>
+                                <span class="@GetYesNoColor(position.vote_position)">
+                                    @position.vote_position
+                                </span>
+                            </td>
+                            <td>
+                                @position.state
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+    </div>
+</div>
+
+@section Scripts{
+    <script src="~/js/Votes/Details.cshtml.js"></script>
+}
+
+@functions{
+    string GetYesNoColor(string yesNo)
+    {
+        switch (yesNo.ToLower())
+        {
+            case "yes":
+                return "text-success";
+            case "no":
+                return "text-danger";
+        }
+        return string.Empty;
+    }
+}

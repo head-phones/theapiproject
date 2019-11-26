@@ -1,5 +1,5 @@
 ﻿@model MemberViewModel
-@{ 
+@{
     var currentRole = Model.roles.FirstOrDefault();
 }
 <link rel="stylesheet" href="~/css/profile.css" />
@@ -76,126 +76,118 @@
         }
     </div>
 </div>
-<div class="my-3 p-3 bg-white rounded shadow-sm">
-    <h6 class="border-bottom border-gray pb-2 mb-0">
+<div class="my-3">
+    <h5 class="mb-3 p-2">
         <span data-feather="calendar"></span>
         Terms
-    </h6>
+    </h5>
     @if (Model.roles?.Count > 0)
     {
-        for (int i = 0; i < 3 && i < Model.roles?.Count; i++)
-        {
-            var role = Model.roles[i];
-            <div class="media text-muted pt-3">
-                <div class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
-                    <div class="row">
-                        <div class="col-md-auto text-center">
-                            <span class="h3 font-weight-light">
-                                @role.congress@GetOrdinalSuffix(Convert.ToInt32(role.congress))
+<div>
+    <table id="tbl_terms" class="table table-sm">
+        <thead class="thead-dark">
+            <tr>
+                <th class="d-none">
+                    Congress
+                </th>
+                <th>
+                    Congress
+                </th>
+                <th>
+                    Term
+                </th>
+                <th>
+                    Sponsored
+                </th>
+                <th>
+                    Co-sponsored
+                </th>
+                <th>
+                    Missed Votes
+                </th>
+                <th>
+                    Votes With Party
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @for (int i = 0; i < Model.roles?.Count; i++)
+            {
+                var role = Model.roles[i];
+                <tr>
+                    <td class="d-none">
+                        @role.congress
+                    </td>
+                    <td>
+                        <span class="h3 font-weight-light">
+                            @role.congress@GetOrdinalSuffix(Convert.ToInt32(role.congress))
+                        </span>
+                    </td>
+                    <td>
+                        @Convert.ToDateTime(role.start_date).Year to
+                        @Convert.ToDateTime(role.end_date).Year
+                    </td>
+                    <td>
+                        @if (role.bills_sponsored != null)
+                        {
+                            <span class="badge badge-@GetPartyColor()">
+                                @role.bills_sponsored
                             </span>
-                            <br />
-                            <small class="font-weight-light">
-                                @Convert.ToDateTime(role.start_date).Year to
-                                @Convert.ToDateTime(role.end_date).Year
-                            </small>
-                        </div>
-                        <div class="col-md">
-                            <strong class="text-gray-dark mb-2 lead font-weight-light">@role.title</strong>
-                            <div class="row h6 font-weight-light">
-                                <div class="col-sm col-12">
-                                    <span class="badge badge-@GetPartyColor()">
-                                        @role.bills_sponsored
-                                    </span>
-                                    Bills Sponsored
-                                </div>
-                                <div class="col-sm col-12">
-                                    <span class="badge badge-info">
-                                        @role.bills_cosponsored
-                                    </span>
-                                    Bills Cosponsored
-                                </div>
-                                <div class="col-sm col-12">
-                                    <span class="badge badge-warning">
-                                        @role.missed_votes_pct%
-                                    </span>
-                                    Missed Votes
-                                </div>
-                                <div class="col-sm col-12">
-                                    <span class="badge badge-success">
-                                        @role.votes_with_party_pct%
-                                    </span>
-                                    Votes With Party
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        }
-        if (Model.roles.Count > 3)
-        {
-
-            <div class="collapse" id="collapseTerms">
-                @for (int i = 3; i < Model.roles.Count; i++)
-                {
-                    var role = Model.roles[i];
-                    <div class="media text-muted pt-3">
-                        <div class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
-                            <div class="row">
-                                <div class="col-md-auto text-center">
-                                    <span class="h3 font-weight-light">
-                                        @role.congress@GetOrdinalSuffix(Convert.ToInt32(role.congress))
-                                    </span>
-                                    <br />
-                                    <small class="font-weight-light">
-                                        @Convert.ToDateTime(role.start_date).Year to
-                                        @Convert.ToDateTime(role.end_date).Year
-                                    </small>
-                                </div>
-                                <div class="col-md">
-                                    <strong class="text-gray-dark mb-2 lead font-weight-light">@role.title</strong>
-                                    <div class="row h6 font-weight-light">
-                                        <div class="col-sm col-12">
-                                            <span class="badge badge-@GetPartyColor()">
-                                                @role.bills_sponsored
-                                            </span>
-                                            Bills Sponsored
-
-                                        </div>
-                                        <div class="col-sm col-12">
-                                            <span class="badge badge-info">
-                                                @role.bills_cosponsored
-                                            </span>
-                                            Bills Cosponsored
-                                        </div>
-                                        <div class="col-sm col-12">
-                                            <span class="badge badge-warning">
-                                                @role.missed_votes_pct%
-                                            </span>
-                                            Missed Votes
-                                        </div>
-                                        <div class="col-sm col-12">
-                                            <span class="badge badge-success">
-                                                @role.votes_with_party_pct%
-                                            </span>
-                                            Votes With Party
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                }
-
-            </div>
-            <div class="row mt-3">
-                <div class="col-md-4 offset-md-4">
-                    <button class="btn btn-sm btn-outline-@GetPartyColor() btn-block" type="button" data-toggle="collapse" data-target="#collapseTerms" aria-expanded="false" aria-controls="collapseTerms">
-                        All Terms
-                    </button>
-                </div>
-            </div>
-        }
+                        }
+                        else
+                        {
+                            <span class="text-muted">
+                                N/A
+                            </span>
+                        }
+                    </td>
+                    <td>
+                        @if (role.bills_cosponsored != null)
+                        {
+                            <span class="badge badge-info">
+                                @role.bills_cosponsored
+                            </span>
+                        }
+                        else
+                        {
+                            <span class="text-muted">
+                                N/A
+                            </span>
+                        }
+                    </td>
+                    <td>
+                        @if (role.missed_votes_pct != null)
+                        {
+                            <span class="badge badge-warning">
+                                @role.missed_votes_pct%
+                            </span>
+                        }
+                        else
+                        {
+                            <span class="text-muted">
+                                N/A
+                            </span>
+                        }
+                    </td>
+                    <td>
+                        @if (role.votes_with_party_pct != null)
+                        {
+                            <span class="badge badge-success">
+                                @role.votes_with_party_pct
+                            </span>
+                        }
+                        else
+                        {
+                            <span class="text-muted">
+                                N/A
+                            </span>
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
     }
     else
     {
@@ -208,83 +200,59 @@
         </div>
     }
 </div>
-<div class="my-3 p-3 bg-white rounded shadow-sm">
-    <h6 class="border-bottom border-gray pb-2 mb-0">
+
+
+<div class="my-3">
+    <h5 class="mb-3 p-2">
         <span data-feather="thumbs-up"></span>
         Votes
-    </h6>
+    </h5>
     @if (Model.votes?.Count > 0)
     {
-        for (int i = 0; i < 3 && i < Model.votes.Count; i++)
-        {
-            var vote = Model.votes[i];
-            <div class="media text-muted pt-3">
-                <div class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
-                    <div class="row">
-                        <div class="col-md-auto text-center">
+<div class="table-responsive">
+    <table id="tbl_votes" class="table table-hover table-sm">
+        <thead class="thead-dark">
+            <tr>
+                <th>
+                    Position
+                </th>
+                <th>
+                    Date
+                </th>
+                <th>
+                    Vote
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @for (int i = 0; i < Model.votes.Count; i++)
+            {
+                var vote = Model.votes[i];
+                <tr>
+                    <td class="text-center w-auto">
+                        <a class="text-decoration-none" href="/Votes/Details?congress=@vote.congress&chamber=@vote.chamber&sessionNumber=@vote.session&rollCallNumber=@vote.roll_call">
                             <span class="h3 font-weight-light @GetYesNoColor(vote.position)">
                                 @vote.position
                             </span>
-                            <br />
-                            <small class="font-weight-light">
-                                @Convert.ToDateTime($"{vote.date} {vote.time}")
-                            </small>
-                        </div>
-                        <div class="col-md">
-                            <span class="lead">
-                                @vote.question
-                            </span>
-                            <br />
-                            @vote.description
-                            <span class="float-right font-italic">
-                                @vote.result
-                            </span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        }
-        if (Model.votes.Count > 3)
-        {
-            <div class="collapse" id="collapseVotes">
-                @for (int i = 3; i < Model.votes.Count; i++)
-                {
-                    var vote = Model.votes[i];
-                    <div class="media text-muted pt-3">
-                        <div class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
-                            <div class="row">
-                                <div class="col-md-auto text-center">
-                                    <span class="h3 font-weight-light @GetYesNoColor(vote.position)">
-                                        @vote.position
-                                    </span>
-                                    <br />
-                                    <small class="font-weight-light">
-                                        @Convert.ToDateTime($"{vote.date} {vote.time}")
-                                    </small>
-                                </div>
-                                <div class="col-md">
-                                    <span class="lead">
-                                        @vote.question
-                                    </span>
-                                    <br />
-                                    @vote.description
-                                    <span class="float-right font-italic">
-                                        @vote.result
-                                    </span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                }
-            </div>
-            <div class="row mt-3">
-                <div class="col-md-4 offset-md-4">
-                    <button class="btn btn-sm btn-outline-@GetPartyColor() btn-block" type="button" data-toggle="collapse" data-target="#collapseVotes" aria-expanded="false" aria-controls="collapseVotes">
-                        All Votes
-                    </button>
-                </div>
-            </div>
-        }
+                        </a>
+                    </td>
+                    <td>
+                        @Convert.ToDateTime(vote.date).ToShortDateString()
+                    </td>
+                    <td>
+                        <strong>
+                            @vote.question:
+                        </strong>
+                        @vote.result
+                        <br />
+                        @vote.description
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+        
     }
     else
     {
@@ -298,82 +266,57 @@
     }
 </div>
 
-<div class="my-3 list-group list-group-flush rounded shadow-sm">
-    <h6 class="list-group-item">
-        <span data-feather="file-text"></span>
-        Bills
-    </h6>
+
+<div class="my-3">
+    <h5 class="mb-3 p-2">
+        <span data-feather="file"></span>
+        Sponsored Bills
+    </h5>
     @if (Model.bills?.Count > 0)
     {
-        for (int i = 0; i < 3 && i < Model.bills.Count; i++)
-        {
-            var bill = Model.bills[i];
-            <a href="/Bills/Details?id=@bill.bill_slug&congress=@bill.congress" class="list-group-item list-group-item-action">
-                <div class="media-body pb-3 mb-0 small lh-125">
-                    <div class="row">
-                        <div class="col-md-auto text-center">
+<div class="table-responsive">
+    <table id="tbl_sponsored_bills" class="table table-sm table-hover">
+        <thead class="thead-dark">
+            <tr>
+                <th>
+                    Bill
+                </th>
+                <th>
+                    Updated
+                </th>
+                <th>
+                    Details
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @for (int i = 0; i < Model.bills.Count; i++)
+            {
+                var bill = Model.bills[i];
+                <tr>
+                    <td class="text-center w-auto">
+                        <a class="text-decoration-none" href="/Bills/Details?id=@bill.bill_slug&congress=@bill.congress">
                             <strong class="text-gray-dark h3 mb-2 font-weight-light">
-                                @bill.bill_slug
+                                @bill.bill_id.Replace($"-{bill.congress}", string.Empty)
                             </strong>
-                            <br />
-                            <small class="text-gray-dark font-weight-light">
-                                @Convert.ToDateTime(bill.latest_major_action_date).ToShortDateString()
-                            </small>
-
-                        </div>
-                        <div class="col-md">
-                            <strong class="text-gray-dark mb-2 lead font-weight-light">@bill.title</strong>
-                            <br />
-                            <small class="text-gray-dark font-weight-light">@bill.summary_short</small>
-                            <br />
-                            <small class="font-weight-light">@bill.latest_major_action</small>
-                        </div>
-                    </div>
-                </div>
-            </a>
-        }
-
-        if (Model.bills.Count > 3)
-        {
-
-            <div class="collapse" id="collapseBills">
-
-                @for (int i = 3; i < Model.bills.Count; i++)
-                {
-                    var bill = Model.bills[i];
-                    <a href="/Bills/Details?id=@bill.bill_slug&congress=@bill.congress" class="list-group-item list-group-item-action">
-                        <div class="media-body pb-3 mb-0 small lh-125">
-                            <div class="row">
-                                <div class="col-md-auto text-center">
-                                    <strong class="text-gray-dark h3 mb-2 font-weight-light">
-                                        @bill.bill_slug
-                                    </strong>
-                                    <br />
-                                    <small class="text-gray-dark font-weight-light">
-                                        @Convert.ToDateTime(bill.latest_major_action_date).ToShortDateString()
-                                    </small>
-                                </div>
-                                <div class="col-md">
-                                    <strong class="text-gray-dark mb-2 lead font-weight-light">@bill.title</strong>
-                                    <br />
-                                    <small class="text-gray-dark font-weight-light">@bill.summary_short</small>
-                                    <br />
-                                    <small class="font-weight-light">@bill.latest_major_action</small>
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-                }
-
-            </div>
-            <div class="row mt-3">
-                <div class="col-md-4 offset-md-4">
-                    <button class="btn btn-sm btn-outline-@GetPartyColor() btn-block" type="button" data-toggle="collapse" data-target="#collapseBills" aria-expanded="false" aria-controls="collapseBills">
-                        All Bills
-                    </button>
-                </div>
-            </div>
-        }
+                        </a>
+                    </td>
+                    <td>
+                        @Convert.ToDateTime(bill.latest_major_action_date).ToShortDateString()
+                    </td>
+                    <td>
+                        <strong>
+                            @bill.latest_major_action
+                        </strong>
+                        <br />
+                        @bill.title
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+        
     }
     else
     {
@@ -386,86 +329,65 @@
         </div>
     }
 </div>
-<div class="my-3 list-group list-group-flush rounded shadow-sm">
-    <h6 class="list-group-item">
+
+<div class="my-3">
+    <h5 class="mb-3 p-2">
         <span data-feather="file-plus"></span>
         Co-sponsored Bills
-    </h6>
+    </h5>
     @if (Model.cosponsoredBills?.Count > 0)
     {
-        for (int i = 0; i < 3 && i < Model.cosponsoredBills.Count; i++)
-        {
-            var bill = Model.cosponsoredBills[i];
-            <a href="/Bills/Details?id=@bill.bill_slug&congress=@bill.congress" class="list-group-item list-group-item-action">
-                <div class="media-body pb-3 mb-0 small lh-125">
-                    <div class="row">
-                        <div class="col-md-auto text-center">
+<div class="table-responsive">
+    <table id="tbl_co_sponsored_bills" class="table table-sm table-hover">
+        <thead class="thead-dark">
+            <tr>
+                <th>
+                    Bill
+                </th>
+                <th>
+                    Updated
+                </th>
+                <th>
+                    Details
+                </th>
+                <th>
+                    Sponsor
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @for (int i = 0; i < Model.cosponsoredBills.Count; i++)
+            {
+                var bill = Model.cosponsoredBills[i];
+                <tr>
+                    <td class="w-auto text-center">
+                        <a class="text-decoration-none" href="/Bills/Details?id=@bill.bill_slug&congress=@bill.congress">
                             <strong class="text-gray-dark h3 mb-2 font-weight-light">
-                                @bill.bill_id
+                                @bill.bill_id.Replace($"-{bill.congress}", string.Empty)
                             </strong>
-                            <br />
-                            <small class="text-gray-dark font-weight-light">
-                                (@bill.sponsor_party) @bill.sponsor
-                            </small>
-                            <br />
-                            <small class="text-gray-dark font-weight-light">
-                                @Convert.ToDateTime(bill.latest_major_action_date).ToShortDateString()
-                            </small>
-
-                        </div>
-                        <div class="col-md">
-                            <strong class="text-gray-dark mb-2 lead font-weight-light">@bill.title</strong>
-                            <br />
-                            <small class="text-gray-dark font-weight-light">@bill.summary_short</small>
-                            <br />
-                            <small class="font-weight-light">@bill.latest_major_action</small>
-                        </div>
-                    </div>
-                </div>
-            </a>
-        }
-        if (Model.cosponsoredBills.Count > 3)
-        {
-
-            <div class="collapse" id="collapseCosponsoredBills">
-
-                @for (int i = 3; i < Model.cosponsoredBills.Count; i++)
-                {
-                    var bill = Model.cosponsoredBills[i];
-                    <a href="/Bills/Details?id=@bill.bill_slug&congress=@bill.congress" class="list-group-item list-group-item-action">
-                        <div class="media-body pb-3 mb-0 small lh-125">
-                            <div class="row">
-                                <div class="col-md-auto text-center">
-                                    <strong class="text-gray-dark h3 mb-2 font-weight-light">
-                                        @bill.bill_id
-                                    </strong>
-                                    <br />
-                                    <small class="text-gray-dark font-weight-light">
-                                        @Convert.ToDateTime(bill.latest_major_action_date).ToShortDateString()
-                                    </small>
-
-                                </div>
-                                <div class="col-md">
-                                    <strong class="text-gray-dark mb-2 lead font-weight-light">@bill.title</strong>
-                                    <br />
-                                    <small class="text-gray-dark font-weight-light">@bill.summary_short</small>
-                                    <br />
-                                    <small class="font-weight-light">@bill.latest_major_action</small>
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-                }
-
-            </div>
-            <div class="row mt-3">
-                <div class="col-md-4 offset-md-4">
-                    <button class="btn btn-sm btn-outline-@GetPartyColor() btn-block" type="button" data-toggle="collapse" data-target="#collapseCosponsoredBills" aria-expanded="false" aria-controls="collapseCosponsoredBills">
-                        All Co-sponsored Bills
-                    </button>
-                </div>
-            </div>
-        }
+                        </a>
+                    </td>
+                    <td>
+                        @Convert.ToDateTime(bill.latest_major_action_date).ToShortDateString()
+                    </td>
+                    <td>
+                        <strong class="text-muted">
+                            @bill.latest_major_action
+                        </strong>
+                        <br />
+                        @bill.title
+                    </td>
+                    <td>
+                        <a href="/Members/Details/@bill.sponsor_id">
+                            (@bill.sponsor_party) @bill.sponsor
+                        </a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+        
     }
     else
     {
@@ -478,7 +400,9 @@
         </div>
     }
 </div>
-
+@section Scripts{
+    <script src="~/js/Members/Details.cshtml.js" asp-append-version="true"></script>
+}
 
 @functions{
     string GetPartyColor()
