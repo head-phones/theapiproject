@@ -3,11 +3,13 @@
     ViewData["Title"] = "Details";
 }
 <h2 class="font-weight-light">
+    <strong>
+        @Model.bill
+    </strong>
+    |
     @Model.short_title
 </h2>
-<span class="badge badge-primary">
-    @Model.bill
-</span>
+
 <p class="lead">
     @Model.title
 </p>
@@ -24,10 +26,11 @@
     </h5>
     @if (Model.votes?.Count > 0)
     {
-        <div class="table-responsive">
+        <div class="table-responsive-md">
             <table id="tbl_votes" class="table table-sm">
                 <thead class="thead-dark">
                     <tr>
+                        <th class="d-none"></th>
                         <th>
                             Result
                         </th>
@@ -43,44 +46,45 @@
                     @for (int i = 0; i < 3 && i < Model.votes?.Count; i++)
                     {
                         var vote = Model.votes[i];
-                        <tr>
-                            <td>
-                                @vote.result
-                            </td>
-                            <td>@Convert.ToDateTime(vote.date).ToShortDateString()</td>
-                            <td>
-                                @vote.question
-                                @if (vote?.total != null)
-                                {
-                                    <div class="row">
-                                        <div class="col">
-                                            <span class="badge badge-success">
-                                                @vote.total?.yes
-                                            </span>
-                                            Yes
-                                        </div>
-                                        <div class="col">
-                                            <span class="badge badge-success">
-                                                @vote.total?.no
-                                            </span>
-                                            No
-                                        </div>
-                                        <div class="col">
-                                            <span class="badge badge-success">
-                                                @vote.total?.present
-                                            </span>
-                                            Present
-                                        </div>
-                                        <div class="col">
-                                            <span class="badge badge-success">
-                                                @vote.total?.not_voting
-                                                Not Voting
-                                            </span>
-                                        </div>
+                    <tr>
+                        <td class="d-none">@i</td>
+                        <td>
+                            @vote.result
+                        </td>
+                        <td>@Convert.ToDateTime(vote.date).ToShortDateString() @Convert.ToDateTime(vote.time).ToShortTimeString()</td>
+                        <td>
+                            @vote.question
+                            @if (vote?.total != null)
+                            {
+                                <div class="row">
+                                    <div class="col">
+                                        <span class="badge badge-success">
+                                            @vote.total?.yes
+                                        </span>
+                                        Yes
                                     </div>
-                                }
-                            </td>
-                        </tr>
+                                    <div class="col">
+                                        <span class="badge badge-success">
+                                            @vote.total?.no
+                                        </span>
+                                        No
+                                    </div>
+                                    <div class="col">
+                                        <span class="badge badge-success">
+                                            @vote.total?.present
+                                        </span>
+                                        Present
+                                    </div>
+                                    <div class="col">
+                                        <span class="badge badge-success">
+                                            @vote.total?.not_voting
+                                            Not Voting
+                                        </span>
+                                    </div>
+                                </div>
+                            }
+                        </td>
+                    </tr>
                     }
 
                 </tbody>
@@ -107,10 +111,11 @@
     </h5>
     @if (Model.versions?.Count > 0)
     {
-        <div class="table-responsive">
+        <div class="table-responsive-md">
             <table id="tbl_versions" class="table table-sm">
                 <thead class="thead-dark">
                     <tr>
+                        <th class="d-none"></th>
                         <th>
                             Title
                         </th>
@@ -124,6 +129,7 @@
                     {
                         var version = Model.versions[i];
                         <tr>
+                            <td class="d-none">@i</td>
                             <td>
                                 @version.title
                             </td>
@@ -156,38 +162,43 @@
     </h5>
     @if (Model.actions?.Count > 0)
     {
-        <table id="tbl_actions" class="table table-sm">
-            <thead class="thead-dark">
+<div class="table-responsive-md">
+    <table id="tbl_actions" class="table table-sm">
+        <thead class="thead-dark">
+            <tr>
+                <th class="d-none"></th>
+                <th>
+                    Type
+                </th>
+                <th>
+                    Date
+                </th>
+                <th>
+                    Description
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @for (int i = 0; i < 3 && i < Model.actions?.Count; i++)
+            {
+                var action = Model.actions[i];
                 <tr>
-                    <th>
-                        Type
-                    </th>
-                    <th>
-                        Date
-                    </th>
-                    <th>
-                        Description
-                    </th>
+                    <td class="d-none">@i</td>
+                    <td>
+                        @action.action_type
+                    </td>
+                    <td>
+                        @Convert.ToDateTime(action.datetime).ToShortDateString()
+                    </td>
+                    <td>
+                        @action.description
+                    </td>
                 </tr>
-            </thead>
-            <tbody>
-                @for (int i = 0; i < 3 && i < Model.actions?.Count; i++)
-                {
-                    var action = Model.actions[i];
-                    <tr>
-                        <td>
-                            @action.action_type
-                        </td>
-                        <td>
-                            @Convert.ToDateTime(action.datetime).ToShortDateString()
-                        </td>
-                        <td>
-                            @action.description
-                        </td>
-                    </tr>
-                }
-            </tbody>
-        </table>
+            }
+        </tbody>
+    </table>
+</div>
+        
     }
     else
     {
@@ -201,5 +212,5 @@
     }
 </div>
 @section Scripts{ 
-<script src="~/js/Bills/Details.cshtml.js"></script>
+<script src="~/js/Bills/Details.cshtml.js" asp-append-version="true"></script>
 }

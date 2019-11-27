@@ -13,7 +13,8 @@ function List(congress, chamber) {
         $('#div_member_list').html(data)
         $('#ph_member_list').addClass('d-none')
         $('#tbl_members').DataTable({
-            "pageLength": 25
+            "pageLength": 25,
+             order: [[1, 'asc']]
         });
     })
 }

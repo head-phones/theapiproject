@@ -53,8 +53,8 @@
                 @foreach (var vote in Model)
                 {  
                 <tr>
-                    <td class="w-auto">
-                        <a class="lead text-decoration-none" href="/Votes/Details?congress=@vote.congress&chamber=@vote.chamber&sessionNumber=@vote.session&rollCallNumber=@vote.roll_call">
+                    <td>
+                        <a href="/Votes/Details?congress=@vote.congress&chamber=@vote.chamber&sessionNumber=@vote.session&rollCallNumber=@vote.roll_call">
                             @vote.result
                         </a>
                     </td>

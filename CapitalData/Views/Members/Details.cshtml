@@ -83,7 +83,7 @@
     </h5>
     @if (Model.roles?.Count > 0)
     {
-<div>
+<div class="table-responsive">
     <table id="tbl_terms" class="table table-sm">
         <thead class="thead-dark">
             <tr>
@@ -97,16 +97,16 @@
                     Term
                 </th>
                 <th>
-                    Sponsored
+                    Votes With Party
                 </th>
                 <th>
-                    Co-sponsored
+                    Sponsored Bills
+                </th>
+                <th>
+                    Co-sponsored Bills
                 </th>
                 <th>
                     Missed Votes
-                </th>
-                <th>
-                    Votes With Party
                 </th>
             </tr>
         </thead>
@@ -114,76 +114,76 @@
             @for (int i = 0; i < Model.roles?.Count; i++)
             {
                 var role = Model.roles[i];
-                <tr>
-                    <td class="d-none">
-                        @role.congress
-                    </td>
-                    <td>
-                        <span class="h3 font-weight-light">
-                            @role.congress@GetOrdinalSuffix(Convert.ToInt32(role.congress))
+            <tr>
+                <td class="d-none">
+                    @role.congress
+                </td>
+                <td>
+                    <span class="h3 font-weight-light">
+                        @role.congress@GetOrdinalSuffix(Convert.ToInt32(role.congress))
+                    </span>
+                </td>
+                <td>
+                    @Convert.ToDateTime(role.start_date).Year to
+                    @Convert.ToDateTime(role.end_date).Year
+                </td>
+                <td>
+                    @if (role.votes_with_party_pct != null)
+                    {
+                        <span class="badge badge-@GetPartyColor() badge-pill">
+                            @role.votes_with_party_pct%
                         </span>
-                    </td>
-                    <td>
-                        @Convert.ToDateTime(role.start_date).Year to
-                        @Convert.ToDateTime(role.end_date).Year
-                    </td>
-                    <td>
-                        @if (role.bills_sponsored != null)
-                        {
-                            <span class="badge badge-@GetPartyColor()">
-                                @role.bills_sponsored
-                            </span>
-                        }
-                        else
-                        {
-                            <span class="text-muted">
-                                N/A
-                            </span>
-                        }
-                    </td>
-                    <td>
-                        @if (role.bills_cosponsored != null)
-                        {
-                            <span class="badge badge-info">
-                                @role.bills_cosponsored
-                            </span>
-                        }
-                        else
-                        {
-                            <span class="text-muted">
-                                N/A
-                            </span>
-                        }
-                    </td>
-                    <td>
-                        @if (role.missed_votes_pct != null)
-                        {
-                            <span class="badge badge-warning">
-                                @role.missed_votes_pct%
-                            </span>
-                        }
-                        else
-                        {
-                            <span class="text-muted">
-                                N/A
-                            </span>
-                        }
-                    </td>
-                    <td>
-                        @if (role.votes_with_party_pct != null)
-                        {
-                            <span class="badge badge-success">
-                                @role.votes_with_party_pct
-                            </span>
-                        }
-                        else
-                        {
-                            <span class="text-muted">
-                                N/A
-                            </span>
-                        }
-                    </td>
-                </tr>
+                    }
+                    else
+                    {
+                        <span class="text-muted">
+                            N/A
+                        </span>
+                    }
+                </td>
+                <td>
+                    @if (role.bills_sponsored != null)
+                    {
+                        <span class="badge badge-success badge-pill">
+                            @role.bills_sponsored
+                        </span>
+                    }
+                    else
+                    {
+                        <span class="text-muted">
+                            N/A
+                        </span>
+                    }
+                </td>
+                <td>
+                    @if (role.bills_cosponsored != null)
+                    {
+                        <span class="badge badge-info badge-pill">
+                            @role.bills_cosponsored
+                        </span>
+                    }
+                    else
+                    {
+                        <span class="text-muted">
+                            N/A
+                        </span>
+                    }
+                </td>
+                <td>
+                    @if (role.missed_votes_pct != null)
+                    {
+                        <span class="badge badge-warning badge-pill">
+                            @role.missed_votes_pct%
+                        </span>
+                    }
+                    else
+                    {
+                        <span class="text-muted">
+                            N/A
+                        </span>
+                    }
+                </td>
+            </tr>
             }
         </tbody>
     </table>
@@ -220,6 +220,9 @@
                     Date
                 </th>
                 <th>
+                    Result
+                </th>
+                <th>
                     Vote
                 </th>
             </tr>
@@ -240,10 +243,12 @@
                         @Convert.ToDateTime(vote.date).ToShortDateString()
                     </td>
                     <td>
-                        <strong>
-                            @vote.question:
-                        </strong>
                         @vote.result
+                    </td>
+                    <td>
+                        <strong>
+                            @vote.question
+                        </strong>
                         <br />
                         @vote.description
                     </td>
