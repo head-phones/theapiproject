@@ -12,7 +12,14 @@ function List(chamber) {
         $('#div_bill_list').html(data)
         $('#ph_bill_list').addClass('d-none')
         $('#tbl_bills').DataTable({
-            "pageLength": 25
+            "pageLength": 25,
+            order: [[1, 'desc']],
+            "columns": [
+                null,
+                { "type": "date" },
+                null,
+                null
+            ]
         });
     })
 }

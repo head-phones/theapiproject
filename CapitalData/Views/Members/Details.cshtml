@@ -87,9 +87,6 @@
     <table id="tbl_terms" class="table table-sm">
         <thead class="thead-dark">
             <tr>
-                <th class="d-none">
-                    Congress
-                </th>
                 <th>
                     Congress
                 </th>
@@ -115,10 +112,7 @@
             {
                 var role = Model.roles[i];
             <tr>
-                <td class="d-none">
-                    @role.congress
-                </td>
-                <td>
+                <td data-sort="@role.congress">
                     <span class="h3 font-weight-light">
                         @role.congress@GetOrdinalSuffix(Convert.ToInt32(role.congress))
                     </span>

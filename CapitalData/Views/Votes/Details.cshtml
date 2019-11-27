@@ -131,7 +131,6 @@
             <table class="table table-sm table-hover" id="tbl_positions">
                 <thead class="thead-dark">
                     <tr>
-                        <th class="d-none"></th>
                         <th>
                             Name
                         </th>
@@ -148,8 +147,7 @@
                     {
                         var position = Model.positions[i];
                         <tr>
-                            <td class="d-none">@i</td>
-                            <td>
+                            <td data-order="@position.name">
                                 <a href="/Members/Details/@position.member_id">
                                     (@position.party) @position.name
                                 </a>

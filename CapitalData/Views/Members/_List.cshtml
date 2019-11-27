@@ -83,7 +83,7 @@
                 @foreach (var member in Model)
     {
                 <tr>
-                    <td>
+                    <td data-order="@member.last_name">
                         <a href="/Members/Details/@member.id">
                             (@member.party) @member.first_name @member.last_name
                         </a>

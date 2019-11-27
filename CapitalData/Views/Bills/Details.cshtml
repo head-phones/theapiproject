@@ -30,7 +30,6 @@
             <table id="tbl_votes" class="table table-sm">
                 <thead class="thead-dark">
                     <tr>
-                        <th class="d-none"></th>
                         <th>
                             Result
                         </th>
@@ -43,11 +42,10 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @for (int i = 0; i < 3 && i < Model.votes?.Count; i++)
+                    @for (int i = 0; i < Model.votes?.Count; i++)
                     {
                         var vote = Model.votes[i];
                     <tr>
-                        <td class="d-none">@i</td>
                         <td>
                             @vote.result
                         </td>
@@ -166,7 +164,6 @@
     <table id="tbl_actions" class="table table-sm">
         <thead class="thead-dark">
             <tr>
-                <th class="d-none"></th>
                 <th>
                     Type
                 </th>
@@ -179,11 +176,10 @@
             </tr>
         </thead>
         <tbody>
-            @for (int i = 0; i < 3 && i < Model.actions?.Count; i++)
+            @for (int i = 0; i < Model.actions?.Count; i++)
             {
                 var action = Model.actions[i];
                 <tr>
-                    <td class="d-none">@i</td>
                     <td>
                         @action.action_type
                     </td>
