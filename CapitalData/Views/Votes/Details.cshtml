@@ -4,11 +4,11 @@
     var bill_id = Model?.bill != null && Model.bill?.bill_id != null ? Model.bill.bill_id.Replace($"-{Model.congress}", string.Empty) : "";
 }
 
-    <h2 class="font-weight-light">
-        <strong>
-            @Model.question:
-        </strong> @Model.result
-    </h2>
+<h2 class="font-weight-light">
+    <strong>
+        @Model.question:
+    </strong> @Model.result
+</h2>
 <p class="lead">
     @Model.description
 </p>
@@ -37,89 +37,99 @@
 <h4 class="font-weight-light">
     Voting Breakdown
 </h4>
-<table id="tbl_vote_totals" class="table table-sm">
-    <thead class="thead-dark">
-        <tr>
-            <th>
-                Party
-            </th>
-            <th>
-                Yes
-            </th>
-            <th>
-                No
-            </th>
-            <th>
-                Present
-            </th>
-            <th>
-                Not Voting
-            </th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td>Republican</td>
-            <td>
-                @Model.republican.yes
-            </td>
-            <td>
-                @Model.republican.no
-            </td>
-            <td>
-                @Model.republican.present
-            </td>
-            <td>
-                @Model.republican.not_voting
-            </td>
-        </tr>
-        <tr>
-            <td>Democratic</td>
-            <td>
-                @Model.democratic.yes
-            </td>
-            <td>
-                @Model.democratic.no
-            </td>
-            <td>
-                @Model.democratic.present
-            </td>
-            <td>
-                @Model.democratic.not_voting
-            </td>
-        </tr>
-        <tr>
-            <td>Independent</td>
-            <td>
-                @Model.independent.yes
-            </td>
-            <td>
-                @Model.independent.no
-            </td>
-            <td>
-                @Model.independent.present
-            </td>
-            <td>
-                @Model.independent.not_voting
-            </td>
-        </tr>
-        <tr class="font-weight-bold bg-light">
-            <td>Total</td>
-            <td>
-                @Model.total.yes
-            </td>
-            <td>
-                @Model.total.no
-            </td>
-            <td>
-                @Model.total.present
-            </td>
-            <td>
-                @Model.total.not_voting
-            </td>
-        </tr>
-    </tbody>
-</table>
+<div class="row">
+    <div class="col-md-4">
+        <div class="chart-bar">
+            <canvas id="votesBarChart"></canvas>
+        </div>
+    </div>
+    <div class="col-md-8">
+        <table id="tbl_vote_totals" class="table table-sm">
+            <thead class="thead-light">
+                <tr>
+                    <th>
+                        Party
+                    </th>
+                    <th>
+                        Yes
+                    </th>
+                    <th>
+                        No
+                    </th>
+                    <th>
+                        Present
+                    </th>
+                    <th>
+                        Not Voting
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Republican</td>
+                    <td>
+                        @Model.republican.yes
+                    </td>
+                    <td>
+                        @Model.republican.no
+                    </td>
+                    <td>
+                        @Model.republican.present
+                    </td>
+                    <td>
+                        @Model.republican.not_voting
+                    </td>
+                </tr>
+                <tr>
+                    <td>Democratic</td>
+                    <td>
+                        @Model.democratic.yes
+                    </td>
+                    <td>
+                        @Model.democratic.no
+                    </td>
+                    <td>
+                        @Model.democratic.present
+                    </td>
+                    <td>
+                        @Model.democratic.not_voting
+                    </td>
+                </tr>
+                <tr>
+                    <td>Independent</td>
+                    <td>
+                        @Model.independent.yes
+                    </td>
+                    <td>
+                        @Model.independent.no
+                    </td>
+                    <td>
+                        @Model.independent.present
+                    </td>
+                    <td>
+                        @Model.independent.not_voting
+                    </td>
+                </tr>
+                <tr class="font-weight-bold bg-light">
+                    <td>Total</td>
+                    <td>
+                        @Model.total.yes
+                    </td>
+                    <td>
+                        @Model.total.no
+                    </td>
+                    <td>
+                        @Model.total.present
+                    </td>
+                    <td>
+                        @Model.total.not_voting
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
 
 <h4 class="font-weight-light">
     Positions
@@ -167,10 +177,13 @@
         }
     </div>
 </div>
-
-
 @section Scripts{
     <script src="~/js/Votes/Details.cshtml.js" asp-append-version="true"></script>
+    <script>
+        VotesDetailsModule.init({
+            votes: JSON.parse('@Html.Raw(Model.VoteCountJSON)')
+        });
+    </script>
 }
 
 @functions{

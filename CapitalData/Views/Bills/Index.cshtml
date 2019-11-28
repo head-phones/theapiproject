@@ -9,8 +9,11 @@
 
 <div id="div_bill_list"></div>
 
-@Html.Hidden("chamber", ViewData["chamber"].ToString(), new { @class = "chamber" })
-
 @section Scripts{
     <script src="~/js/Bills/Index.cshtml.js" asp-append-version="true"></script>
+    <script>
+        BillsIndexModule.init({
+            chamber: '@ViewData["chamber"].ToString()'
+        });
+    </script>
 }

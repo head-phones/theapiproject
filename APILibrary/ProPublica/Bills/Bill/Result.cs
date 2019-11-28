@@ -48,7 +48,7 @@ namespace APILibrary.ProPublica.Bills.Bill
         public string summary_short { get; set; }
         public List<Version> versions { get; set; }
         public List<Action> actions { get; set; }
-        public List<Members.MemberVotes.Vote> votes { get; set; }
+        public List<Vote> votes { get; set; }
     }
 
 }

@@ -44,10 +44,10 @@
     <div class="btn-toolbar mb-2 mb-md-0">
         <div class="btn-group btn-group-toggle mr-2" data-toggle="buttons">
             <label class="btn btn-outline-secondary @{ if (chamber == "senate") {<text>active</text> } }">
-                <input type="radio" name="options" id="house" autocomplete="off" @{ if (chamber == "senate") { <text> checked</text> } } onchange="OnChamberChanged(this, '@congress','senate')"> Senate
+                <input type="radio" name="options" id="house" autocomplete="off" @{ if (chamber == "senate") { <text> checked</text> } } onchange="MembersIndexModule.onChamberChanged(this, '@congress','senate')"> Senate
             </label>
             <label class="btn btn-outline-secondary @{ if (chamber == "house") {<text>active</text> } }">
-                <input type="radio" name="options" id="house" autocomplete="off" @{ if (chamber == "house") { <text> checked</text> } } onchange="OnChamberChanged(this, '@congress','house')"> House
+                <input type="radio" name="options" id="house" autocomplete="off" @{ if (chamber == "house") { <text> checked</text> } } onchange="MembersIndexModule.onChamberChanged(this, '@congress','house')"> House
             </label>
         </div>
 
@@ -60,7 +60,7 @@
                 @for (int i = congressMin; i < congressMax; i++)
                 {
                     var active = i == congressInt ? "active" : "";
-                    <a class="dropdown-item @active" href="#" onclick="OnCongressChanged(this, '@i.ToString()', '@chamber')">@i@GetOrdinalSuffix(i)</a>
+                    <a class="dropdown-item @active" href="#" onclick="MembersIndexModule.onCongressChanged(this, '@i.ToString()', '@chamber')">@i@GetOrdinalSuffix(i)</a>
                 }
             </div>
         </div>

@@ -83,6 +83,7 @@
     <Compile Include="ProPublica\Bills\Bill\Response.cs" />
     <Compile Include="ProPublica\Bills\Bill\Result.cs" />
     <Compile Include="ProPublica\Bills\Bill\Version.cs" />
+    <Compile Include="ProPublica\Bills\Bill\Vote.cs" />
     <Compile Include="ProPublica\Bills\RelatedBills\CosponsorsByParty.cs" />
     <Compile Include="ProPublica\Bills\RelatedBills\RelatedBill.cs" />
     <Compile Include="ProPublica\Bills\RelatedBills\Response.cs" />

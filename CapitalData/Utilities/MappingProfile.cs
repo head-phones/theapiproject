@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using CapitalData.Models;
+using System.Text.RegularExpressions;
 
 namespace DomainLayer.Utilities
 {
@@ -19,6 +20,7 @@ namespace DomainLayer.Utilities
             CreateMap<APILibrary.ProPublica.Members.MemberBills.CosponsorsByParty, CosponsorsByPartyViewModel>();
 
             CreateMap<APILibrary.ProPublica.Bills.Bill.Result, BillViewModel>();
+            CreateMap<APILibrary.ProPublica.Bills.Bill.Vote, VoteViewModel>();
             CreateMap<APILibrary.ProPublica.Bills.Bill.Action, ActionViewModel>();
             CreateMap<APILibrary.ProPublica.Bills.Bill.Version, VersionViewModel>();
             CreateMap<APILibrary.ProPublica.Bills.Bill.CosponsorsByParty, CosponsorsByPartyViewModel>();

@@ -9,8 +9,11 @@
 
 <div id="div_vote_list"></div>
 
-@Html.Hidden("chamber", ViewData["chamber"].ToString(), new { @class = "chamber" })
-
 @section Scripts{
     <script src="~/js/Votes/Index.cshtml.js" asp-append-version="true"></script>
+    <script>
+        VotesIndexModule.init({
+            chamber: '@ViewData["chamber"].ToString()'
+        });
+    </script>
 }

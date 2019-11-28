@@ -21,8 +21,12 @@ namespace CapitalData.Controllers
         {
             ViewData["chamber"] = chamber;
             var response = client.Get<APILibrary.ProPublica.Votes.RecentVotes.Response>($"congress/{chamber}/votes/recent");
-            var votes = response.results.votes;
-            var model = _mapper.Map<List<VoteViewModel>>(votes);
+            var votes = _mapper.Map<List<VoteViewModel>>(response.results.votes);
+            var labels = votes.Select(v => v.result).Distinct();
+            var data = new List<int>();
+            labels.ToList().ForEach(x => data.Add(votes.Count(c => c.result == x)));
+            var model = new VoteListViewModel(votes, labels , data);
+
             return PartialView("_List", model);
         }
         public IActionResult Details(string congress, string chamber, int sessionNumber, int rollCallNumber)
