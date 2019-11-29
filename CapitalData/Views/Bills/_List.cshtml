@@ -29,10 +29,10 @@
     <div class="btn-toolbar mb-2 mb-md-0">
         <div class="btn-group btn-group-toggle mr-2" data-toggle="buttons">
             <label class="btn btn-outline-secondary @{ if (chamber == "senate") {<text>active</text> } }">
-                <input type="radio" name="options" id="house" autocomplete="off" @{ if (chamber == "senate") { <text> checked</text> } } onchange="BillsDetailsModule.onChamberChanged(this,'senate')"> Senate
+                <input type="radio" name="options" id="house" autocomplete="off" @{ if (chamber == "senate") { <text> checked</text> } } onchange="BillsIndexModule.onChamberChanged(this, 'senate')"> Senate
             </label>
             <label class="btn btn-outline-secondary @{ if (chamber == "house") {<text>active</text> } }">
-                <input type="radio" name="options" id="house" autocomplete="off" @{ if (chamber == "house") { <text> checked</text> } } onchange="BillsDetailsModule.onChamberChanged(this, 'house')"> House
+                <input type="radio" name="options" id="house" autocomplete="off" @{ if (chamber == "house") { <text> checked</text> } } onchange="BillsIndexModule.onChamberChanged(this, 'house')"> House
             </label>
         </div>
     </div>

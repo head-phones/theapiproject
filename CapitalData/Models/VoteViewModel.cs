@@ -26,6 +26,7 @@ namespace CapitalData.Models
         public IndependentViewModel independent { get; set; }
         public List<PositionViewModel> positions { get; set; }
         public string position { get; set; }
+
         public string VoteCountJSON => Newtonsoft.Json.JsonConvert.SerializeObject(new { democratic, republican, independent, total });
         //public VoteViewModel(APILibrary.ProPublica.Members.MemberVotes.Vote vote)
         //{

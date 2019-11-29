@@ -50,6 +50,8 @@ namespace CapitalData.Models
         public List<VersionViewModel> versions { get; set; }
         public List<ActionViewModel> actions { get; set; }
         public List<VoteViewModel> votes { get; set; }
+        public List<BillViewModel> related_bills { get; set; }
+        public List<SubjectViewModel> subjects { get; set; }
         //public BillViewModel(APILibrary.ProPublica.Members.MemberVotes.Bill bill)
         //{
         //    bill_id = bill.bill_id;

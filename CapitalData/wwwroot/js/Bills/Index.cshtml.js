@@ -31,10 +31,10 @@ var BillsIndexModule = BillsIndexModule || (function () {
             _list(congress, chamber)
         },
         onChamberChanged: function (sender, chamber) {
-            _list(congress, chamber)
+            _list(chamber)
         },
         onCongressChanged: function (sender, chamber) {
-            _list(congress, chamber)
+            _list(chamber)
         }
     };
 }());

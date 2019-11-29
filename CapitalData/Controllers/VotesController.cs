@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using APILibrary.ProPublica;
+using APILibrary.ProPublica.Votes;
 using AutoMapper;
 using CapitalData.Models;
 using Microsoft.AspNetCore.Mvc;
@@ -20,7 +22,7 @@ namespace CapitalData.Controllers
         public IActionResult List(string chamber)
         {
             ViewData["chamber"] = chamber;
-            var response = client.Get<APILibrary.ProPublica.Votes.RecentVotes.Response>($"congress/{chamber}/votes/recent");
+            var response = client.Get<Response<RecentVotesResult>>($"congress/{chamber}/votes/recent");
             var votes = _mapper.Map<List<VoteViewModel>>(response.results.votes);
             var labels = votes.Select(v => v.result).Distinct();
             var data = new List<int>();
@@ -31,7 +33,7 @@ namespace CapitalData.Controllers
         }
         public IActionResult Details(string congress, string chamber, int sessionNumber, int rollCallNumber)
         {
-            var response = client.Get<APILibrary.ProPublica.Votes.RollCallVote.Response>($"congress/{congress}/{chamber}/sessions/{sessionNumber}/votes/{rollCallNumber}");
+            var response = client.Get<Response<RollCallVoteResult>>($"congress/{congress}/{chamber}/sessions/{sessionNumber}/votes/{rollCallNumber}");
             var vote = response.results.votes.vote;
             var model = _mapper.Map<VoteViewModel>(vote);
             return View(model);
