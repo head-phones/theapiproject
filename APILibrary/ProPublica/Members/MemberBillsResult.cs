@@ -1,12 +1,13 @@
-﻿using System;
+﻿using APILibrary.ProPublica.Bills;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace APILibrary.ProPublica.Members.MemberBills
+namespace APILibrary.ProPublica.Members
 {
-    public class Result
+    public class MemberBillsResult
     {
         public string id { get; set; }
         public string member_uri { get; set; }

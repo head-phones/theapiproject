@@ -37,5 +37,7 @@ namespace APILibrary.ProPublica.Votes
         public Nomination nomination { get; set; }
 
         public string nominee_uri { get; set; }
+        public string member_id { get; set; }
+        public string position { get; set; }
     }
 }

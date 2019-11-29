@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace APILibrary.ProPublica.Members.Member
+namespace APILibrary.ProPublica.Members
 {
     public class Committee
     {
@@ -17,5 +17,4 @@ namespace APILibrary.ProPublica.Members.Member
         public string begin_date { get; set; }
         public string end_date { get; set; }
     }
-
 }

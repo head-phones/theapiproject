@@ -4,14 +4,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace APILibrary.ProPublica.Members.MembersLeaving
+namespace APILibrary.ProPublica.Members
 {
-    public class Result
+    public class MemberListResult
     {
         public string congress { get; set; }
         public string chamber { get; set; }
         public int num_results { get; set; }
         public int offset { get; set; }
-        public List<Member> members { get; set; }
+        public List<MemberListItem> members { get; set; }
     }
 }

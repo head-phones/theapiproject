@@ -53,5 +53,8 @@ namespace APILibrary.ProPublica.Bills
         public int? number_of_cosponsors { get; set; }
         public List<Bill> related_bills { get; set; }
         public List<Subject> subjects { get; set; }
+
+        public string cosponsored_date { get; set; }
+        public string sponsor_name { get; set; }
     }
 }

@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace APILibrary.ProPublica.Members.CompareBillSponsorships
+namespace APILibrary.ProPublica.Members
 {
-    public class Bill
+    public class CompareBill
     {
         public string number { get; set; }
         public string api_uri { get; set; }

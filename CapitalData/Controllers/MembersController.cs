@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using APILibrary.ProPublica;
+using APILibrary.ProPublica.Members;
 using AutoMapper;
 using CapitalData.Models;
 using Microsoft.AspNetCore.Mvc;
@@ -23,7 +25,7 @@ namespace CapitalData.Controllers
         {
             ViewData["congress"] = congress;
             ViewData["chamber"] = chamber;
-            var response = client.Get<APILibrary.ProPublica.Members.ListMembers.Response>($"congress/{congress}/{chamber}");
+            var response = client.Get<Response<IEnumerable<MemberListResult>>>($"congress/{congress}/{chamber}");
             var members = response.results.Select(m => m.members).FirstOrDefault();
             var model = _mapper.Map<List<MemberViewModel>>(members);
             return PartialView("_List", model);
@@ -33,10 +35,10 @@ namespace CapitalData.Controllers
         {
             try
             {
-                var response = client.GetAsync<APILibrary.ProPublica.Members.Member.Response>($"congress/members/{id}");
-                var voteResponse = client.GetAsync<APILibrary.ProPublica.Members.MemberVotes.Response>($"congress/members/votes/{id}");
-                var billReponse = client.GetAsync<APILibrary.ProPublica.Members.MemberBills.Response>($"congress/members/bills/{id}/introduced");
-                var cosponsoredBillReponse = client.GetAsync<APILibrary.ProPublica.Members.MemberBills.Response>($"congress/members/bills/{id}/cosponsored");
+                var response = client.GetAsync<Response<IEnumerable<Member>>>($"congress/members/{id}");
+                var voteResponse = client.GetAsync<Response<IEnumerable<MemberVotesResult>>>($"congress/members/{id}/votes");
+                var billReponse = client.GetAsync<Response<IEnumerable<MemberBillsResult>>>($"congress/members/{id}/bills/introduced");
+                var cosponsoredBillReponse = client.GetAsync<Response<IEnumerable<MemberBillsResult>>>($"congress/members/{id}/bills/cosponsored");
                 await Task.WhenAll(response, voteResponse, billReponse, cosponsoredBillReponse);
                 var votes = voteResponse.Result.results.FirstOrDefault()?.votes;
                 var bills = billReponse.Result.results.FirstOrDefault()?.bills;

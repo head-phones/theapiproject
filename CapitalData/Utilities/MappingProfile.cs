@@ -8,21 +8,13 @@ namespace DomainLayer.Utilities
     {
         public MappingProfile()
         {
-            CreateMap<APILibrary.ProPublica.Members.ListMembers.Member, MemberViewModel>();
+            CreateMap<APILibrary.ProPublica.Members.MemberListItem, MemberViewModel>();
 
-            CreateMap<APILibrary.ProPublica.Members.Member.Result, MemberViewModel>()
-                .ForMember(m => m.party, opt => opt.MapFrom( src => src.current_party));
-            CreateMap<APILibrary.ProPublica.Members.Member.Role, RoleViewModel>();
+            CreateMap<APILibrary.ProPublica.Members.Member, MemberViewModel>()
+                .ForMember(m => m.party, opt => opt.MapFrom( src => src.current_party))
+                .ForMember(m => m.id, opt => opt.MapFrom(src => src.member_id));
 
-            CreateMap<APILibrary.ProPublica.Members.MemberBills.Bill, BillViewModel>()
-                .ForMember(m => m.sponsor, opt => opt.MapFrom(src => src.sponsor_name))
-                .ForMember(m => m.bill_slug, opt => opt.MapFrom(src => src.bill_id.Replace($"-{src.congress}", string.Empty)));
-            CreateMap<APILibrary.ProPublica.Members.MemberBills.CosponsorsByParty, CosponsorsByPartyViewModel>();
-
-
-            CreateMap<APILibrary.ProPublica.Members.MemberVotes.Bill, BillViewModel>();
-            CreateMap<APILibrary.ProPublica.Members.MemberVotes.Vote, VoteViewModel>();
-            CreateMap<APILibrary.ProPublica.Members.MemberVotes.Total, TotalViewModel>();
+            CreateMap<APILibrary.ProPublica.Members.Role, RoleViewModel>();
 
 
             CreateMap<APILibrary.ProPublica.Bills.Bill, BillViewModel>();

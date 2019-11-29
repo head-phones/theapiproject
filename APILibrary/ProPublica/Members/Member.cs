@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace APILibrary.ProPublica.Members.Member
+namespace APILibrary.ProPublica.Members
 {
-    public class Result
+    public class Member
     {
         public string member_id { get; set; }
         public string first_name { get; set; }

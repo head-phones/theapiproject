@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace APILibrary.ProPublica.Votes
 {
-    public class Votes
+    public class VoteList
     {
         public Vote vote { get; set; }
         public List<object> vacant_seats { get; set; }

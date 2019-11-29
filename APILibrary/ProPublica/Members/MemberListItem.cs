@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace APILibrary.ProPublica.Members.ListMembers
+namespace APILibrary.ProPublica.Members
 {
-    public class Member
+    public class MemberListItem
     {
         public string id { get; set; }
         public string title { get; set; }
@@ -52,5 +52,12 @@ namespace APILibrary.ProPublica.Members.ListMembers
         public string lis_id { get; set; }
         public double? missed_votes_pct { get; set; }
         public double? votes_with_party_pct { get; set; }
+
+        public string role { get; set; }
+        public string district { get; set; }
+        public string begin_date { get; set; }
+        public string end_date { get; set; }
+        public string status { get; set; }
+        public string note { get; set; }
     }
 }

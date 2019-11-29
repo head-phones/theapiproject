@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace APILibrary.ProPublica.Members.CompareVotePositions
+namespace APILibrary.ProPublica.Members
 {
-    public class Result
+    public class CompareVotePositionsResult
     {
         public string first_member_id { get; set; }
         public string first_member_api_uri { get; set; }

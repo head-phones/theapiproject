@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace APILibrary.ProPublica.Members.Member
+namespace APILibrary.ProPublica.Members
 {
     public class Role
     {
@@ -31,6 +31,6 @@ namespace APILibrary.ProPublica.Members.Member
         public double? missed_votes_pct { get; set; }
         public double? votes_with_party_pct { get; set; }
         public List<Committee> committees { get; set; }
-        public List<object> subcommittees { get; set; }
+        public List<Committee> subcommittees { get; set; }
     }
 }

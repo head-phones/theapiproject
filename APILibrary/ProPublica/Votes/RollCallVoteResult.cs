@@ -8,6 +8,6 @@ namespace APILibrary.ProPublica.Votes
 {
     public class RollCallVoteResult
     {
-        public Votes votes { get; set; }
+        public VoteList votes { get; set; }
     }
 }

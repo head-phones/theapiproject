@@ -293,7 +293,7 @@
                         var bill = Model.bills[i];
                         <tr>
                             <td class="text-center w-auto">
-                                <a class="text-decoration-none" href="/Bills/Details?id=@bill.bill_slug&congress=@bill.congress">
+                                <a class="text-decoration-none" href="/Bills/Details?id=@bill.bill_id.Replace($"-{bill.congress}", string.Empty)&congress=@bill.congress">
                                     <strong class="text-gray-dark h3 mb-2 font-weight-light">
                                         @bill.bill_id.Replace($"-{bill.congress}", string.Empty)
                                     </strong>
@@ -359,7 +359,7 @@
                         var bill = Model.cosponsoredBills[i];
                         <tr>
                             <td class="w-auto text-center">
-                                <a class="text-decoration-none" href="/Bills/Details?id=@bill.bill_slug&congress=@bill.congress">
+                                <a class="text-decoration-none" href="/Bills/Details?id=@bill.bill_id.Replace($"-{bill.congress}", string.Empty)&congress=@bill.congress">
                                     <strong class="text-gray-dark h3 mb-2 font-weight-light">
                                         @bill.bill_id.Replace($"-{bill.congress}", string.Empty)
                                     </strong>

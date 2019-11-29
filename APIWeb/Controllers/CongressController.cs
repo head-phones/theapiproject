@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using APILibrary.ProPublica;
 using APILibrary.ProPublica.Bills;
+using APILibrary.ProPublica.Members;
 using APILibrary.ProPublica.Statements;
 using APILibrary.ProPublica.Votes;
 using APILibrary.Utilites;
@@ -27,12 +28,12 @@ namespace APIWeb.Controllers
 
         [HttpGet]
         [Route("{congress}/{chamber}")]
-        public async Task<ActionResult<APILibrary.ProPublica.Members.ListMembers.Response>> GetMembers(string congress, string chamber)
+        public async Task<ActionResult<Response<IEnumerable<MemberListResult>>>> GetMembers(string congress, string chamber)
         {
             var client = new APIClient(Endpoint, Token);
             try
             {
-                var response = await client.GetAsync<APILibrary.ProPublica.Members.ListMembers.Response>($"{congress}/{chamber}/members.json");
+                var response = await client.GetAsync<Response<IEnumerable<MemberListResult>>>($"{congress}/{chamber}/members.json");
                 return Ok(response);
             }
             catch (Exception ex)
@@ -42,12 +43,12 @@ namespace APIWeb.Controllers
         }
         [HttpGet]
         [Route("members/{memberId}")]
-        public async Task<ActionResult<APILibrary.ProPublica.Members.Member.Response>> GetMember(string memberId)
+        public async Task<ActionResult<Response<List<Member>>>> GetMember(string memberId)
         {
             var client = new APIClient(Endpoint, Token);
             try
             {
-                var response = await client.GetAsync<APILibrary.ProPublica.Members.Member.Response>($"members/{memberId}.json");
+                var response = await client.GetAsync<Response<List<Member>>>($"members/{memberId}.json");
                 return Ok(response);
             }
             catch (Exception ex)
@@ -57,12 +58,12 @@ namespace APIWeb.Controllers
         }
         [HttpGet]
         [Route("members/new")]
-        public async Task<ActionResult<APILibrary.ProPublica.Members.NewMembers.Response>> GetNewMembers()
+        public async Task<ActionResult<Response<List<MemberListResult>>>> GetNewMembers()
         {
             var client = new APIClient(Endpoint, Token);
             try
             {
-                var response = await client.GetAsync<APILibrary.ProPublica.Members.NewMembers.Response>($"members/new.json");
+                var response = await client.GetAsync<Response<List<MemberListResult>>>($"members/new.json");
                 return Ok(response);
             }
             catch (Exception ex)
@@ -72,12 +73,12 @@ namespace APIWeb.Controllers
         }
         [HttpGet]
         [Route("members/current/{chamber}/{state}")]
-        public async Task<ActionResult<APILibrary.ProPublica.Members.CurrentMembers.Response>> GetCurrentSenateMembers(string chamber, string state)
+        public async Task<ActionResult<Response<IEnumerable<MemberListItem>>>> GetCurrentSenateMembers(string chamber, string state)
         {
             var client = new APIClient(Endpoint, Token);
             try
             {
-                var response = await client.GetAsync<APILibrary.ProPublica.Members.CurrentMembers.Response>($"members/{chamber}/{state}/current.json");
+                var response = await client.GetAsync<Response<IEnumerable<MemberListItem>>>($"members/{chamber}/{state}/current.json");
                 return Ok(response);
             }
             catch (Exception ex)
@@ -87,12 +88,12 @@ namespace APIWeb.Controllers
         }
         [HttpGet]
         [Route("members/current/{chamber}/{state}/{district}")]
-        public async Task<ActionResult<APILibrary.ProPublica.Members.CurrentMembers.Response>> GetCurrentHouseMembers(string chamber, string state, string district)
+        public async Task<ActionResult<Response<IEnumerable<MemberListItem>>>> GetCurrentHouseMembers(string chamber, string state, string district)
         {
             var client = new APIClient(Endpoint, Token);
             try
             {
-                var response = await client.GetAsync<APILibrary.ProPublica.Members.CurrentMembers.Response>($"members/{chamber}/{state}/{district}/current.json");
+                var response = await client.GetAsync<Response<IEnumerable<MemberListItem>>> ($"members/{chamber}/{state}/{district}/current.json");
                 return Ok(response);
             }
             catch (Exception ex)
@@ -102,12 +103,12 @@ namespace APIWeb.Controllers
         }
         [HttpGet]
         [Route("members/leaving/{congress}/{chamber}")]
-        public async Task<ActionResult<APILibrary.ProPublica.Members.MembersLeaving.Response>> GetMembersLeaving(string congress, string chamber)
+        public async Task<ActionResult<Response<List<MemberListResult>>>> GetMembersLeaving(string congress, string chamber)
         {
             var client = new APIClient(Endpoint, Token);
             try
             {
-                var response = await client.GetAsync<APILibrary.ProPublica.Members.MembersLeaving.Response>($"{congress}/{chamber}/members/leaving.json");
+                var response = await client.GetAsync<Response<List<MemberListResult>>>($"{congress}/{chamber}/members/leaving.json");
                 return Ok(response);
             }
             catch (Exception ex)
@@ -116,13 +117,13 @@ namespace APIWeb.Controllers
             }
         }
         [HttpGet]
-        [Route("members/votes/{memberId}")]
-        public async Task<ActionResult<APILibrary.ProPublica.Members.MemberVotes.Response>> GetMemberVotes(string memberId)
+        [Route("members/{memberId}/votes")]
+        public async Task<ActionResult<Response<IEnumerable<MemberVotesResult>>>> GetMemberVotes(string memberId)
         {
             var client = new APIClient(Endpoint, Token);
             try
             {
-                var response = await client.GetAsync<APILibrary.ProPublica.Members.MemberVotes.Response>($"members/{memberId}/votes.json");
+                var response = await client.GetAsync<Response<IEnumerable<MemberVotesResult>>>($"members/{memberId}/votes.json");
                 return Ok(response);
             }
             catch (Exception ex)
@@ -132,12 +133,12 @@ namespace APIWeb.Controllers
         }
         [HttpGet]
         [Route("members/comparevotes/{firstMemberId}/{secondMemberId}/{congress}/{chamber}")]
-        public async Task<ActionResult<APILibrary.ProPublica.Members.CompareVotePositions.Response>> CompareVotePositions(string firstMemberId, string secondMemberId, string congress,string chamber)
+        public async Task<ActionResult<Response<IEnumerable<CompareVotePositionsResult>>>> CompareVotePositions(string firstMemberId, string secondMemberId, string congress,string chamber)
         {
             var client = new APIClient(Endpoint, Token);
             try
             {
-                var response = await client.GetAsync<APILibrary.ProPublica.Members.CompareVotePositions.Response>($"members/{firstMemberId}/votes/{secondMemberId}/{congress}/{chamber}.json");
+                var response = await client.GetAsync<Response<IEnumerable<CompareVotePositionsResult>>>($"members/{firstMemberId}/votes/{secondMemberId}/{congress}/{chamber}.json");
                 return Ok(response);
             }
             catch (Exception ex)
@@ -147,12 +148,12 @@ namespace APIWeb.Controllers
         }
         [HttpGet]
         [Route("members/comparebills/{firstMemberId}/{secondMemberId}/{congress}/{chamber}")]
-        public async Task<ActionResult<APILibrary.ProPublica.Members.CompareBillSponsorships.Response>> CompareBillSponsorships(string firstMemberId, string secondMemberId, string congress, string chamber)
+        public async Task<ActionResult<Response<IEnumerable<CompareBillSponsorshipsResult>>>> CompareBillSponsorships(string firstMemberId, string secondMemberId, string congress, string chamber)
         {
             var client = new APIClient(Endpoint, Token);
             try
             {
-                var response = await client.GetAsync<APILibrary.ProPublica.Members.CompareBillSponsorships.Response>($"members/{firstMemberId}/bills/{secondMemberId}/{congress}/{chamber}.json");
+                var response = await client.GetAsync<Response<IEnumerable<CompareBillSponsorshipsResult>>>($"members/{firstMemberId}/bills/{secondMemberId}/{congress}/{chamber}.json");
                 return Ok(response);
             }
             catch (Exception ex)
@@ -161,13 +162,13 @@ namespace APIWeb.Controllers
             }
         }
         [HttpGet]
-        [Route("members/bills/{memberId}/{type}")]
-        public async Task<ActionResult<APILibrary.ProPublica.Members.MemberBills.Response>> GetMemberBillsByType(string memberId, string type)
+        [Route("members/{memberId}/bills/{type}")]
+        public async Task<ActionResult<Response<IEnumerable<MemberBillsResult>>>> GetMemberBillsByType(string memberId, string type)
         {
             var client = new APIClient(Endpoint, Token);
             try
             {
-                var response = await client.GetAsync<APILibrary.ProPublica.Members.MemberBills.Response>($"members/{memberId}/bills/{type}.json");
+                var response = await client.GetAsync<Response<IEnumerable<MemberBillsResult>>>($"members/{memberId}/bills/{type}.json");
                 return Ok(response);
             }
             catch (Exception ex)
@@ -177,12 +178,12 @@ namespace APIWeb.Controllers
         }
         [HttpGet]
         [Route("members/office_expenses/{memberId}/{year}/{quarter}")]
-        public async Task<ActionResult<APILibrary.ProPublica.Members.OfficeExpenses.Response>> GetOfficeExpenses(string memberId, string year, string quarter)
+        public async Task<ActionResult<Response<List<Expenses>>>> GetOfficeExpenses(string memberId, string year, string quarter)
         {
             var client = new APIClient(Endpoint, Token);
             try
             {
-                var response = await client.GetAsync<APILibrary.ProPublica.Members.OfficeExpenses.Response>($"members/{memberId}/office_expenses/{year}/{quarter}.json");
+                var response = await client.GetAsync<Response<List<Expenses>>>($"members/{memberId}/office_expenses/{year}/{quarter}.json");
                 return Ok(response);
             }
             catch (Exception ex)
@@ -192,12 +193,12 @@ namespace APIWeb.Controllers
         }
         [HttpGet]
         [Route("members/office_expenses/{memberId}/category/{category}")]
-        public async Task<ActionResult<APILibrary.ProPublica.Members.MemberOfficeExpensesByCategory.Response>> GetMemberOfficeExpensesByCategory(string memberId, string category)
+        public async Task<ActionResult<Response<List<Expenses>>>> GetMemberOfficeExpensesByCategory(string memberId, string category)
         {
             var client = new APIClient(Endpoint, Token);
             try
             {
-                var response = await client.GetAsync<APILibrary.ProPublica.Members.MemberOfficeExpensesByCategory.Response>($"members/{memberId}/office_expenses/category/{category}.json");
+                var response = await client.GetAsync<Response<List<Expenses>>>($"members/{memberId}/office_expenses/category/{category}.json");
                 return Ok(response);
             }
             catch (Exception ex)
@@ -207,12 +208,12 @@ namespace APIWeb.Controllers
         }
         [HttpGet]
         [Route("members/office_expenses/category/{category}/{year}/{quarter}")]
-        public async Task<ActionResult<APILibrary.ProPublica.Members.OfficeExpensesByCategory.Response>> GetOfficeExpensesByCategory(string category, string year, string quarter)
+        public async Task<ActionResult<Response<List<Expenses>>>> GetOfficeExpensesByCategory(string category, string year, string quarter)
         {
             var client = new APIClient(Endpoint, Token);
             try
             {
-                var response = await client.GetAsync<APILibrary.ProPublica.Members.OfficeExpensesByCategory.Response>($"office_expenses/category/{category}/{year}/{quarter}.json");
+                var response = await client.GetAsync<Response<List<Expenses>>>($"office_expenses/category/{category}/{year}/{quarter}.json");
                 return Ok(response);
             }
             catch (Exception ex)
