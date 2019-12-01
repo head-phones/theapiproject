@@ -1,0 +1,82 @@
+﻿@model MemberCosponsoredBillsViewModel
+@{
+    ViewData["Title"] = "CosponsoredBills";
+}
+
+@await Component.InvokeAsync("MemberNavbar", new { member = Model.Member })
+
+<div>
+    <h2 class="mb-3 font-weight-light">
+        Co-sponsored Bills
+    </h2>
+    @if (Model.cosponsoredBills?.Count > 0)
+    {
+        <div class="table-responsive">
+            <table id="tbl_co_sponsored_bills" class="table table-sm table-hover">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>
+                            Bill
+                        </th>
+                        <th>
+                            Updated
+                        </th>
+                        <th>
+                            Details
+                        </th>
+                        <th>
+                            Sponsor
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @for (int i = 0; i < Model.cosponsoredBills.Count; i++)
+                    {
+                        var bill = Model.cosponsoredBills[i];
+                        <tr>
+                            <td class="w-auto text-center">
+                                <a class="text-decoration-none" href="/Bills/Details?id=@bill.bill_id.Replace($"-{bill.congress}", string.Empty)&congress=@bill.congress">
+                                    <strong class="text-gray-dark h3 mb-2 font-weight-light">
+                                        @bill.bill_id.Replace($"-{bill.congress}", string.Empty)
+                                    </strong>
+                                </a>
+                            </td>
+                            <td>
+                                @Convert.ToDateTime(bill.latest_major_action_date).ToShortDateString()
+                            </td>
+                            <td>
+                                <strong class="text-muted">
+                                    @bill.latest_major_action
+                                </strong>
+                                <br />
+                                @bill.title
+                            </td>
+                            <td>
+                                <a href="/Members/Details/@bill.sponsor_id">
+                                    (@bill.sponsor_party) @bill.sponsor
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+
+    }
+    else
+    {
+        <div class="media text-muted pt-3">
+            <div class="media-body pb-3 mb-0 lh-125">
+                <p class="text-danger">
+                    There are been no bills co-sponsored by this member.
+                </p>
+            </div>
+        </div>
+    }
+</div>
+@section Scripts{
+    <script src="~/js/Members/CosponsoredBills.cshtml.js" asp-append-version="true"></script>
+    <script>
+        MembersCosponsoredBillsModule.init();
+    </script>
+}

@@ -37,6 +37,9 @@ namespace DomainLayer.Utilities
             CreateMap<APILibrary.ProPublica.Votes.Total, TotalViewModel>();
 
             CreateMap<APILibrary.ProPublica.Subject, SubjectViewModel>();
+            CreateMap<APILibrary.ProPublica.Members.Expenses, ExpensesViewModel>();
+            CreateMap<APILibrary.ProPublica.Statements.Statement, StatementViewModel>();
+            CreateMap<APILibrary.ProPublica.Votes.Explanation, ExplanationViewModel>();
 
         }
     }

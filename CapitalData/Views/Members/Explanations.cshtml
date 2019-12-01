@@ -1,0 +1,70 @@
+﻿@model MemberExplanationsViewModel
+@{
+    ViewData["Title"] = "Explanations";
+}
+
+@await Component.InvokeAsync("MemberNavbar", new { member = Model.Member })
+
+
+<div>
+    <h2 class="mb-3 font-weight-light">
+        Explanations
+    </h2>
+
+    @if (Model.Explanations?.Count > 0)
+    {
+        <table class="table table-hover table-sm" id="tbl_explanations">
+            <thead class="thead-dark">
+                <tr>
+                    <th>
+                        Date
+                    </th>
+                    <th>
+                        Explanation
+                    </th>
+                    <th>
+                        Url
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var explanation in Model.Explanations)
+                {
+                    <tr>
+                        <td>
+                            @Convert.ToDateTime(explanation.date).ToShortDateString()
+                        </td>
+                        <td>
+                            @explanation.text
+                        </td>
+                        <td>
+                            @if (!string.IsNullOrEmpty(explanation.url))
+                            {
+                            <a href="@explanation.url" target="_blank">
+                                @explanation.url
+                            </a>
+                            }
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <div class="media text-muted pt-3">
+            <div class="media-body pb-3 mb-0 lh-125">
+                <p class="text-danger">
+                    There are been no recent explanations by this member.
+                </p>
+            </div>
+        </div>
+    }
+</div>
+
+@section Scripts{
+    <script src="~/js/Members/Explanations.cshtml.js" asp-append-version="true"></script>
+    <script>
+        MembersExplanationsModule.init();
+    </script>
+}

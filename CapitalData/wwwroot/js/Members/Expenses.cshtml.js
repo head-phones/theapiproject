@@ -1,15 +1,17 @@
 ﻿
 
 
-var MembersDetailsModule = MembersDetailsModule || (function () {
+var MembersExpensesModule = MembersExpensesModule || (function () {
     // private
     var _args = {};
 
     var _initDataTables = function () {
-        $('#tbl_terms').DataTable({
+
+        $('#tbl_expenses').DataTable({
             "pageLength": 25,
-            order: [[0, 'desc']]
+            "order": []
         });
+
     }
 
     return {

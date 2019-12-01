@@ -1,0 +1,86 @@
+﻿@model MemberExpensesViewModel
+@{
+    ViewData["Title"] = "Expenses";
+}
+
+@await Component.InvokeAsync("MemberNavbar", new { member = Model.Member })
+
+
+<div>
+    <h2 class="mb-3 font-weight-light">
+        Statments
+    </h2>
+
+    @if (Model.Expenses?.Count > 0)
+    {
+        <table class="table table-hover table-sm" id="tbl_expenses">
+            <thead class="thead-dark">
+                <tr>
+                    <th>
+                        Category
+                    </th>
+                    <th>
+                        Amount
+                    </th>
+                    <th>
+                        Change From Previous Quarter
+                    </th>
+                    <th>
+                        Amount (YTD)
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var expense in Model.Expenses)
+                {
+                <tr>
+                    <td>
+                        @expense.category
+                    </td>
+                    <td>
+                        @expense.amount
+                    </td>
+                    <td>
+                        @if (expense.change_from_previous_quarter > 0)
+                        {
+                            <span class="text-success">
+                                @expense.change_from_previous_quarter
+                            </span>
+                        }
+                        else if (expense.change_from_previous_quarter < 0)
+                        {
+                            <span class="text-danger">
+                                @expense.change_from_previous_quarter
+                            </span>
+                        }
+                        else
+                        {
+                            @expense.change_from_previous_quarter
+                        }
+                    </td>
+                    <td>
+                        @expense.year_to_date
+                    </td>
+                </tr>
+                }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <div class="media text-muted pt-3">
+            <div class="media-body pb-3 mb-0 lh-125">
+                <p class="text-danger">
+                    There are been no reported expenses by this member during this quarter (Y:@ViewData["year"] Q:@ViewData["quarter"]).
+                </p>
+            </div>
+        </div>
+    }
+</div>
+
+@section Scripts{
+    <script src="~/js/Members/Expenses.cshtml.js" asp-append-version="true"></script>
+    <script>
+        MembersExpensesModule.init();
+    </script>
+}

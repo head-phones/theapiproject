@@ -1,0 +1,138 @@
+﻿@model MemberNavbarViewModel
+@{
+    var currentRole = Model.Member.roles.FirstOrDefault();
+}
+<div class="nav-scroller bg-white shadow-sm mb-2">
+    <nav class="nav nav-underline">
+        <a class="nav-link
+               @if (Context.Request.Path != null && Context.Request.Path.Value.Contains("/Members/Details"))
+        {
+            <text>active</text>
+        }" href="/Members/Details/@Model.Member.id">Profile</a>
+
+        <a class="nav-link
+               @if (Context.Request.Path != null && Context.Request.Path.Value.Contains("/Members/Votes"))
+        {
+            <text>active</text>
+        }" href="/Members/Votes/@Model.Member.id">Votes</a>
+
+        <a class="nav-link
+               @if (Context.Request.Path != null && Context.Request.Path.Value.Contains("/Members/Bills"))
+        {
+            <text>active</text>
+        }" href="/Members/Bills/@Model.Member.id">Sponsored Bills</a>
+        <a class="nav-link
+               @if (Context.Request.Path != null && Context.Request.Path.Value.Contains("/Members/CosponsoredBills"))
+        {
+            <text>active</text>
+        }" href="/Members/CosponsoredBills/@Model.Member.id">Co-sponsored Bills</a>
+        <a class="nav-link
+               @if (Context.Request.Path != null && Context.Request.Path.Value.Contains("/Members/Statements"))
+        {
+            <text>active</text>
+        }" href="/Members/Statements?id=@Model.Member.id&congress=@Model.Member.roles.FirstOrDefault()?.congress">Statements</a>
+        <a class="nav-link
+               @if (Context.Request.Path != null && Context.Request.Path.Value.Contains("/Members/Expenses"))
+        {
+            <text>active</text>
+        }" href="/Members/Expenses?id=@Model.Member.id">Expenses</a>
+        <a class="nav-link
+               @if (Context.Request.Path != null && Context.Request.Path.Value.Contains("/Members/Explanations"))
+        {
+            <text>active</text>
+        }" href="/Members/Explanations?id=@Model.Member.id&congress=@Model.Member.roles.FirstOrDefault()?.congress">Explanations</a>
+    </nav>
+</div>
+
+<div class="p-3 mb-3 text-white-50 bg-@GetPartyColor() rounded shadow-sm">
+    <div class="lh-100">
+        <div class="row">
+            <div class="col-md">
+                <h2 class="mb-2 text-white lh-100">
+                    @if (!string.IsNullOrEmpty(Model.Member.party))
+                    {
+                        <span>(</span>@Model.Member.party<span>)</span>
+                    }
+                    @currentRole?.short_title
+                    @Model.Member.first_name
+                    @if (!string.IsNullOrEmpty(Model.Member.middle_name))
+                    {
+                        @Model.Member.middle_name
+                    }
+                    @Model.Member.last_name
+                    @if (!string.IsNullOrEmpty(Model.Member.suffix))
+                    {
+                        @Model.Member.suffix
+                    }
+                </h2>
+            </div>
+            <div class="col-md-auto text-right">
+                <ul class="list-inline mb-1">
+                    @if (!string.IsNullOrEmpty(Model.Member.twitter_account))
+                    {
+                        <li class="list-inline-item">
+                            <a class="text-white" href="https://twitter.com/@Model.Member.twitter_account">
+                                <span data-feather="twitter"></span>
+                            </a>
+                        </li>
+                    }
+                    @if (!string.IsNullOrEmpty(Model.Member.facebook_account))
+                    {
+                        <li class="list-inline-item">
+                            <a class="text-white" href="https://facebook.com/@Model.Member.facebook_account">
+                                <span data-feather="facebook"></span>
+                            </a>
+                        </li>
+                    }
+                    @if (!string.IsNullOrEmpty(Model.Member.youtube_account))
+                    {
+                        <li class="list-inline-item">
+                            <a class="text-white" href="https://youtube.com/@Model.Member.youtube_account">
+                                <span data-feather="youtube"></span>
+                            </a>
+                        </li>
+                    }
+                    @if (!string.IsNullOrEmpty(Model.Member.rss_url))
+                    {
+                        <li class="list-inline-item">
+                            <a class="text-white" href="@Model.Member.rss_url">
+                                <span data-feather="rss"></span>
+                            </a>
+                        </li>
+                    }
+                </ul>
+            </div>
+        </div>
+        @if (!string.IsNullOrEmpty(Model.Member.most_recent_vote))
+        {
+            <div class="row">
+                <div class="col">
+                    Most Recent Vote:
+                    <small>
+                        @Convert.ToDateTime(Model.Member.most_recent_vote).ToShortDateString()
+                    </small>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+@functions{
+    string GetPartyColor()
+    {
+        var partycolor = "dark";
+        switch (Model.Member.party)
+        {
+            case "R":
+                partycolor = "danger";
+                break;
+            case "D":
+                partycolor = "primary";
+                break;
+            case "I":
+                partycolor = "secondary";
+                break;
+        }
+        return partycolor;
+    }
+}
