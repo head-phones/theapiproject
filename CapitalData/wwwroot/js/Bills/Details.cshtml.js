@@ -8,11 +8,11 @@ var BillsDetailsModule = BillsDetailsModule || (function () {
     var _initDataTables = function () {
         $('#tbl_versions').DataTable({
             "pageLength": 10,
-            order: [[0, 'asc']]
+            order: []
         });
         $('#tbl_actions').DataTable({
             "pageLength": 10,
-            order: [[1, 'desc']],
+            order: [],
             "columns": [
                 null,
                 { "type": "date" },
@@ -21,7 +21,7 @@ var BillsDetailsModule = BillsDetailsModule || (function () {
         });
         $('#tbl_votes').DataTable({
             "pageLength": 10,
-            order: [[1, 'desc']],
+            order: [],
             "columns": [
                 null,
                 { "type": "date" },

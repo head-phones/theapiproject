@@ -1,0 +1,95 @@
+﻿@model MemberVotesViewModel
+@{
+    ViewData["Title"] = "Votes";
+}
+
+@await Component.InvokeAsync("MemberNavbar", new { member = Model.Member })
+
+
+<div>
+    <h2 class="font-weight-light">
+        Votes
+    </h2>
+    @if (Model.Votes?.Count > 0)
+    {
+        <div class="table-responsive">
+            <table id="tbl_votes" class="table table-hover table-sm">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>
+                            Position
+                        </th>
+                        <th>
+                            Date
+                        </th>
+                        <th>
+                            Result
+                        </th>
+                        <th>
+                            Vote
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @for (int i = 0; i < Model.Votes.Count; i++)
+                    {
+                        var vote = Model.Votes[i];
+                        <tr>
+                            <td class="text-center w-auto">
+                                <a class="text-decoration-none" href="/Votes/Details?congress=@vote.congress&chamber=@vote.chamber&sessionNumber=@vote.session&rollCallNumber=@vote.roll_call">
+                                    <span class="h3 font-weight-light @GetYesNoColor(vote.position)">
+                                        @vote.position
+                                    </span>
+                                </a>
+                            </td>
+                            <td>
+                                @Convert.ToDateTime(vote.date).ToShortDateString()
+                            </td>
+                            <td>
+                                <strong>
+                                    @vote.result
+                                </strong>
+                            </td>
+                            <td>
+                                <i>@vote.question:</i>
+                                @vote.description
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+
+    }
+    else
+    {
+        <div class="media text-muted pt-3">
+            <div class="media-body pb-3 mb-0 lh-125">
+                <p class="text-danger">
+                    There are no votes from this member.
+                </p>
+            </div>
+        </div>
+    }
+</div>
+@section Scripts{
+    <script src="~/js/Members/Votes.cshtml.js" asp-append-version="true"></script>
+    <script>
+        MembersVotesModule.init();
+    </script>
+}
+
+@functions{
+
+    string GetYesNoColor(string yesNo)
+    {
+        switch (yesNo.ToLower())
+        {
+            case "yes":
+                return "text-success";
+            case "no":
+                return "text-danger";
+        }
+        return string.Empty;
+    }
+}

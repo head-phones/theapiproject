@@ -493,12 +493,12 @@ namespace APIWeb.Controllers
         }
         [HttpGet]
         [Route("members/{memberId}/explanations/{congress}")]
-        public async Task<ActionResult<ExplanationsResponse<List<Statement>>>> GetRecentMemberExplanations(string memberId, string congress)
+        public async Task<ActionResult<ExplanationsResponse<IEnumerable<Explanation>>>> GetRecentMemberExplanations(string memberId, string congress)
         {
             var client = new APIClient(Endpoint, Token);
             try
             {
-                var response = await client.GetAsync<ExplanationsResponse<List<Statement>>>($"members/{memberId}/explanations/{congress}.json");
+                var response = await client.GetAsync<ExplanationsResponse<IEnumerable<Explanation>>>($"members/{memberId}/explanations/{congress}.json");
                 return Ok(response);
             }
             catch (Exception ex)
@@ -508,12 +508,12 @@ namespace APIWeb.Controllers
         }
         [HttpGet]
         [Route("members/{memberId}/explanations/{congress}/votes")]
-        public async Task<ActionResult<ExplanationsResponse<List<Statement>>>> GetRecentMemberExplanationVotes(string memberId, string congress)
+        public async Task<ActionResult<ExplanationsResponse<IEnumerable<Explanation>>>> GetRecentMemberExplanationVotes(string memberId, string congress)
         {
             var client = new APIClient(Endpoint, Token);
             try
             {
-                var response = await client.GetAsync<ExplanationsResponse<List<Statement>>>($"members/{memberId}/explanations/{congress}/votes.json");
+                var response = await client.GetAsync<ExplanationsResponse<IEnumerable<Explanation>>>($"members/{memberId}/explanations/{congress}/votes.json");
                 return Ok(response);
             }
             catch (Exception ex)
@@ -523,12 +523,12 @@ namespace APIWeb.Controllers
         }
         [HttpGet]
         [Route("members/{memberId}/explanations/{congress}/votes/{category}")]
-        public async Task<ActionResult<ExplanationsResponse<List<Statement>>>> GetRecentMemberExplanationVotesByCategory(string memberId, string congress, string category)
+        public async Task<ActionResult<ExplanationsResponse<IEnumerable<Explanation>>>> GetRecentMemberExplanationVotesByCategory(string memberId, string congress, string category)
         {
             var client = new APIClient(Endpoint, Token);
             try
             {
-                var response = await client.GetAsync<ExplanationsResponse<List<Statement>>>($"members/{memberId}/explanations/{congress}/votes/{category}.json");
+                var response = await client.GetAsync<ExplanationsResponse<IEnumerable<Explanation>>>($"members/{memberId}/explanations/{congress}/votes/{category}.json");
                 return Ok(response);
             }
             catch (Exception ex)
