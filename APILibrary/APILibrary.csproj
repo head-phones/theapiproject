@@ -120,8 +120,10 @@
     <Compile Include="Vehicle\AllVehicleVariables\Result.cs" />
     <Compile Include="Vehicle\MakesByVehicleType\Reponse.cs" />
     <Compile Include="Vehicle\MakesByVehicleType\Result.cs" />
+    <Compile Include="Vehicle\Makes\Make.cs" />
     <Compile Include="Vehicle\ModelsByMake\Response.cs" />
     <Compile Include="Vehicle\ModelsByMake\Result.cs" />
+    <Compile Include="Vehicle\Response.cs" />
     <Compile Include="Vehicle\VehicleTypesByMake\Response.cs" />
     <Compile Include="Vehicle\VehicleTypesByMake\Result.cs" />
   </ItemGroup>

@@ -19,7 +19,7 @@ namespace AutoData.Controllers
 
         public IActionResult List()
         {
-            var response = client.Get<APILibrary.Vehicle.AllMakes.Response>($"vehicle/GetAllMakes");
+            var response = client.Get<APILibrary.Vehicle.AllMakes.Response>($"vehicle/Makes");
             var makes = response.Results;
             var model = _mapper.Map<List<MakeViewModel>>(makes);
             return PartialView("_List", model);

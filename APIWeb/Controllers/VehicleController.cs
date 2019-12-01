@@ -4,6 +4,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using APILibrary.Utilites;
 using APILibrary.Utilities;
+using APILibrary.Vehicle;
+using APILibrary.Vehicle.Makes;
 using Microsoft.AspNetCore.Mvc;
 
 namespace APIWeb.Controllers
@@ -14,6 +16,23 @@ namespace APIWeb.Controllers
     {
         private string Endpoint = ConfigurationManager.GetConfiguration("VehicleEndpoint");
         private string Token = "";
+
+        [HttpGet]
+        [Route("Makes")]
+        public async Task<ActionResult<Response<IEnumerable<Make>>>> GetMakes()
+        {
+            var client = new APIClient(Endpoint, Token);
+            try
+            {
+                var function = $"vehicles/GetAllMakes?format=json";
+                var response = await client.GetAsync<Response<IEnumerable<Make>>>(function);
+                return Ok(response);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex);
+            }
+        }
 
         [HttpGet]
         [Route("GetAllMakes")]
