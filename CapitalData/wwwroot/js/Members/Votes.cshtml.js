@@ -14,6 +14,7 @@ var MembersVotesModule = MembersVotesModule || (function () {
                 null,
                 { "type": "date" },
                 null,
+                null,
                 null
             ]
         });

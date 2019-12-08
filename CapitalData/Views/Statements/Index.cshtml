@@ -1,0 +1,15 @@
+﻿
+
+<span id="ph_heading" class="h2 font-weight-light"></span>
+<div id="ph_statments_list" class="d-none spinner-border text-dark" role="status">
+    <span class="sr-only">Loading...</span>
+</div>
+
+<div id="div_statments_list"></div>
+
+@section Scripts{
+    <script src="~/js/Statements/Index.cshtml.js" asp-append-version="true"></script>
+    <script>
+        StatementsIndexModule.init();
+    </script>
+}

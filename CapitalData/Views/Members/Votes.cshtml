@@ -25,6 +25,7 @@
                         <th>
                             Result
                         </th>
+                        <th>Question</th>
                         <th>
                             Vote
                         </th>
@@ -34,27 +35,29 @@
                     @for (int i = 0; i < Model.Votes.Count; i++)
                     {
                         var vote = Model.Votes[i];
-                        <tr>
-                            <td class="text-center w-auto">
-                                <a class="text-decoration-none" href="/Votes/Details?congress=@vote.congress&chamber=@vote.chamber&sessionNumber=@vote.session&rollCallNumber=@vote.roll_call">
-                                    <span class="h3 font-weight-light @GetYesNoColor(vote.position)">
-                                        @vote.position
-                                    </span>
-                                </a>
-                            </td>
-                            <td>
-                                @Convert.ToDateTime(vote.date).ToShortDateString()
-                            </td>
-                            <td>
-                                <strong>
-                                    @vote.result
-                                </strong>
-                            </td>
-                            <td>
-                                <i>@vote.question:</i>
+                    <tr>
+                        <td class="text-center w-auto">
+                            <a class="text-decoration-none" href="/Votes/Details?congress=@vote.congress&chamber=@vote.chamber&sessionNumber=@vote.session&rollCallNumber=@vote.roll_call">
+                                <span class="h3 font-weight-light @GetYesNoColor(vote.position)">
+                                    @vote.position
+                                </span>
+                            </a>
+                        </td>
+                        <td>
+                            @Convert.ToDateTime(vote.date).ToShortDateString()
+                        </td>
+                        <td>
+                            @vote.result
+                        </td>
+                        <td>
+                            <i>@vote.question</i>
+                        </td>
+                        <td>
+                            <strong>
                                 @vote.description
-                            </td>
-                        </tr>
+                            </strong>
+                        </td>
+                    </tr>
                     }
                 </tbody>
             </table>

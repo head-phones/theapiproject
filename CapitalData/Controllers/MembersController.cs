@@ -94,7 +94,7 @@ namespace CapitalData.Controllers
                 var cosponsoredBillResponse = client.GetAsync<Response<IEnumerable<MemberBillsResult>>>($"congress/members/{id}/bills/cosponsored");
                 await Task.WhenAll(memberResponse, cosponsoredBillResponse);
                 var member = memberResponse.Result.results.FirstOrDefault();
-                var cosponsoredBills = cosponsoredBillResponse.Result.results.FirstOrDefault()?.bills;
+                var cosponsoredBills = cosponsoredBillResponse.Result.results?.FirstOrDefault()?.bills;
                 var model = new MemberCosponsoredBillsViewModel(_mapper.Map<List<BillViewModel>>(cosponsoredBills), _mapper.Map<MemberViewModel>(member));
                 return View(model);
             }
