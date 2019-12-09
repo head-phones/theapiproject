@@ -4,6 +4,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using APILibrary.ProPublica;
 using APILibrary.ProPublica.Bills;
+using APILibrary.ProPublica.Committee;
+using APILibrary.ProPublica.Lobbying;
 using APILibrary.ProPublica.Members;
 using APILibrary.ProPublica.Statements;
 using APILibrary.ProPublica.Votes;
@@ -26,6 +28,7 @@ namespace APIWeb.Controllers
             return NotFound();
         }
 
+        #region Members
         [HttpGet]
         [Route("{congress}/{chamber}")]
         public async Task<ActionResult<Response<IEnumerable<MemberListResult>>>> GetMembers(string congress, string chamber)
@@ -93,7 +96,7 @@ namespace APIWeb.Controllers
             var client = new APIClient(Endpoint, Token);
             try
             {
-                var response = await client.GetAsync<Response<IEnumerable<MemberListItem>>> ($"members/{chamber}/{state}/{district}/current.json");
+                var response = await client.GetAsync<Response<IEnumerable<MemberListItem>>>($"members/{chamber}/{state}/{district}/current.json");
                 return Ok(response);
             }
             catch (Exception ex)
@@ -133,7 +136,7 @@ namespace APIWeb.Controllers
         }
         [HttpGet]
         [Route("members/comparevotes/{firstMemberId}/{secondMemberId}/{congress}/{chamber}")]
-        public async Task<ActionResult<Response<IEnumerable<CompareVotePositionsResult>>>> CompareVotePositions(string firstMemberId, string secondMemberId, string congress,string chamber)
+        public async Task<ActionResult<Response<IEnumerable<CompareVotePositionsResult>>>> CompareVotePositions(string firstMemberId, string secondMemberId, string congress, string chamber)
         {
             var client = new APIClient(Endpoint, Token);
             try
@@ -221,6 +224,9 @@ namespace APIWeb.Controllers
                 return StatusCode(500, ex);
             }
         }
+        #endregion
+
+        #region Bills
         [HttpGet]
         [Route("bills/{query}")]
         public async Task<ActionResult<BillsResponse<List<SearchBills>>>> SearchBills(string query)
@@ -371,6 +377,9 @@ namespace APIWeb.Controllers
                 return StatusCode(500, ex);
             }
         }
+        #endregion
+
+        #region Votes
         [HttpGet]
         [Route("{chamber}/votes/recent")]
         public async Task<ActionResult<Response<RecentVotesResult>>> GetRecentVotes(string chamber)
@@ -551,14 +560,17 @@ namespace APIWeb.Controllers
                 return StatusCode(500, ex);
             }
         }
+        #endregion
+
+        #region Statements
         [HttpGet]
         [Route("statements")]
-        public async Task<ActionResult<StatementResponse<List<Statement>>>> GetRecentStatements()
+        public async Task<ActionResult<StatementResponse<IEnumerable<Statement>>>> GetRecentStatements()
         {
             var client = new APIClient(Endpoint, Token);
             try
             {
-                var response = await client.GetAsync<StatementResponse<List<Statement>>>($"/statements/latest.json");
+                var response = await client.GetAsync<StatementResponse<IEnumerable<Statement>>>($"/statements/latest.json");
                 return Ok(response);
             }
             catch (Exception ex)
@@ -568,12 +580,12 @@ namespace APIWeb.Controllers
         }
         [HttpGet]
         [Route("statements/date/{date}")]
-        public async Task<ActionResult<StatementResponse<List<Statement>>>> GetStatementsByDate(string date)
+        public async Task<ActionResult<StatementResponse<IEnumerable<Statement>>>> GetStatementsByDate(string date)
         {
             var client = new APIClient(Endpoint, Token);
             try
             {
-                var response = await client.GetAsync<StatementResponse<List<Statement>>>($"/statements/date/{date}.json");
+                var response = await client.GetAsync<StatementResponse<IEnumerable<Statement>>>($"/statements/date/{date}.json");
                 return Ok(response);
             }
             catch (Exception ex)
@@ -583,12 +595,12 @@ namespace APIWeb.Controllers
         }
         [HttpGet]
         [Route("statements/search/{term}")]
-        public async Task<ActionResult<StatementResponse<List<Statement>>>> SearchStatements(string term)
+        public async Task<ActionResult<StatementResponse<IEnumerable<Statement>>>> SearchStatements(string term)
         {
             var client = new APIClient(Endpoint, Token);
             try
             {
-                var response = await client.GetAsync<StatementResponse<List<Statement>>>($"/statements/search.json?query={term}");
+                var response = await client.GetAsync<StatementResponse<IEnumerable<Statement>>>($"/statements/search.json?query={term}");
                 return Ok(response);
             }
             catch (Exception ex)
@@ -598,12 +610,12 @@ namespace APIWeb.Controllers
         }
         [HttpGet]
         [Route("statements/subjects")]
-        public async Task<ActionResult<StatementResponse<List<Subject>>>> GetStatementSubjects()
+        public async Task<ActionResult<StatementResponse<IEnumerable<Subject>>>> GetStatementSubjects()
         {
             var client = new APIClient(Endpoint, Token);
             try
             {
-                var response = await client.GetAsync<StatementResponse<List<Subject>>>($"/statements/subjects.json");
+                var response = await client.GetAsync<StatementResponse<IEnumerable<Subject>>>($"/statements/subjects.json");
                 return Ok(response);
             }
             catch (Exception ex)
@@ -613,12 +625,12 @@ namespace APIWeb.Controllers
         }
         [HttpGet]
         [Route("statements/subject/{subject}")]
-        public async Task<ActionResult<StatementResponse<List<Statement>>>> GetStatementsBySubject(string subject)
+        public async Task<ActionResult<StatementResponse<IEnumerable<Statement>>>> GetStatementsBySubject(string subject)
         {
             var client = new APIClient(Endpoint, Token);
             try
             {
-                var response = await client.GetAsync<StatementResponse<List<Statement>>>($"/statements/subject/{subject}.json");
+                var response = await client.GetAsync<StatementResponse<IEnumerable<Statement>>>($"/statements/subject/{subject}.json");
                 return Ok(response);
             }
             catch (Exception ex)
@@ -628,12 +640,12 @@ namespace APIWeb.Controllers
         }
         [HttpGet]
         [Route("members/{memberId}/statements/{congress}")]
-        public async Task<ActionResult<StatementResponse<List<Statement>>>> GetStatementsByMember(string memberId, int congress)
+        public async Task<ActionResult<StatementResponse<IEnumerable<Statement>>>> GetStatementsByMember(string memberId, int congress)
         {
             var client = new APIClient(Endpoint, Token);
             try
             {
-                var response = await client.GetAsync<StatementResponse<List<Statement>>>($"/members/{memberId}/statements/{congress}.json");
+                var response = await client.GetAsync<StatementResponse<IEnumerable<Statement>>>($"/members/{memberId}/statements/{congress}.json");
                 return Ok(response);
             }
             catch (Exception ex)
@@ -643,12 +655,12 @@ namespace APIWeb.Controllers
         }
         [HttpGet]
         [Route("{congress}/bills/{billId}/statements")]
-        public async Task<ActionResult<StatementResponse<List<Statement>>>> GetStatementsByBill(int congress, string billId)
+        public async Task<ActionResult<StatementResponse<IEnumerable<Statement>>>> GetStatementsByBill(int congress, string billId)
         {
             var client = new APIClient(Endpoint, Token);
             try
             {
-                var response = await client.GetAsync<StatementResponse<List<Statement>>>($"{congress}/bills/{billId}/statements");
+                var response = await client.GetAsync<StatementResponse<IEnumerable<Statement>>>($"{congress}/bills/{billId}/statements");
                 return Ok(response);
             }
             catch (Exception ex)
@@ -658,12 +670,12 @@ namespace APIWeb.Controllers
         }
         [HttpGet]
         [Route("statements/committees")]
-        public async Task<ActionResult<StatementResponse<List<Statement>>>> GetRecentCommitteeStatements()
+        public async Task<ActionResult<StatementResponse<IEnumerable<Statement>>>> GetRecentCommitteeStatements()
         {
             var client = new APIClient(Endpoint, Token);
             try
             {
-                var response = await client.GetAsync<StatementResponse<List<Statement>>>($"statements/committees/latest.json");
+                var response = await client.GetAsync<StatementResponse<IEnumerable<Statement>>>($"statements/committees/latest.json");
                 return Ok(response);
             }
             catch (Exception ex)
@@ -673,12 +685,12 @@ namespace APIWeb.Controllers
         }
         [HttpGet]
         [Route("statements/committees/date/{date}")]
-        public async Task<ActionResult<StatementResponse<List<Statement>>>> GetCommitteeStatementsByDate(string date)
+        public async Task<ActionResult<StatementResponse<IEnumerable<Statement>>>> GetCommitteeStatementsByDate(string date)
         {
             var client = new APIClient(Endpoint, Token);
             try
             {
-                var response = await client.GetAsync<StatementResponse<List<Statement>>>($"statements/committees/date/{date}.json");
+                var response = await client.GetAsync<StatementResponse<IEnumerable<Statement>>>($"statements/committees/date/{date}.json");
                 return Ok(response);
             }
             catch (Exception ex)
@@ -688,12 +700,12 @@ namespace APIWeb.Controllers
         }
         [HttpGet]
         [Route("statements/committees/{committeeId}")]
-        public async Task<ActionResult<StatementResponse<List<Statement>>>> GetCommitteeStatementsByCommittee(string committeeId)
+        public async Task<ActionResult<StatementResponse<IEnumerable<Statement>>>> GetCommitteeStatementsByCommittee(string committeeId)
         {
             var client = new APIClient(Endpoint, Token);
             try
             {
-                var response = await client.GetAsync<StatementResponse<List<Statement>>>($"statements/committees/{committeeId}.json");
+                var response = await client.GetAsync<StatementResponse<IEnumerable<Statement>>>($"statements/committees/{committeeId}.json");
                 return Ok(response);
             }
             catch (Exception ex)
@@ -703,12 +715,12 @@ namespace APIWeb.Controllers
         }
         [HttpGet]
         [Route("statements/committees/search/{term}")]
-        public async Task<ActionResult<StatementResponse<List<Statement>>>> SearchCommitteeStatements(string term)
+        public async Task<ActionResult<StatementResponse<IEnumerable<Statement>>>> SearchCommitteeStatements(string term)
         {
             var client = new APIClient(Endpoint, Token);
             try
             {
-                var response = await client.GetAsync<StatementResponse<List<Statement>>>($"statements/committees/search.json?query={term}");
+                var response = await client.GetAsync<StatementResponse<IEnumerable<Statement>>>($"statements/committees/search.json?query={term}");
                 return Ok(response);
             }
             catch (Exception ex)
@@ -716,5 +728,118 @@ namespace APIWeb.Controllers
                 return StatusCode(500, ex);
             }
         }
+        #endregion
+
+        #region Committees
+        [HttpGet]
+        [Route("{congress}/{chamber}/committees")]
+        public async Task<ActionResult<Response<IEnumerable<CommitteeListResult>>>> GetCommittees(string congress, string chamber)
+        {
+            var client = new APIClient(Endpoint, Token);
+            try
+            {
+                var response = await client.GetAsync<Response<IEnumerable<CommitteeListResult>>>($"{congress}/{chamber}/committees.json");
+                return Ok(response);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex);
+            }
+        }
+        [HttpGet]
+        [Route("{congress}/{chamber}/committees/{committeeId}")]
+        public async Task<ActionResult<Response<IEnumerable<CommitteeResult>>>> GetCommittee(string congress, string chamber, string committeeId)
+        {
+            var client = new APIClient(Endpoint, Token);
+            try
+            {
+                var response = await client.GetAsync<Response<IEnumerable<CommitteeResult>>>($"{congress}/{chamber}/committees/{committeeId}.json");
+                return Ok(response);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex);
+            }
+        }
+        [HttpGet]
+        [Route("{congress}/committees/hearings")]
+        public async Task<ActionResult<Response<IEnumerable<HearingResult>>>> GetCommitteeHearings(string congress)
+        {
+            var client = new APIClient(Endpoint, Token);
+            try
+            {
+                var response = await client.GetAsync<Response<IEnumerable<HearingResult>>>($"{congress}/committees/hearings.json");
+                return Ok(response);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex);
+            }
+        }
+        [HttpGet]
+        [Route("{congress}/{chamber}/committees/{committeeId}/hearings")]
+        public async Task<ActionResult<Response<IEnumerable<HearingResult>>>> GetCommitteeHearingsByCommittee(string congress, string chamber, string committeeId)
+        {
+            var client = new APIClient(Endpoint, Token);
+            try
+            {
+                var response = await client.GetAsync<Response<IEnumerable<HearingResult>>>($"{congress}/{chamber}/committees/{committeeId}/hearings.json");
+                return Ok(response);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex);
+            }
+        }
+        #endregion
+
+        #region Lobbying
+
+        [HttpGet]
+        [Route("lobbying")]
+        public async Task<ActionResult<Response<IEnumerable<LobbyingListResult>>>> GetRecentLobbying()
+        {
+            var client = new APIClient(Endpoint, Token);
+            try
+            {
+                var response = await client.GetAsync<Response<IEnumerable<LobbyingListResult>>>($"lobbying/latest.json");
+                return Ok(response);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex);
+            }
+        }
+        [HttpGet]
+        [Route("lobbying/search/{query}")]
+        public async Task<ActionResult<Response<IEnumerable<LobbyingListResult>>>> SearchLobbying(string query)
+        {
+            var client = new APIClient(Endpoint, Token);
+            try
+            {
+                var response = await client.GetAsync<Response<IEnumerable<LobbyingListResult>>>($"lobbying/search.json?query={query}");
+                return Ok(response);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex);
+            }
+        }
+        [HttpGet]
+        [Route("lobbying/{filingId}")]
+        public async Task<ActionResult<Response<IEnumerable<LobbyingResult>>>> GetLobbyingByFiling(string filingId)
+        {
+            var client = new APIClient(Endpoint, Token);
+            try
+            {
+                var response = await client.GetAsync<Response<IEnumerable<LobbyingResult>>>($"lobbying/{filingId}.json");
+                return Ok(response);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex);
+            }
+        }
+        #endregion
     }
 }

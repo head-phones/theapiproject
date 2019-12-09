@@ -207,6 +207,28 @@
         </div>
     }
 </div>
+<div class="my-3">
+    <h5 class="mb-2 p-3">
+        <i class="fa fa-bullhorn"></i>
+        Statements
+    </h5>
+    @if (Model.statments?.Count > 0)
+    {
+        @await Html.PartialAsync("~/Views/Statements/_List.cshtml", Model.statments)
+
+    }
+    else
+    {
+        <div class="media text-muted p-3">
+            <div class="media-body pb-3 mb-0 lh-125">
+                <p class="text-danger">
+                    There have been no statements for this bill.
+                </p>
+            </div>
+        </div>
+    }
+</div>
+
 @section Scripts{ 
 <script src="~/js/Bills/Details.cshtml.js" asp-append-version="true"></script>
 <script>

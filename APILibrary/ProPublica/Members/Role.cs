@@ -30,7 +30,7 @@ namespace APILibrary.ProPublica.Members
         public int? bills_cosponsored { get; set; }
         public double? missed_votes_pct { get; set; }
         public double? votes_with_party_pct { get; set; }
-        public List<Committee> committees { get; set; }
-        public List<Committee> subcommittees { get; set; }
+        public List<MemberCommittee> committees { get; set; }
+        public List<MemberCommittee> subcommittees { get; set; }
     }
 }
