@@ -827,12 +827,12 @@ namespace APIWeb.Controllers
         }
         [HttpGet]
         [Route("lobbying/{filingId}")]
-        public async Task<ActionResult<Response<IEnumerable<LobbyingResult>>>> GetLobbyingByFiling(string filingId)
+        public async Task<ActionResult<Response<IEnumerable<LobbyingRepresentation>>>> GetLobbyingByFiling(string filingId)
         {
             var client = new APIClient(Endpoint, Token);
             try
             {
-                var response = await client.GetAsync<Response<IEnumerable<LobbyingResult>>>($"lobbying/{filingId}.json");
+                var response = await client.GetAsync<Response<IEnumerable<LobbyingRepresentation>>>($"lobbying/{filingId}.json");
                 return Ok(response);
             }
             catch (Exception ex)

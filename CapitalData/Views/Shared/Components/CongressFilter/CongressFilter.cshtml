@@ -1,0 +1,44 @@
+﻿@{
+    var chamber = ViewData["chamber"].ToString();
+    var congress = ViewData["congress"].ToString();
+    var congressInt = Convert.ToInt32(congress);
+    var congressString = $"{congress}{GetOrdinalSuffix(congressInt)} Congress";
+    var congressMin = 104;
+    var congressMax = 117;
+}
+@functions{
+    string GetOrdinalSuffix(int num)
+    {
+        if (num.ToString().EndsWith("11")) return "th";
+        if (num.ToString().EndsWith("12")) return "th";
+        if (num.ToString().EndsWith("13")) return "th";
+        if (num.ToString().EndsWith("1")) return "st";
+        if (num.ToString().EndsWith("2")) return "nd";
+        if (num.ToString().EndsWith("3")) return "rd";
+        return "th";
+    }
+}
+
+<div class="btn-group">
+    <button type="button" class="btn btn-sm btn-outline-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <span data-feather="calendar"></span>
+        @congressString
+    </button>
+    <div class="dropdown-menu">
+        @for (int i = congressMin; i < congressMax; i++)
+        {
+            var active = i == congressInt ? "active" : "";
+            <a class="dropdown-item @active" href="#" onclick="checkCongressFilterChanged(this, '@i.ToString()', '@chamber')">@i@GetOrdinalSuffix(i)</a>
+        }
+    </div>
+</div>
+<script>
+    function checkCongressFilterChanged(sender, congress, chamber) {
+        if (typeof CongressFilterChanged === "function") {
+            CongressFilterChanged(sender, congress, chamber)
+        }
+        else {
+            console.error('CongressFilterChanged function needs to be implemented')
+        }
+    }
+</script>

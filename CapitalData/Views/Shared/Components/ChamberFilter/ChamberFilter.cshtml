@@ -1,0 +1,24 @@
+﻿
+@{
+    var chamber = ViewData["chamber"].ToString();
+    var congress = ViewData["congress"].ToString();
+}
+<div class="btn-group btn-group-toggle mr-2" data-toggle="buttons">
+    <label class="btn btn-outline-secondary @{ if (chamber == "senate") {<text>active</text> } }">
+        <input type="radio" name="options" id="senate" autocomplete="off" @{ if (chamber == "senate") { <text> checked</text> } } onchange="checkChamberFilterChanged(this, '@congress','senate')"> Senate
+    </label>
+    <label class="btn btn-outline-secondary @{ if (chamber == "house") {<text>active</text> } }">
+        <input type="radio" name="options" id="house" autocomplete="off" @{ if (chamber == "house") { <text> checked</text> } } onchange="checkChamberFilterChanged(this, '@congress','house')"> House
+    </label>
+</div>
+
+<script>
+    function checkChamberFilterChanged(sender, congress, chamber) {
+        if (typeof ChamberFilterChanged === "function") {
+            ChamberFilterChanged(sender, congress, chamber)
+        }
+        else {
+            console.error('CongressFilterChanged function needs to be implemented')
+        }
+    }
+</script>

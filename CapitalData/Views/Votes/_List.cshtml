@@ -22,21 +22,14 @@
         return partycolor;
     }
 }
-<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3">
-    <h1 class="h2 font-weight-light">
-        Recent @chamberFormatted Votes
-    </h1>
-    <div class="btn-toolbar mb-2 mb-md-0">
-        <div class="btn-group btn-group-toggle mr-2" data-toggle="buttons">
-            <label class="btn btn-outline-secondary @{ if (chamber == "senate") {<text>active</text> } }">
-                <input type="radio" name="options" id="house" autocomplete="off" @{ if (chamber == "senate") { <text> checked</text> } } onchange="VotesIndexModule.onChamberChanged('senate')"> Senate
-            </label>
-            <label class="btn btn-outline-secondary @{ if (chamber == "house") {<text>active</text> } }">
-                <input type="radio" name="options" id="house" autocomplete="off" @{ if (chamber == "house") { <text> checked</text> } } onchange="VotesIndexModule.onChamberChanged('house')"> House
-            </label>
+    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3">
+        <h1 class="h2 font-weight-light">
+            Recent @chamberFormatted Votes
+        </h1>
+        <div class="btn-toolbar mb-2 mb-md-0">
+            @await Component.InvokeAsync("ChamberFilter", new { chamber = ViewData["chamber"] })
         </div>
     </div>
-</div>
 
 <div class="row">
     <div class="col-md-8">
@@ -97,5 +90,5 @@
 <script>
     var labels = JSON.parse('@Html.Raw(Model.VoteChartLabelsJSON)');
     var data = JSON.parse('@Html.Raw(Model.VoteChartDataJSON)');
-    VotesIndexModule.initVotesBarChart(labels, data);
+    initVotesBarChart(labels, data);
 </script>

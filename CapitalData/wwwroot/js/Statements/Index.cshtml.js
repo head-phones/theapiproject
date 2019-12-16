@@ -3,6 +3,7 @@
 var StatementsIndexModule = StatementsIndexModule || (function () {
     // private
     var _args = {};
+
     var _list = function () {
         $('#ph_heading').html('Recent Statments')
         $('#div_statments_list').html('')

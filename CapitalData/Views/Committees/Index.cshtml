@@ -1,15 +1,15 @@
 ﻿
 
-<div id="members_list"></div>
+<div id="committees_list"></div>
 
 @section Scripts{
     <script src="~/js/List.js" asp-append-version="true"></script>
     <script>
-        var members = $('#members_list').List({
+        var committees = $('#committees_list').List({
             defaultArgs: { congress: '@ViewData["congress"].ToString()', chamber: '@ViewData["chamber"].ToString()' },
-            loadUrl: '/Members/List',
+            loadUrl: '/Committees/List',
             onComplete: function (data) {
-                $('#members_table').DataTable({
+                $('#committees_table').DataTable({
                     "pageLength": 25,
                     order: []
                 })
@@ -17,11 +17,11 @@
         })
 
         function ChamberFilterChanged(sender, congress, chamber) {
-            members.list({ congress: congress, chamber: chamber })
+            committees.list({ congress: congress, chamber: chamber })
         }
 
         function CongressFilterChanged(sender, congress, chamber) {
-            members.list({ congress: congress, chamber: chamber })
+            committees.list({ congress: congress, chamber: chamber })
         }
     </script>
 }

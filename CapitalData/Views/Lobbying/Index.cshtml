@@ -1,27 +1,23 @@
 ﻿
-<div id="bill_list"></div>
+<div id="lobbying"></div>
 
 @section Scripts{
     <script src="~/js/List.js" asp-append-version="true"></script>
     <script>
-        var bills = $('#bill_list').List({
-            defaultArgs: { chamber: '@ViewData["chamber"].ToString()' },
-            loadUrl: '/Bills/List',
+        var votes = $('#lobbying').List({
+            loadUrl: '/Lobbying/List',
             onComplete: function (data) {
-                $('#tbl_bills').DataTable({
+                $('#tbl_lobbying').DataTable({
                     "pageLength": 25,
                     order: [[1, 'desc']],
                     "columns": [
                         null,
-                        { "type": "date" },
                         null,
                         null
                     ]
                 })
             }
         })
-        function ChamberFilterChanged(sender, congress, chamber) {
-            bills.list({ chamber: chamber })
-        }
+        
     </script>
 }

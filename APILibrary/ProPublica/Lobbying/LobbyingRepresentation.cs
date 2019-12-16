@@ -15,12 +15,13 @@ namespace APILibrary.ProPublica.Lobbying
         public string effective_date { get; set; }
         public string xml_filename { get; set; }
         public string id { get; set; }
-        public List<object> specific_issues { get; set; }
+        public List<string> specific_issues { get; set; }
         public string report_type { get; set; }
         public string report_year { get; set; }
         public string senate_id { get; set; }
         public string house_id { get; set; }
         public Filing latest_filing { get; set; }
+        public List<Filing> filings { get; set; }
         public List<Lobbyist> lobbyists { get; set; }
 
     }

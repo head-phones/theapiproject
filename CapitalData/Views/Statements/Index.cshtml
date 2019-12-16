@@ -1,15 +1,35 @@
 ﻿
 
-<span id="ph_heading" class="h2 font-weight-light"></span>
-<div id="ph_statments_list" class="d-none spinner-border text-dark" role="status">
-    <span class="sr-only">Loading...</span>
-</div>
-
-<div id="div_statments_list"></div>
+<div id="statments_list"></div>
 
 @section Scripts{
-    <script src="~/js/Statements/Index.cshtml.js" asp-append-version="true"></script>
-    <script>
-        StatementsIndexModule.init();
+    <script src="~/js/List.js" asp-append-version="true"></script>
+    <script>  
+        var statements = $('#statments_list').List({
+            loadUrl: '/Statements/List',
+            searchUrl: '/Statements/Search',
+            onComplete: function (data) {
+                $('#tbl_statements').DataTable({
+                    "pageLength": 25,
+                    order: [],
+                    "columns": [
+                        null,
+                        { "type": "date" },
+                        null,
+                        null
+                    ]
+                })
+            }
+        })
+        
+        $('#form_search').removeClass('d-none')
+        $('#nav_search').attr('placeholder', 'Search Statements')
+        $('#nav_search').on('keypress', function (e) {
+            if (e.which == 13) {
+                e.preventDefault()
+                var term = $('#nav_search').val();
+                statements.search({ term: term })
+            }
+        })
     </script>
 }

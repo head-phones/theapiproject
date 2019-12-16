@@ -1,19 +1,58 @@
 ﻿
-
-<div id="ph_vote_list" class="d-none">
-    <span id="lbl_heading" class="h2 font-weight-light"></span>
-    <div class="spinner-border text-dark" role="status">
-        <span class="sr-only">Loading...</span>
-    </div>
-</div>
-
-<div id="div_vote_list"></div>
+<div id="votes"></div>
 
 @section Scripts{
-    <script src="~/js/Votes/Index.cshtml.js" asp-append-version="true"></script>
+    <script src="~/js/List.js" asp-append-version="true"></script>
     <script>
-        VotesIndexModule.init({
-            chamber: '@ViewData["chamber"].ToString()'
-        });
+        var votes = $('#votes').List({
+            defaultArgs: { chamber: '@ViewData["chamber"].ToString()' },
+            loadUrl: '/Votes/List',
+            onComplete: function (data) {
+                $('#tbl_votes').DataTable({
+                    "pageLength": 25,
+                    order: [[1, 'desc']],
+                    "columns": [
+                        null,
+                        { "type": "date" },
+                        null,
+                        null
+                    ]
+                })
+            }
+        })
+        function initVotesBarChart(labels, data) {
+            var ctx = $("#votesBarChart");
+            var myBarChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: labels,
+                    datasets: [
+                        {
+                            data: data,
+                            backgroundColor: "#212529",
+                            hoverBackgroundColor: "#6c757d",
+                            borderColor: "#212529",
+                        }
+                    ],
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        yAxes: [{
+                            ticks: {
+                                beginAtZero: true
+                            }
+                        }]
+                    },
+                    legend: {
+                        display: false
+                    },
+                }
+            });
+        }
+        function ChamberFilterChanged(sender, congress, chamber) {
+            votes.list({ chamber: chamber })
+        }
     </script>
 }

@@ -1,0 +1,51 @@
+﻿@model List<LobbyingRepresentationViewModel>
+
+<h1 class="h2 font-weight-light">
+    Recent Filings
+</h1>
+@if (Model?.Count > 0)
+{
+    <div class="table-responsive">
+        <table id="tbl_lobbying" class="table table-hover table-sm">
+            <thead class="thead-dark">
+                <tr>
+                    <th>Client</th>
+                    <th>Registrant</th>
+                    <th>Url</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var filing in Model)
+                {
+                <tr>
+                    <td>
+                        @filing.lobbying_client.name
+                        <br />
+                        <small>
+                            @filing.lobbying_client.general_description
+                        </small>
+                    </td>
+                    <td>
+                        @filing.lobbying_registrant.name
+                        <br />
+                        <small>
+                            @filing.lobbying_registrant.general_description
+                        </small>
+                    </td>
+                    <td>
+                        <a href="@filing.latest_filing.pdf_url" target="_blank">
+                            @filing.latest_filing.pdf_url
+                        </a>
+                    </td>
+                </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}
+else
+{
+    <div class="text-danger">
+        There are no recent filings.
+    </div>
+}

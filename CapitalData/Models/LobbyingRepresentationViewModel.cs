@@ -1,15 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
-namespace APILibrary.ProPublica.Lobbying
+namespace CapitalData.Models
 {
-    public class LobbyingResult
+    public class LobbyingRepresentationViewModel
     {
-        public LobbyingClient lobbying_client { get; set; }
-        public LobbyingRegistrant lobbying_registrant { get; set; }
+        public LobbyingClientViewModel lobbying_client { get; set; }
+        public LobbyingRegistrantViewModel lobbying_registrant { get; set; }
         public string inhouse { get; set; }
         public string signed_date { get; set; }
         public string effective_date { get; set; }
@@ -20,7 +19,8 @@ namespace APILibrary.ProPublica.Lobbying
         public string report_year { get; set; }
         public string senate_id { get; set; }
         public string house_id { get; set; }
-        public List<Filing> filings { get; set; }
-        public List<Lobbyist> lobbyists { get; set; }
+        public FilingViewModel latest_filing { get; set; }
+        public List<FilingViewModel> filings { get; set; }
+        public List<LobbyistViewModel> lobbyists { get; set; }
     }
 }

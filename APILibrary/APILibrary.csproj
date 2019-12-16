@@ -92,7 +92,6 @@
     <Compile Include="ProPublica\Lobbying\LobbyingListResult.cs" />
     <Compile Include="ProPublica\Lobbying\LobbyingRegistrant.cs" />
     <Compile Include="ProPublica\Lobbying\LobbyingRepresentation.cs" />
-    <Compile Include="ProPublica\Lobbying\LobbyingResult.cs" />
     <Compile Include="ProPublica\Lobbying\Lobbyist.cs" />
     <Compile Include="ProPublica\Members\MemberCommittee.cs" />
     <Compile Include="ProPublica\Members\CompareBill.cs" />

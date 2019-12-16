@@ -1,0 +1,78 @@
+﻿@model List<CommitteeViewModel>
+@{
+    var chamber = ViewData["chamber"].ToString();
+    var congress = ViewData["congress"].ToString();
+    var congressInt = Convert.ToInt32(congress);
+    var congressString = $"{congress}{GetOrdinalSuffix(congressInt)} Congress";
+    var chamberFormatted = chamber.First().ToString().ToUpper() + chamber.Substring(1);
+}
+@functions{
+    string GetOrdinalSuffix(int num)
+    {
+        if (num.ToString().EndsWith("11")) return "th";
+        if (num.ToString().EndsWith("12")) return "th";
+        if (num.ToString().EndsWith("13")) return "th";
+        if (num.ToString().EndsWith("1")) return "st";
+        if (num.ToString().EndsWith("2")) return "nd";
+        if (num.ToString().EndsWith("3")) return "rd";
+        return "th";
+    }
+}
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3">
+    <h1 class="h2 font-weight-light">
+        @chamberFormatted Committees
+    </h1>
+    <div class="btn-toolbar mb-2 mb-md-0">
+        @await Component.InvokeAsync("ChamberFilter", new { congress = ViewData["congress"], chamber = ViewData["chamber"] })
+
+        @await Component.InvokeAsync("CongressFilter", new { congress = ViewData["congress"], chamber = ViewData["chamber"] })
+    </div>
+
+</div>
+
+@if (Model?.Count > 0)
+{
+    <div class="table-responsive">
+        <table id="committees_table" class="table table-hover table-sm">
+            <thead class="thead-dark">
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Chair</th>
+                    <th>Website</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var committee in Model)
+                {
+                <tr>
+                    <td>
+                        @committee.id
+                    </td>
+                    <td>
+                        <a href="/Committees/Details?id=@committee.id&congress=@ViewData["congress"]&chamber=@ViewData["chamber"]">
+                            @committee.name
+                        </a>
+                    </td>
+                    <td>
+                        <a href="/Members/Details/@committee.chair_id">
+                            @committee.chair (@committee.chair_party-@committee.chair_state)
+                        </a>
+                    </td>
+                    <td>
+                        <a target="_blank" href="@committee.url" class="text-muted small">
+                            @committee.url
+                        </a>
+                    </td>
+                </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}
+else
+{
+    <div class="text-danger">
+        There are no committees to display.
+    </div>
+}
