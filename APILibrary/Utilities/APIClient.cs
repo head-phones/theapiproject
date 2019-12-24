@@ -154,7 +154,11 @@ namespace APILibrary.Utilites
         private string FormatRequestUri(string function)
         {
             var requestUri = Endpoint;
-            requestUri += !function.StartsWith("/") ? $"/{function}" : function;
+            //TODO: add configuration settings to handle different api url formats
+            requestUri += !function.StartsWith("/") 
+                && !Endpoint.Contains("?")  //api does not use query string
+                ? $"/{function}" 
+                : function;
             return requestUri;
         }
         #endregion

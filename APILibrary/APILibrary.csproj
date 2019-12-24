@@ -63,6 +63,9 @@
     <Compile Include="GoogleGeocode\Result.cs" />
     <Compile Include="GoogleGeocode\Southwest.cs" />
     <Compile Include="GoogleGeocode\Viewport.cs" />
+    <Compile Include="LanguageUnderstanding\Entity.cs" />
+    <Compile Include="LanguageUnderstanding\Response.cs" />
+    <Compile Include="LanguageUnderstanding\TopScoringIntent.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ProPublica\Bills\Action.cs" />
     <Compile Include="ProPublica\Bills\Amendment.cs" />
