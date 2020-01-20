@@ -9,7 +9,7 @@
             defaultArgs: { congress: '@ViewData["congress"].ToString()', chamber: '@ViewData["chamber"].ToString()' },
             loadUrl: '/Members/List',
             onComplete: function (data) {
-                $('#members_table').DataTable({
+                $('#tbl_members').DataTable({
                     "pageLength": 25,
                     order: []
                 })

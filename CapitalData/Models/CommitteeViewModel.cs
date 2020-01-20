@@ -19,5 +19,7 @@ namespace CapitalData.Models
         public string chair_uri { get; set; }
         public string ranking_member_id { get; set; }
         public List<SubcommitteeViewModel> subcommittees { get; set; }
+        public List<CommitteeMemberViewModel> current_members { get; set; }
+        public List<CommitteeMemberViewModel> former_members { get; set; }
     }
 }
