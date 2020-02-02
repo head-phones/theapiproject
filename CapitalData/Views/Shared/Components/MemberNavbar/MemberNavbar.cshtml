@@ -2,7 +2,7 @@
 @{
     var currentRole = Model.Member.roles.FirstOrDefault();
 }
-<div class="nav-scroller bg-white shadow-sm mb-2">
+<div class="nav-scroller bg-light shadow-sm mb-2">
     <nav class="nav nav-underline">
         <a class="nav-link
                @if (Context.Request.Path != null && Context.Request.Path.Value.Contains("/Members/Details"))

@@ -1,0 +1,23 @@
+﻿
+<div id="lobbying"></div>
+
+@section Scripts{
+    <script src="~/js/List.js" asp-append-version="true"></script>
+    <script>
+        var votes = $('#lobbying').List({
+            loadUrl: '/Lobbying/List',
+            onComplete: function (data) {
+                $('#tbl_lobbying').DataTable({
+                    "pageLength": 25,
+                    order: [[1, 'desc']],
+                    "columns": [
+                        null,
+                        null,
+                        null
+                    ]
+                })
+            }
+        })
+        
+    </script>
+}

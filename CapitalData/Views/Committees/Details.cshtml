@@ -1,0 +1,25 @@
+﻿@model CommitteeViewModel
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h2 class="font-weight-light">
+    <strong>
+        @Model.name
+    </strong>
+</h2>
+<i class="fas fa-chair"></i>
+<a href="/Members/Details/@Model.chair_id">
+    @Model.chair (@Model.chair_party - @Model.chair_state)
+</a>
+<br />
+<i class="fas fa-link"></i>
+<a href="/Members/Details/@Model.ranking_member_id">
+    Ranking Member
+</a>
+<br />
+<i class="fas fa-certificate"></i>
+<a target="_blank" href="@Model.url">
+    Website
+</a>
+

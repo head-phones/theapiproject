@@ -41,6 +41,18 @@ namespace DomainLayer.Utilities
             CreateMap<APILibrary.ProPublica.Statements.Statement, StatementViewModel>();
             CreateMap<APILibrary.ProPublica.Votes.Explanation, ExplanationViewModel>();
 
+            CreateMap<APILibrary.ProPublica.Committee.Committee, CommitteeViewModel>();
+            CreateMap<APILibrary.ProPublica.Committee.CommitteeResult, CommitteeViewModel>();
+            CreateMap<APILibrary.ProPublica.Committee.Subcommittee, SubcommitteeViewModel>();
+            CreateMap<APILibrary.ProPublica.Committee.Hearing, HearingViewModel>();
+            CreateMap<APILibrary.ProPublica.Committee.FormerMember, CommitteeMemberViewModel>();
+            CreateMap<APILibrary.ProPublica.Committee.CurrentMember, CommitteeMemberViewModel>();
+
+            CreateMap<APILibrary.ProPublica.Lobbying.Filing, FilingViewModel>();
+            CreateMap<APILibrary.ProPublica.Lobbying.LobbyingClient, LobbyingClientViewModel>();
+            CreateMap<APILibrary.ProPublica.Lobbying.LobbyingRegistrant, LobbyingRegistrantViewModel>();
+            CreateMap<APILibrary.ProPublica.Lobbying.LobbyingRepresentation, LobbyingRepresentationViewModel>();
+            CreateMap<APILibrary.ProPublica.Lobbying.Lobbyist, LobbyistViewModel>();
         }
     }
 }

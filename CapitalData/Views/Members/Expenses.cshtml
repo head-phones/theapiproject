@@ -8,7 +8,7 @@
 
 <div>
     <h2 class="mb-3 font-weight-light">
-        Statments
+        Expenses Y:@ViewData["year"] Q:@ViewData["quarter"]
     </h2>
 
     @if (Model.Expenses?.Count > 0)
@@ -71,7 +71,7 @@
         <div class="media text-muted pt-3">
             <div class="media-body pb-3 mb-0 lh-125">
                 <p class="text-danger">
-                    There are been no reported expenses by this member during this quarter (Y:@ViewData["year"] Q:@ViewData["quarter"]).
+                    There are been no reported expenses by this member during this quarter.
                 </p>
             </div>
         </div>

@@ -2,23 +2,9 @@
 @{ 
     var chamber = ViewData["chamber"].ToString();
     var congress = ViewData["congress"].ToString();
-    var congressInt = Convert.ToInt32(congress);
-    var congressString = $"{congress}{GetOrdinalSuffix(congressInt)} Congress";
     var chamberFormatted = chamber.First().ToString().ToUpper() + chamber.Substring(1);
-    var congressMin = 104;
-    var congressMax = 117;
 }
 @functions{
-    string GetOrdinalSuffix(int num)
-    {
-        if (num.ToString().EndsWith("11")) return "th";
-        if (num.ToString().EndsWith("12")) return "th";
-        if (num.ToString().EndsWith("13")) return "th";
-        if (num.ToString().EndsWith("1")) return "st";
-        if (num.ToString().EndsWith("2")) return "nd";
-        if (num.ToString().EndsWith("3")) return "rd";
-        return "th";
-    }
     string GetPartyColor(string party)
     {
         var partycolor = string.Empty;
@@ -37,35 +23,17 @@
         return partycolor;
     }
 }
-<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3">
-    <h1 class="h2 font-weight-light">
-        @chamberFormatted Members
-    </h1>
-    <div class="btn-toolbar mb-2 mb-md-0">
-        <div class="btn-group btn-group-toggle mr-2" data-toggle="buttons">
-            <label class="btn btn-outline-secondary @{ if (chamber == "senate") {<text>active</text> } }">
-                <input type="radio" name="options" id="house" autocomplete="off" @{ if (chamber == "senate") { <text> checked</text> } } onchange="MembersIndexModule.onChamberChanged(this, '@congress','senate')"> Senate
-            </label>
-            <label class="btn btn-outline-secondary @{ if (chamber == "house") {<text>active</text> } }">
-                <input type="radio" name="options" id="house" autocomplete="off" @{ if (chamber == "house") { <text> checked</text> } } onchange="MembersIndexModule.onChamberChanged(this, '@congress','house')"> House
-            </label>
+    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3">
+        <h1 class="h2 font-weight-light">
+            @chamberFormatted Members
+        </h1>
+        <div class="btn-toolbar mb-2 mb-md-0">
+            @await Component.InvokeAsync("ChamberFilter", new { congress = ViewData["congress"], chamber = ViewData["chamber"] })
+
+            @await Component.InvokeAsync("CongressFilter", new { congress = ViewData["congress"], chamber = ViewData["chamber"] })
         </div>
 
-        <div class="btn-group">
-            <button type="button" class="btn btn-sm btn-outline-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <span data-feather="calendar"></span>
-                @congressString
-            </button>
-            <div class="dropdown-menu">
-                @for (int i = congressMin; i < congressMax; i++)
-                {
-                    var active = i == congressInt ? "active" : "";
-                    <a class="dropdown-item @active" href="#" onclick="MembersIndexModule.onCongressChanged(this, '@i.ToString()', '@chamber')">@i@GetOrdinalSuffix(i)</a>
-                }
-            </div>
-        </div>
     </div>
-</div>
 
 @if (Model?.Count > 0)
     {

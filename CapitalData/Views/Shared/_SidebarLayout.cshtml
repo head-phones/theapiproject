@@ -5,29 +5,35 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - CapitalData</title>
     <partial name="_StyleSection" />
-    <link rel="stylesheet" href="~/css/dashboard.css" />
 </head>
 <body>
     @*TODO: Create _loginMenuPartial*@
-    <nav class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0">
-        <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="/">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="d-block mx-auto" role="img" viewBox="0 0 24 24" focusable="false"><title>Capital Data</title><circle cx="12" cy="12" r="10" /><path d="M14.31 8l5.74 9.94M9.69 8h11.48M7.38 12l5.74-9.94M9.69 16L3.95 6.06M14.31 16H2.83m13.79-4l-5.74 9.94" /></svg>
-        </a>
-        <input class="form-control form-control-dark w-100" type="text" placeholder="Search" aria-label="Search">
+    @*<nav class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0">
+            <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="/">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="d-block mx-auto" role="img" viewBox="0 0 24 24" focusable="false"><title>Capital Data</title><circle cx="12" cy="12" r="10" /><path d="M14.31 8l5.74 9.94M9.69 8h11.48M7.38 12l5.74-9.94M9.69 16L3.95 6.06M14.31 16H2.83m13.79-4l-5.74 9.94" /></svg>
+            </a>
+            <form class="w-100" asp-action="Search" asp-controller="Home">
+                    <input id="nav_search" class="form-control form-control-dark w-100" type="text" placeholder="Search" aria-label="Search" autocomplete="off">
+                </form>
+        <input class="form-control form-control-dark w-100 d-none" type="text" placeholder="Search" aria-label="Search" autocomplete="off">
         <ul class="navbar-nav px-3">
             <li class="nav-item text-nowrap">
                 <a class="nav-link" href="#">Sign in</a>
             </li>
         </ul>
-    </nav>
+        </nav>*@
+
+    @await Component.InvokeAsync("Header")
+
     <div class="container-fluid">
         <div class="row">
             @await Component.InvokeAsync("Sidebar")
-            <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
+            <main role="main" class="col-md-9 ml-sm-auto col-lg-10 p-2">
                 @RenderBody()
             </main>
         </div>
     </div>
+    @await Component.InvokeAsync("Footer")
     <partial name="_ScriptSection" />
     @RenderSection("Scripts", required: false)
 </body>

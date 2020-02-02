@@ -1,20 +1,27 @@
 ﻿
 
-<div id="ph_member_list" class="d-none">
-    <span id="lbl_heading" class="h2 font-weight-light"></span>
-    <div class="spinner-border text-dark" role="status">
-        <span class="sr-only">Loading...</span>
-    </div>
-</div>
-
-<div id="div_member_list"></div>
+<div id="members_list"></div>
 
 @section Scripts{
-    <script src="~/js/Members/Index.cshtml.js" asp-append-version="true"></script>
+    <script src="~/js/List.js" asp-append-version="true"></script>
     <script>
-        MembersIndexModule.init({
-            congress: '@ViewData["congress"].ToString()',
-            chamber: '@ViewData["chamber"].ToString()'
-        });
+        var members = $('#members_list').List({
+            defaultArgs: { congress: '@ViewData["congress"].ToString()', chamber: '@ViewData["chamber"].ToString()' },
+            loadUrl: '/Members/List',
+            onComplete: function (data) {
+                $('#tbl_members').DataTable({
+                    "pageLength": 25,
+                    order: []
+                })
+            }
+        })
+
+        function ChamberFilterChanged(sender, congress, chamber) {
+            members.list({ congress: congress, chamber: chamber })
+        }
+
+        function CongressFilterChanged(sender, congress, chamber) {
+            members.list({ congress: congress, chamber: chamber })
+        }
     </script>
 }

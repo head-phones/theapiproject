@@ -28,6 +28,16 @@ var BillsDetailsModule = BillsDetailsModule || (function () {
                 null
             ]
         });
+        $('#tbl_statments').DataTable({
+            "pageLength": 10,
+            order: [],
+            "columns": [
+                null,
+                { "type": "date" },
+                null,
+                null
+            ]
+        });
     }
 
     return {

@@ -1,0 +1,27 @@
+﻿
+
+<div id="committees_list"></div>
+
+@section Scripts{
+    <script src="~/js/List.js" asp-append-version="true"></script>
+    <script>
+        var committees = $('#committees_list').List({
+            defaultArgs: { congress: '@ViewData["congress"].ToString()', chamber: '@ViewData["chamber"].ToString()' },
+            loadUrl: '/Committees/List',
+            onComplete: function (data) {
+                $('#committees_table').DataTable({
+                    "pageLength": 25,
+                    order: []
+                })
+            }
+        })
+
+        function ChamberFilterChanged(sender, congress, chamber) {
+            committees.list({ congress: congress, chamber: chamber })
+        }
+
+        function CongressFilterChanged(sender, congress, chamber) {
+            committees.list({ congress: congress, chamber: chamber })
+        }
+    </script>
+}

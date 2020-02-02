@@ -1,19 +1,27 @@
 ﻿
-
-<div id="ph_bill_list" class="d-none">
-    <span id="lbl_heading" class="h2 font-weight-light"></span>
-    <div class="spinner-border text-dark" role="status">
-        <span class="sr-only">Loading...</span>
-    </div>
-</div>
-
-<div id="div_bill_list"></div>
+<div id="bill_list"></div>
 
 @section Scripts{
-    <script src="~/js/Bills/Index.cshtml.js" asp-append-version="true"></script>
+    <script src="~/js/List.js" asp-append-version="true"></script>
     <script>
-        BillsIndexModule.init({
-            chamber: '@ViewData["chamber"].ToString()'
-        });
+        var bills = $('#bill_list').List({
+            defaultArgs: { chamber: '@ViewData["chamber"].ToString()' },
+            loadUrl: '/Bills/List',
+            onComplete: function (data) {
+                $('#tbl_bills').DataTable({
+                    "pageLength": 25,
+                    order: [[1, 'desc']],
+                    "columns": [
+                        null,
+                        { "type": "date" },
+                        null,
+                        null
+                    ]
+                })
+            }
+        })
+        function ChamberFilterChanged(sender, congress, chamber) {
+            bills.list({ chamber: chamber })
+        }
     </script>
 }
