@@ -42,7 +42,7 @@ namespace WeatherDataReact.Controllers
 
         // GET Forecast
         [HttpGet("[action]")]
-        public IEnumerable<WeatherForecast> Get(double lat = 30.455000, double lng = -84.253334)
+        public IEnumerable<WeatherForecast> Get(double lat, double lng)
         {
             var response = client.Get<APILibrary.DarkSky.Response>($"{lat},{lng}");
 
