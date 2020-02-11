@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace APILibrary.GoogleGeocode
 {
-    public class Example
+    public class Response
     {
         public IList<Result> results { get; set; }
         public string status { get; set; }

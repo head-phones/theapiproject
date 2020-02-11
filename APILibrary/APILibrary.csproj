@@ -128,7 +128,10 @@
     <Compile Include="ProPublica\Votes\VoteList.cs" />
     <Compile Include="ProPublica\Votes\VotesByTypeResult.cs" />
     <Compile Include="ProPublica\Votes\RollCallVoteResult.cs" />
+    <Compile Include="Services\ApiService.cs" />
+    <Compile Include="Services\IApiService.cs" />
     <Compile Include="Utilities\APIClient.cs" />
+    <Compile Include="Extensions\DateTimeExtensions.cs" />
     <Compile Include="Vehicle\AllMakes\Result.cs" />
     <Compile Include="Vehicle\AllMakes\Reponse.cs" />
     <Compile Include="Vehicle\DecodeVIN\Reponse.cs" />
