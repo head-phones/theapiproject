@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using APILibrary.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -26,6 +27,15 @@ namespace APIWeb
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+
+            IProPublicaService congressService = new ProPublicaService(Configuration["Configurations:ProPublicEndpoint"], Configuration["Configurations:ProPublicaAPIKey"]);
+            services.AddSingleton(congressService);
+
+            IGoogleGeocodeService geocodeService = new GoogleGeocodeService(Configuration["Configurations:GoogleGeocodeEndpoint"], Configuration["Configurations:GoogleApiKey"]);
+            services.AddSingleton(geocodeService);
+
+            IDarkSkyService darkSkyService = new DarkSkyService(Configuration["Configurations:DarkSkyEndpoint"], Configuration["Configurations:DarkSkySecretKey"]);
+            services.AddSingleton(darkSkyService);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

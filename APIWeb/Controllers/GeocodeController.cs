@@ -13,26 +13,25 @@ namespace APIWeb.Controllers
     [ApiController]
     public class GeocodeController : ControllerBase
     {
-        private string Endpoint = ConfigurationManager.GetConfiguration("GoogleGeocodeEndpoint");
-        private string Key = ConfigurationManager.GetConfiguration("GoogleApiKey");
+        private IGoogleGeocodeService _api;
+        public GeocodeController(IGoogleGeocodeService api)
+        {
+            _api = api;
+        }
 
         [HttpGet("{address}")]
         public ActionResult<APILibrary.GoogleGeocode.Response> Geocode(string address)
         {
-            var client = new ApiService(Endpoint, Key);
-
-            var function = $"address={address}&key={Key}";
-            var response = client.Get<APILibrary.GoogleGeocode.Response>(function);
+            var function = $"address={address}&key={_api.APIKey}";
+            var response = _api.Get<APILibrary.GoogleGeocode.Response>(function);
 
             return response;
         }
         [HttpGet("ReverseGeocode/{lat},{lng}")]
         public ActionResult<APILibrary.GoogleGeocode.Response> ReverseGeocode(double lat, double lng)
         {
-            var client = new ApiService(Endpoint, Key);
-
-            var function = $"latlng={lat},{lng}&key={Key}";
-            var response = client.Get<APILibrary.GoogleGeocode.Response>(function);
+            var function = $"latlng={lat},{lng}&key={_api.APIKey}";
+            var response = _api.Get<APILibrary.GoogleGeocode.Response>(function);
 
             return response;
         }

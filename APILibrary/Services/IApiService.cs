@@ -7,6 +7,8 @@ namespace APILibrary.Services
 {
     public interface IApiService
     {
+        string Endpoint { get; set; }
+        string APIKey { get; set; }
         Task<T> GetAsync<T>(string function);
         T Get<T>(string function);
         T Post<T>(string function, T data);

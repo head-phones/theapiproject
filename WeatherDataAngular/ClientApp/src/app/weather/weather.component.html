@@ -1,8 +1,4 @@
 
-<p *ngIf="!forecast"><em>Loading...</em></p>
-
-
-
 <h1 class="h4 text-center mb-3">
   {{address}}
 </h1>
@@ -10,6 +6,7 @@
 <div class="row">
   <div class="col-md">
     <div class="bg-light p-3 clearfix summary-card border border-1">
+      <p *ngIf="!forecast"><em>Loading...</em></p>
       <div class="row">
         <div class="col-md-auto">
           <canvas id="icon_currently_summary" width="100" height="100"></canvas>

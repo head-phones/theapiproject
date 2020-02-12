@@ -10,8 +10,8 @@ namespace APILibrary.Services
 {
     public class ApiService : IApiService
     {
-        private string Endpoint { get; set; }
-        private string APIKey { get; set; }
+        public string Endpoint { get; set; }
+        public string APIKey { get; set; }
         public ApiService(string endpoint, string apiKey = null)
         {
             Endpoint = endpoint;

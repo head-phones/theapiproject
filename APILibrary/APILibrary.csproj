@@ -129,7 +129,13 @@
     <Compile Include="ProPublica\Votes\VotesByTypeResult.cs" />
     <Compile Include="ProPublica\Votes\RollCallVoteResult.cs" />
     <Compile Include="Services\ApiService.cs" />
+    <Compile Include="Services\DarkSkyService.cs" />
+    <Compile Include="Services\GoogleGeocodeService.cs" />
     <Compile Include="Services\IApiService.cs" />
+    <Compile Include="Services\IDarkSkyService.cs" />
+    <Compile Include="Services\IProPublicaService.cs" />
+    <Compile Include="Services\IGoogleGeocodeService.cs" />
+    <Compile Include="Services\ProPublicaService.cs" />
     <Compile Include="Utilities\APIClient.cs" />
     <Compile Include="Extensions\DateTimeExtensions.cs" />
     <Compile Include="Vehicle\AllMakes\Result.cs" />

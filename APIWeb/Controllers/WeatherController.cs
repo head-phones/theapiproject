@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using APILibrary.Services;
 using APILibrary.Utilites;
 using APILibrary.Utilities;
 using Microsoft.AspNetCore.Mvc;
@@ -12,23 +13,24 @@ namespace APIWeb.Controllers
     [ApiController]
     public class WeatherController : ControllerBase
     {
-        private string Endpoint = ConfigurationManager.GetConfiguration("DarkSkyEndpoint");
-        private string Token = ConfigurationManager.GetConfiguration("DarkSkySecretKey");
+        private readonly IDarkSkyService _api;
+        public WeatherController(IDarkSkyService api)
+        {
+            _api = api;
+        }
 
         [HttpGet]
-        public ActionResult<IEnumerable<string>> Get()
+        public ActionResult Get()
         {
-            return new string[] { "value1", "value2" };
+            return NotFound();
         }
 
         // GET Forecast
         [HttpGet("{lat},{lng}")]
         public ActionResult<APILibrary.DarkSky.Response> Get(decimal lat, decimal lng)
         {
-            var client = new APIClient(Endpoint, Token);
-
-            var function = $"{Token}/{lat},{lng}";
-            var response = client.Get<APILibrary.DarkSky.Response>(function);
+            var function = $"{_api.APIKey}/{lat},{lng}";
+            var response = _api.Get<APILibrary.DarkSky.Response>(function);
 
             return response;
         }
